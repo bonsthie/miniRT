@@ -6,10 +6,18 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 00:04:19 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/12 00:04:40 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:07:55 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "scene_elements.h"
+
 int main(int ac, char **av)
 {
+	t_scene test;
+
+	(void)test;
+	(void)ac;
+	(void)av;
+
 }

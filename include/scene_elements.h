@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 22:17:28 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/12 02:29:39 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/03/12 18:36:56 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,22 @@
 
 // Aligned vector types for optimal hardware utilization.
 typedef float		__attribute__((aligned(16), vector_size(16))) t_v4f;
-// Generic pointer for texture data, to be defined based on specific library usage.
-typedef void		t_texture_file;
+
+// Generic pointer for texture data,
+typedef void		t_image;
 
 // Enum to distinguish between different file types supported by the engine.
-enum				e_file_type
+typedef enum e_file_type
 {
 	FILE_TYPE_OBJ = 0,
 	FILE_TYPE_MATH
-};
+}					t_file_type;
 
 typedef struct s_texture
 {
 	int				width;
 	int				height;
-	t_texture_file	*file;
+	t_image			*file;
 }					t_texture;
 
 // 3D rotation, specified in Euler angles.
@@ -58,13 +59,12 @@ typedef struct s_point
 	size_t			texture;
 }					t_point;
 
-
 // A triangular face defined by three points.
 typedef struct s_face
 {
-	s_point			point1;
-	s_point			point2;
-	s_point			point3;
+	t_point			point1;
+	t_point			point2;
+	t_point			point3;
 }					t_face;
 
 typedef struct s_texture_coord
@@ -84,7 +84,7 @@ typedef struct s_mesh
 typedef struct s_object
 {
 	char			*file_name;
-	e_file_type		file_type;
+	t_file_type		file_type;
 	t_mesh			*mesh;
 	t_texture		*texture;
 	t_rotation		rotation;
@@ -104,7 +104,7 @@ typedef struct s_camera
 // may be add angle of the light
 typedef struct s_light
 {
-	t_v4f			coord;
+	t_v4f coord; // test
 	t_rotation		rotation;
 	int				color;
 	int				intensity;
@@ -113,8 +113,10 @@ typedef struct s_light
 
 /**
  * @Main structure of the project defining the components of a scene.
- * @object Pointer to the first object in the scene, forming a linked list of all objects.
- * @light Pointer to the first light source in the scene, forming a linked list of all lights.
+ * @object Pointer to the first object in the scene,
+	forming a linked list of all objects.
+ * @light Pointer to the first light source in the scene,
+	forming a linked list of all lights.
  * @cam Pointer to the camera used to view the scene.
  */
 typedef struct s_scene
@@ -125,4 +127,3 @@ typedef struct s_scene
 }					t_scene;
 
 #endif
-

@@ -11,6 +11,9 @@ OBJ_DIR_BONUS := obj_bonus
 HSRCS := include
 HSRCS_BONUS := include_bonus
 
+#list of all the sources file for the mandatory and the bonus
+include sources.mk
+
 OBJ := $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 OBJ_BONUS := $(SRC_BONUS:$(SRC_DIR_BONUS)/%.c=$(OBJ_DIR_BONUS)/%.o)
 
@@ -106,6 +109,3 @@ GREEN = \033[0;32m
 YELLOW = \033[1;33m
 PURPLE = \033[0;35m
 NC = \033[0m
-
-##################################### FILES #########################################
-
