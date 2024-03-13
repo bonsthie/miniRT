@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniRT.c                                           :+:      :+:    :+:   */
+/*   parsing_file.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/12 00:04:19 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/13 15:37:50 by babonnet         ###   ########.fr       */
+/*   Created: 2024/03/13 15:35:01 by babonnet          #+#    #+#             */
+/*   Updated: 2024/03/13 15:36:14 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef PARSING_FILE
+#define PARSING_FILE
+
 #include "scene_elements.h"
-#include "parsing_file.h"
 
-int main(int ac, char **av)
-{
-	t_scene test;
+t_object *parse_obj(const char *name, const char *texture);
 
-	parse_obj(av[1], NULL);
-	(void)test;
-	(void)ac;
-	(void)av;
-}
+#endif 

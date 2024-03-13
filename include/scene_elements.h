@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 22:17:28 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/12 18:36:56 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/03/13 17:51:36 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ typedef struct s_object
 {
 	char			*file_name;
 	t_file_type		file_type;
-	t_mesh			*mesh;
-	t_texture		*texture;
+	t_mesh			mesh;
+	t_texture		texture;
 	t_rotation		rotation;
 	t_offset		offset;
 	float			scale;
@@ -104,7 +104,7 @@ typedef struct s_camera
 // may be add angle of the light
 typedef struct s_light
 {
-	t_v4f coord; // test
+	t_v4f			coord;
 	t_rotation		rotation;
 	int				color;
 	int				intensity;
