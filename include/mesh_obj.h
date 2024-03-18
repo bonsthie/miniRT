@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 23:14:48 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/17 00:55:55 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/03/18 19:09:02 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,11 @@ typedef struct s_point
 	size_t			texture;
 }					t_point;
 
-// A triangular face defined by three points.
+// A triangular face generaly defined by three points but can could be more
 typedef struct s_face
 {
-	t_point			point1;
-	t_point			point2;
-	t_point			point3;
+	t_point			*point;
+	size_t			count;
 }					t_face;
 
 typedef struct s_texture_coord

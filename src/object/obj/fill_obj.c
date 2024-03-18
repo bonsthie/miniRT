@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:32:56 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/17 01:23:13 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/03/18 20:04:56 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void fill_vertex(t_v4f *vertex, size_t size, t_list **file_ll)
 {
 	char *str;
 
-	while(ft_strncmp("v ", (*file_ll)->content, 2))
-		*file_ll = (*file_ll)->next;
 	while (size--)
 	{
 		str = (*file_ll)->content;
@@ -43,8 +41,6 @@ void fill_normal(t_v4f *vertex, size_t size, t_list **file_ll)
 {
 	char *str;
 
-	while(ft_strncmp("vn ", (*file_ll)->content, 3))
-		*file_ll = (*file_ll)->next;
 	while (size--)
 	{
 		str = (*file_ll)->content;
@@ -66,8 +62,6 @@ void fill_texture(t_texture_coord *texture_coord, size_t size, t_list **file_ll)
 {
 	char *str;
 
-	while(ft_strncmp("vt ", (*file_ll)->content, 3))
-		*file_ll = (*file_ll)->next;
 	while (size--)
 	{
 		str = (*file_ll)->content;
@@ -79,36 +73,58 @@ void fill_texture(t_texture_coord *texture_coord, size_t size, t_list **file_ll)
 	}
 }
 
-void fill_face(t_face *face, size_t size, t_list **file_ll)
+static size_t count_face(char *str)
+{
+	char **strs;
+	size_t	i;
+
+	if (!str)
+		return (0);
+	strs = ft_split(str, ' ');
+	i = 0;
+	while (strs[i])
+		i++;
+	free_strs(strs);
+	return (i);	
+}
+
+int fill_face(t_face *face, size_t size, t_list **file_ll)
 {
 	char *str;
+	size_t		i;
 
-	while(ft_strncmp("f ", (*file_ll)->content, 2))
-		*file_ll = (*file_ll)->next;
-	while (size--)
+	while (size-- && *file_ll)
 	{
 		str = (*file_ll)->content;
-		//printf("%s", str);
 		str++;
-		face->point1.vertex = strtol(str, &str, 10);
-		// need to change ft_strtol
-		str++;
-		face->point1.texture = strtol(str, &str, 10);
-		str++;
-		face->point1.normal = strtol(str, &str, 10);
-		face->point2.vertex = strtol(str, &str, 10);
-		str++;
-		face->point2.texture = strtol(str, &str, 10);
-		str++;
-		face->point2.normal = strtol(str, &str, 10);
-		face->point3.vertex = strtol(str, &str, 10);
-		str++;
-		face->point3.texture = strtol(str, &str, 10);
-		str++;
-		face->point3.normal = strtol(str, &str, 10);
-		//printf("f %ld/%ld/%ld %ld/%ld/%ld %ld/%ld/%ld\n", face->point1.vertex, face->point1.texture, face->point1.normal, face->point2.vertex, face->point2.texture, face->point2.normal, face->point3.vertex, face->point3.texture, face->point3.normal);
+		printf("%s", str);
+		face->count = count_face(str);
+		if (!face->count)
+			face->point = NULL;
+		else
+		{
+			face->point = malloc(face->count * sizeof(t_point));
+			if (!face->point)
+			{
+				free(face->point);
+				return (1);
+			}
+			i = 0;
+			while (i < face->count)
+			{
+				// need to change strtol
+				face->point[i].vertex = strtol(str, &str, 10);
+				str++;
+				face->point[i].texture = strtol(str, &str, 10);
+				str++;
+				face->point[i].normal = strtol(str, &str, 10);
+				printf(" %ld/%ld/%ld", face->point[i].vertex, face->point[i].texture, face->point[i].normal);
+				i++;
+			}
+			printf("\n");
+		}
 		face++;
 		*file_ll = (*file_ll)->next;
 	}
-	printf("%ld\n", size);
+	return (0);
 }

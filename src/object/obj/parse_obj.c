@@ -49,6 +49,8 @@ static t_list	*parse_line_by_line(int fd, t_size_mesh *size_mesh)
 
 int	fill_mesh(t_mesh *mesh, char *file_name, t_list *file_ll)
 {
+	int error;
+
 	printf("vertex %ld normal %ld texture %ld face %ld\n", mesh->size_mesh.vertex, mesh->size_mesh.normal, mesh->size_mesh.texture, mesh->size_mesh.face);
 	if (alloc_mesh(mesh))
 		return (1);
@@ -56,15 +58,19 @@ int	fill_mesh(t_mesh *mesh, char *file_name, t_list *file_ll)
 	{
 		if (!file_name && !ft_strncmp("o ", file_ll->content, 2))
 			file_name = ft_strdup(file_ll->content + 2);
-		if (!ft_strncmp("v ", file_ll->content, 2))
-			break;
-		file_ll = file_ll->next;
+		else if (!ft_strncmp(file_ll->content, "v ", 2))
+			fill_vertex(mesh->vertex, mesh->size_mesh.vertex, &file_ll);
+		else if (!ft_strncmp(file_ll->content, "vn ", 3))
+			fill_normal(mesh->normal, mesh->size_mesh.normal, &file_ll);
+		else if (!ft_strncmp(file_ll->content, "vt ", 3))
+			fill_texture(mesh->texture_coord, mesh->size_mesh.texture, &file_ll);
+		else if (!ft_strncmp(file_ll->content, "f ", 2))
+			error = fill_face(mesh->face, mesh->size_mesh.face, &file_ll);
+		else if (file_ll)
+			file_ll = file_ll->next;
+		if (error)
+			return (1);
 	}
-	fill_vertex(mesh->vertex, mesh->size_mesh.vertex, &file_ll);
-	fill_texture(mesh->texture_coord, mesh->size_mesh.texture, &file_ll);
-	fill_normal(mesh->normal, mesh->size_mesh.normal, &file_ll);
-	fill_face(mesh->face, mesh->size_mesh.face, &file_ll);
-	printf("end\n");
 	return (0);
 }
 
