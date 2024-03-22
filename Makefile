@@ -3,7 +3,7 @@ NAME_BONUS = miniRT_bonus
 
 ##################################### DATA ##########################################
 CC := clang
-CFLAGS = -Wall -Wextra -Werror -mavx -MMD -MP -g
+CFLAGS = -Wall -Wextra -Werror -mavx2 -MMD -MP -g
 SRC_DIR := src
 SRC_DIR_BONUS := src_bonus
 OBJ_DIR := obj
@@ -11,7 +11,7 @@ OBJ_DIR_BONUS := obj_bonus
 HSRCS := include
 HSRCS_BONUS := include_bonus
 
-#list of all the sources file for the mandatory and the bonus
+#source file are decalred in the sources.mk file
 include sources.mk
 
 OBJ := $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
@@ -50,8 +50,8 @@ $(NAME): $(LIBS_BINARYS) $(OBJ)
 	@$(CC) $(CFLAGS) $(OBJ) -o $@ $(LIB) $(ADDITIONAL_FLAGS)
 
 $(NAME_BONUS): $(LIBS_BINARYS) $(OBJ_BONUS)
-	@echo "$(GREEN)Linking %(NAME_BONUS)...$(NC)"
-	@$(CC) $(CFLAGS) $(OBJ_BONUS) -o $(NAME_BONUS) $(LIB) $(ADDITIONAL_FLAGS)
+	@echo "$(GREEN)Linking bonus...$(NC)"
+	@$(CC) $(CFLAGS) $(OBJ_BONUS) -o $(NAME)_bonus $(LIB) $(ADDITIONAL_FLAGS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(@D)
@@ -83,7 +83,8 @@ lclean:
 	@echo "$(RED)Cleaning libraries obj...$(NC)"
 	@$(foreach lib,$(LIBRARIES),$(MAKE) -C $($(lib)_DIR) clean > /dev/null;)
 
-fclean: clean lclean
+fclean: clean
+	@echo "$(RED)Cleaning executable $(NAME)...$(NC)"
 	@if [ -f $(NAME) ]; then \
 		echo "$(RED)Cleaning executable $(NAME)...$(NC)"; \
 		rm -f $(NAME); \
@@ -92,6 +93,8 @@ fclean: clean lclean
 		echo "$(RED)Cleaning executable $(NAME_BONUS)...$(NC)"; \
 		rm -f $(NAME_BONUS); \
 		fi
+	@echo "$(RED)Cleaning libraries...$(NC)"
+	@$(foreach lib,$(LIBRARIES),$(MAKE) -C $($(lib)_DIR) fclean > /dev/null;)
 
 
 debug: CFLAGS += -g 

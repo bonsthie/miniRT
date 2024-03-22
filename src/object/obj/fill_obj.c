@@ -6,61 +6,62 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:32:56 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/22 10:26:45 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/03/22 15:47:29 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "mesh_obj.h"
 #include "miniRT.h"
-#include "libft.h"
 #include <stddef.h>
 #include <stdio.h>
 
-void fill_vertex(t_v4f *vertex, size_t size, t_list **file_ll)
+void	fill_vertex(t_v4f *vertex, size_t size, t_list **file_ll)
 {
-	char *str;
+	char	*str;
 
 	while (size-- && *file_ll)
 	{
 		str = (*file_ll)->content;
 		str++;
-		//printf("%s", str);
+		// printf("%s", str);
 		(*vertex)[0] = ft_strtod(str, &str);
-		//printf("%f\n", (*vertex)[0]);
+		// printf("%f\n", (*vertex)[0]);
 		(*vertex)[1] = ft_strtod(str, &str);
-		//printf("%f\n", (*vertex)[1]);
+		// printf("%f\n", (*vertex)[1]);
 		(*vertex)[2] = ft_strtod(str, &str);
-		//printf("%f\n", (*vertex)[2]);
+		// printf("%f\n", (*vertex)[2]);
 		(*vertex)[3] = 1;
 		vertex++;
 		*file_ll = (*file_ll)->next;
 	}
 }
 
-void fill_normal(t_v4f *vertex, size_t size, t_list **file_ll)
+void	fill_normal(t_v4f *vertex, size_t size, t_list **file_ll)
 {
-	char *str;
+	char	*str;
 
 	while (size-- && *file_ll)
 	{
 		str = (*file_ll)->content;
 		str += 2;
-		//printf("%s", str);
+		// printf("%s", str);
 		(*vertex)[0] = ft_strtod(str, &str);
-		//printf("%f\n", (*vertex)[0]);
+		// printf("%f\n", (*vertex)[0]);
 		(*vertex)[1] = ft_strtod(str, &str);
-		//printf("%f\n", (*vertex)[1]);
+		// printf("%f\n", (*vertex)[1]);
 		(*vertex)[2] = ft_strtod(str, &str);
-		//printf("%f\n", (*vertex)[2]);
+		// printf("%f\n", (*vertex)[2]);
 		(*vertex)[3] = 1;
 		vertex++;
 		*file_ll = (*file_ll)->next;
 	}
 }
 
-void fill_texture(t_texture_coord *texture_coord, size_t size, t_list **file_ll)
+void	fill_texture(t_texture_coord *texture_coord, size_t size,
+		t_list **file_ll)
 {
-	char *str;
+	char	*str;
 
 	while (size-- && *file_ll)
 	{
@@ -73,9 +74,9 @@ void fill_texture(t_texture_coord *texture_coord, size_t size, t_list **file_ll)
 	}
 }
 
-static size_t count_face(char *str)
+static size_t	count_face(char *str)
 {
-	char **strs;
+	char	**strs;
 	size_t	i;
 
 	if (!str)
@@ -85,13 +86,13 @@ static size_t count_face(char *str)
 	while (strs[i])
 		i++;
 	free_strs(strs);
-	return (i);	
+	return (i);
 }
 
-int fill_face(t_face *face, size_t size, t_list **file_ll)
+int	fill_face(t_face *face, size_t size, t_list **file_ll)
 {
-	char *str;
-	size_t		i;
+	char	*str;
+	size_t	i;
 
 	while (size-- && *file_ll)
 	{

@@ -6,15 +6,15 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:14:36 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/22 09:45:45 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/03/22 16:25:50 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "free_int.h"
 
-void __attribute__((destructor))free_scene(void)
+void	__attribute__((destructor)) free_scene(void)
 {
-	t_scene *scene;
+	t_scene	*scene;
 
 	scene = get_scene();
 	if (scene->cam)

@@ -6,15 +6,15 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:12:54 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/21 15:16:49 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/03/22 15:47:29 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scene_elements.h"
 
-t_scene *get_scene(void)
+t_scene	*get_scene(void)
 {
-	static t_scene scene = {0};
+	static t_scene	scene = {0};
 
 	return (&scene);
 }

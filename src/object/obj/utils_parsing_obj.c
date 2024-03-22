@@ -6,16 +6,16 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:49:33 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/19 15:42:59 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/03/22 15:47:29 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mesh_obj.h"
 #include "libft.h"
+#include "mesh_obj.h"
 #include "miniRT.h"
 #include <stdlib.h>
 
-void free_mesh(t_mesh *mesh)
+void	free_mesh(t_mesh *mesh)
 {
 	if (mesh->vertex)
 		free(mesh->vertex);
@@ -28,12 +28,12 @@ void free_mesh(t_mesh *mesh)
 	mesh = NULL;
 }
 
-int alloc_mesh(t_mesh *mesh)
+int	alloc_mesh(t_mesh *mesh)
 {
-	t_size_mesh *size_mesh;
+	t_size_mesh	*size_mesh;
 
 	size_mesh = &mesh->size_mesh;
-	ft_printf("%d\n" ,size_mesh->vertex);
+	ft_printf("%d\n", size_mesh->vertex);
 	mesh->vertex = malloc(size_mesh->vertex * sizeof(t_v4f));
 	mesh->normal = malloc(size_mesh->normal * sizeof(t_v4f));
 	mesh->texture_coord = malloc(size_mesh->texture * sizeof(t_texture_coord));

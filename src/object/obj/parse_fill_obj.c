@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_file_obj.c                                   :+:      :+:    :+:   */
+/*   parse_fill_obj.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 12:35:58 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/19 12:37:41 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/03/22 15:47:29 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mesh_obj.h"
 
-static void update_mesh_count(char *line, t_size_mesh *size_mesh)
+static void	update_mesh_count(char *line, t_size_mesh *size_mesh)
 {
 	if (!ft_strncmp(line, "v ", 2))
 		size_mesh->vertex++;

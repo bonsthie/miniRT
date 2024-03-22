@@ -1,6 +1,8 @@
-#include "libft.h"
-#include "obj_intern.h"
 #include "../object.h"
+#include "libft.h"
+#include "mlx.h"
+#include "mlx_data.h"
+#include "obj_intern.h"
 #include <fcntl.h>
 #include <stdio.h>
 
@@ -13,7 +15,7 @@ void	fill_mesh(t_mesh *mesh, char **file_name, t_list *file_ll)
 		mesh->size_mesh.vertex, mesh->size_mesh.normal, mesh->size_mesh.texture,
 		mesh->size_mesh.face);
 	if (alloc_mesh(mesh))
-		exit_message(1, "Error : [malloc faild in the mesh creation]");
+		exit_message(1, "Error : [malloc faild in the mesh creation]\n");
 	while (file_ll)
 	{
 		if (!*file_name && !ft_strncmp("o ", file_ll->content, 2))
@@ -30,7 +32,7 @@ void	fill_mesh(t_mesh *mesh, char **file_name, t_list *file_ll)
 		else if (file_ll)
 			file_ll = file_ll->next;
 		if (error)
-			exit_message(1, "Error : [malloc faild in the mesh creation]");
+			exit_message(1, "Error : [malloc faild in the mesh creation]\n");
 	}
 }
 
@@ -45,7 +47,7 @@ void	fill_obj(int fd, t_object_mesh *object)
 	ft_bzero(&mesh->size_mesh, sizeof(t_size_mesh));
 	object->file = parse_line_by_line(fd, &mesh->size_mesh);
 	if (!object->file)
-		exit_message(1, "Error : [malloc faild in the file parsing]");
+		exit_message(1, "Error : [malloc faild in the file parsing]\n");
 	fill_mesh(mesh, &object->file_name, object->file);
 	ft_lstclear(&object->file, free);
 }
@@ -62,13 +64,13 @@ void	parse_obj(const char *name, const char *texture)
 
 	new_obj = ft_calloc(1, sizeof(t_object_mesh));
 	if (!new_obj)
-		exit_message(1, "Error : [malloc fild in the creation of a new object]");
+		exit_message(1,
+			"Error : [malloc fild in the creation of a new object]\n");
 	add_object(new_obj, OBJECT_OBJ);
 	new_obj->fd = open(name, O_RDONLY);
 	if (new_obj->fd < 0)
 	{
-		ft_putstr_fd("Error : [cannot open the .obj file]", 2);
-		return ;
+		exit_message(1, "Error : [cannot open the .obj file]\n");
 	}
 	fill_obj(new_obj->fd, new_obj);
 	fill_obj_texture(&new_obj->texture, texture);

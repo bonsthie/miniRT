@@ -6,13 +6,14 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 11:31:21 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/21 11:34:17 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/03/22 15:50:44 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //#include "print_int.h"
 //
-//static inline void	update_position(t_line_param *x, t_line_param *y, int *err)
+// static inline void	update_position(t_line_param *x, t_line_param *y,
+//	int *err)
 //{
 //	int	e2;
 //
@@ -29,7 +30,7 @@
 //	}
 //}
 //
-//static inline int	init_s(int x, int y)
+// static inline int	init_s(int x, int y)
 //{
 //	int	s;
 //
@@ -39,7 +40,7 @@
 //	return (s);
 //}
 //
-//void	plot_line(t_data *mlx, int *v1, int *v2, int color)
+// void	plot_line(t_data *mlx, int *v1, int *v2, int color)
 //{
 //	t_line_param	x;
 //	t_line_param	y;

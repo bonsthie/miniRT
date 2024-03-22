@@ -6,18 +6,17 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 15:43:19 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/22 10:16:43 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/03/22 15:47:29 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "miniRT.h"
 #include "scene_elements.h"
 
-void add_object(void *object, t_file_type file_type)
+void	add_object(void *object, t_file_type file_type)
 {
-	t_scene *scene;
-	t_object *new_obj;
+	t_scene		*scene;
+	t_object	*new_obj;
 
 	scene = get_scene();
 	new_obj = malloc(sizeof(t_object));
