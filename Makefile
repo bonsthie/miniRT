@@ -3,7 +3,7 @@ NAME_BONUS = miniRT_bonus
 
 ##################################### DATA ##########################################
 CC := clang
-CFLAGS = -Wall -Wextra -Werror -mavx -MMD -MP
+CFLAGS = -Wall -Wextra -Werror -mavx -MMD -MP -g
 SRC_DIR := src
 SRC_DIR_BONUS := src_bonus
 OBJ_DIR := obj

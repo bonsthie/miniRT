@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniRT.c                                           :+:      :+:    :+:   */
+/*   free_cam.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/12 00:04:19 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/22 10:21:21 by babonnet         ###   ########.fr       */
+/*   Created: 2024/03/19 14:10:36 by babonnet          #+#    #+#             */
+/*   Updated: 2024/03/19 14:11:08 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scene_elements.h"
-#include "parsing_file.h"
 #include <stdlib.h>
 
-int main(int ac, char **av)
+void free_cam(t_camera *cam)
 {
-	parse_obj(av[1], NULL);
-	(void)ac;
-	(void)av;
+	t_camera *cam_next;
+
+	while (cam)
+	{
+		cam_next = cam->next;
+		free(cam);
+		cam = cam_next;
+	}
 }

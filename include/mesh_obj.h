@@ -6,13 +6,14 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 23:14:48 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/18 19:09:02 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/03/22 09:46:40 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MESH_OBJ_H
 # define MESH_OBJ_H
 
+# include "libft.h"
 # include "miniRT.h"
 # include <stddef.h>
 
@@ -80,6 +81,8 @@ typedef struct s_mesh
 typedef struct s_object_mesh
 {
 	char			*file_name;
+	t_list			*file;
+	int				fd;
 	t_mesh			mesh;
 	t_texture		texture;
 	t_rotation		rotation;

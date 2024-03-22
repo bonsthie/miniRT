@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniRT.c                                           :+:      :+:    :+:   */
+/*   free_light.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/12 00:04:19 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/22 10:21:21 by babonnet         ###   ########.fr       */
+/*   Created: 2024/03/19 14:11:18 by babonnet          #+#    #+#             */
+/*   Updated: 2024/03/19 14:12:01 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scene_elements.h"
-#include "parsing_file.h"
 #include <stdlib.h>
 
-int main(int ac, char **av)
+void free_light(t_light *light)
 {
-	parse_obj(av[1], NULL);
-	(void)ac;
-	(void)av;
+	t_light *light_next;
+
+	while (light)
+	{
+		light_next = light->next;
+		free(light);
+		light = light_next;
+	}
 }

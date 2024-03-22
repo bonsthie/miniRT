@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniRT.c                                           :+:      :+:    :+:   */
+/*   free_int.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/12 00:04:19 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/22 10:21:21 by babonnet         ###   ########.fr       */
+/*   Created: 2024/03/19 14:12:38 by babonnet          #+#    #+#             */
+/*   Updated: 2024/03/19 14:16:00 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "scene_elements.h"
-#include "parsing_file.h"
-#include <stdlib.h>
+#ifndef FREE_INT_H
+#define FREE_INT_H
 
-int main(int ac, char **av)
-{
-	parse_obj(av[1], NULL);
-	(void)ac;
-	(void)av;
-}
+#include "scene_elements.h"
+
+void free_cam(t_camera *cam);
+void free_light(t_light *light);
+void free_object(t_object *object);
+
+#endif

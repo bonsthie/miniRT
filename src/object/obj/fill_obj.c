@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:32:56 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/18 20:04:56 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/03/22 10:26:45 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void fill_vertex(t_v4f *vertex, size_t size, t_list **file_ll)
 {
 	char *str;
 
-	while (size--)
+	while (size-- && *file_ll)
 	{
 		str = (*file_ll)->content;
 		str++;
@@ -41,7 +41,7 @@ void fill_normal(t_v4f *vertex, size_t size, t_list **file_ll)
 {
 	char *str;
 
-	while (size--)
+	while (size-- && *file_ll)
 	{
 		str = (*file_ll)->content;
 		str += 2;
@@ -62,7 +62,7 @@ void fill_texture(t_texture_coord *texture_coord, size_t size, t_list **file_ll)
 {
 	char *str;
 
-	while (size--)
+	while (size-- && *file_ll)
 	{
 		str = (*file_ll)->content;
 		str += 2;
@@ -113,15 +113,13 @@ int fill_face(t_face *face, size_t size, t_list **file_ll)
 			while (i < face->count)
 			{
 				// need to change strtol
-				face->point[i].vertex = strtol(str, &str, 10);
+				face->point[i].vertex = strtol(str, &str, 10) - 1;
 				str++;
-				face->point[i].texture = strtol(str, &str, 10);
+				face->point[i].texture = strtol(str, &str, 10) - 1;
 				str++;
-				face->point[i].normal = strtol(str, &str, 10);
-				printf(" %ld/%ld/%ld", face->point[i].vertex, face->point[i].texture, face->point[i].normal);
+				face->point[i].normal = strtol(str, &str, 10) - 1;
 				i++;
 			}
-			printf("\n");
 		}
 		face++;
 		*file_ll = (*file_ll)->next;

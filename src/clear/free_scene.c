@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniRT.c                                           :+:      :+:    :+:   */
+/*   free_scene.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/12 00:04:19 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/22 10:21:21 by babonnet         ###   ########.fr       */
+/*   Created: 2024/03/19 13:14:36 by babonnet          #+#    #+#             */
+/*   Updated: 2024/03/22 09:45:45 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "scene_elements.h"
-#include "parsing_file.h"
-#include <stdlib.h>
+#include "free_int.h"
 
-int main(int ac, char **av)
+void __attribute__((destructor))free_scene(void)
 {
-	parse_obj(av[1], NULL);
-	(void)ac;
-	(void)av;
+	t_scene *scene;
+
+	scene = get_scene();
+	if (scene->cam)
+		free_cam(scene->cam);
+	if (scene->light)
+		free_light(scene->light);
+	if (scene->object)
+		free_object(scene->object);
 }

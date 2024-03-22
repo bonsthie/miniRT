@@ -1,96 +1,53 @@
 #include "libft.h"
-#include "mesh_obj.h"
 #include "obj_intern.h"
-#include "scene_elements.h"
+#include "../object.h"
 #include <fcntl.h>
 #include <stdio.h>
 
-void update_mesh_count(char *line, t_size_mesh *size_mesh)
+void	fill_mesh(t_mesh *mesh, char **file_name, t_list *file_ll)
 {
-	if (!ft_strncmp(line, "v ", 2))
-		size_mesh->vertex++;
-	else if (!ft_strncmp(line, "vn ", 3))
-		size_mesh->normal++;
-	else if (!ft_strncmp(line, "vt ", 3))
-		size_mesh->texture++;
-	else if (!ft_strncmp(line, "f ", 2))
-		size_mesh->face++;
-}
+	int	error;
 
-static t_list	*parse_line_by_line(int fd, t_size_mesh *size_mesh)
-{
-	t_list	*list;
-	t_list	*last;
-	t_list	*new;
-	char	*line;
-
-	list = NULL;
-	last = NULL;
-	line = get_next_line(fd);
-	while (line)
-	{
-		new = ft_lstnew(line);
-		if (!new)
-		{
-			free(line);
-			ft_lstclear(&list, free);
-			return (NULL);
-		}
-		update_mesh_count(line, size_mesh);
-		ft_lstadd_back(&last, new);
-		if (!list)
-			list = last;
-		else
-			last = last->next;
-		line = get_next_line(fd);
-	}
-	return (list);
-}
-
-int	fill_mesh(t_mesh *mesh, char *file_name, t_list *file_ll)
-{
-	int error;
-
-	printf("vertex %ld normal %ld texture %ld face %ld\n", mesh->size_mesh.vertex, mesh->size_mesh.normal, mesh->size_mesh.texture, mesh->size_mesh.face);
+	error = 0;
+	printf("vertex %ld normal %ld texture %ld face %ld\n",
+		mesh->size_mesh.vertex, mesh->size_mesh.normal, mesh->size_mesh.texture,
+		mesh->size_mesh.face);
 	if (alloc_mesh(mesh))
-		return (1);
+		exit_message(1, "Error : [malloc faild in the mesh creation]");
 	while (file_ll)
 	{
-		if (!file_name && !ft_strncmp("o ", file_ll->content, 2))
-			file_name = ft_strdup(file_ll->content + 2);
+		if (!*file_name && !ft_strncmp("o ", file_ll->content, 2))
+			*file_name = ft_strdup(file_ll->content + 2);
 		else if (!ft_strncmp(file_ll->content, "v ", 2))
 			fill_vertex(mesh->vertex, mesh->size_mesh.vertex, &file_ll);
 		else if (!ft_strncmp(file_ll->content, "vn ", 3))
 			fill_normal(mesh->normal, mesh->size_mesh.normal, &file_ll);
 		else if (!ft_strncmp(file_ll->content, "vt ", 3))
-			fill_texture(mesh->texture_coord, mesh->size_mesh.texture, &file_ll);
+			fill_texture(mesh->texture_coord, mesh->size_mesh.texture,
+				&file_ll);
 		else if (!ft_strncmp(file_ll->content, "f ", 2))
 			error = fill_face(mesh->face, mesh->size_mesh.face, &file_ll);
 		else if (file_ll)
 			file_ll = file_ll->next;
 		if (error)
-			return (1);
+			exit_message(1, "Error : [malloc faild in the mesh creation]");
 	}
-	return (0);
 }
 
-void	fill_obj(int fd, t_mesh *mesh, char *file_name)
+void	fill_obj(int fd, t_object_mesh *object)
 {
-	t_list	*file_ll;
-	int		error;
+	t_mesh	*mesh;
 
-	printf("vertex %ld normal %ld texture %ld face %ld\n", mesh->size_mesh.vertex, mesh->size_mesh.normal, mesh->size_mesh.texture, mesh->size_mesh.face);
+	mesh = &object->mesh;
+	printf("vertex %ld normal %ld texture %ld face %ld\n",
+		mesh->size_mesh.vertex, mesh->size_mesh.normal, mesh->size_mesh.texture,
+		mesh->size_mesh.face);
 	ft_bzero(&mesh->size_mesh, sizeof(t_size_mesh));
-	file_ll = parse_line_by_line(fd, &mesh->size_mesh);
-	if (!file_ll)
-	{
-		ft_putstr_fd("Error : [malloc faild in the file parsing]", 2);
-		return ;
-	}
-	error = fill_mesh(mesh, file_name, file_ll);
-	ft_lstclear(&file_ll, free);
-	if (error == 1)
-		ft_putstr_fd("Error : [malloc faild in the mesh creation]", 2);
+	object->file = parse_line_by_line(fd, &mesh->size_mesh);
+	if (!object->file)
+		exit_message(1, "Error : [malloc faild in the file parsing]");
+	fill_mesh(mesh, &object->file_name, object->file);
+	ft_lstclear(&object->file, free);
 }
 
 void	fill_obj_texture(t_texture *texture, const char *texture_file)
@@ -99,22 +56,21 @@ void	fill_obj_texture(t_texture *texture, const char *texture_file)
 	(void)texture_file;
 }
 
-t_object_mesh	*parse_obj(const char *name, const char *texture)
+void	parse_obj(const char *name, const char *texture)
 {
 	t_object_mesh	*new_obj;
-	int			fd;
 
-	fd = open(name, O_RDONLY);
-	if (fd < 0)
-		return (NULL);
 	new_obj = ft_calloc(1, sizeof(t_object_mesh));
 	if (!new_obj)
+		exit_message(1, "Error : [malloc fild in the creation of a new object]");
+	add_object(new_obj, OBJECT_OBJ);
+	new_obj->fd = open(name, O_RDONLY);
+	if (new_obj->fd < 0)
 	{
-		close(fd);
-		return (NULL);
+		ft_putstr_fd("Error : [cannot open the .obj file]", 2);
+		return ;
 	}
-	fill_obj(fd, &new_obj->mesh, new_obj->file_name);
+	fill_obj(new_obj->fd, new_obj);
 	fill_obj_texture(&new_obj->texture, texture);
-	close(fd);
-	return (new_obj);
+	close(new_obj->fd);
 }

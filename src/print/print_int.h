@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniRT.c                                           :+:      :+:    :+:   */
+/*   print_int.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/12 00:04:19 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/22 10:21:21 by babonnet         ###   ########.fr       */
+/*   Created: 2024/03/21 11:32:42 by babonnet          #+#    #+#             */
+/*   Updated: 2024/03/21 11:33:27 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "scene_elements.h"
-#include "parsing_file.h"
-#include <stdlib.h>
+#ifndef PRINT_INT_H
+#define PRINT_INT_H
 
-int main(int ac, char **av)
+typedef struct s_line_parm
 {
-	parse_obj(av[1], NULL);
-	(void)ac;
-	(void)av;
-}
+	int	first_point;
+	int	second_point;
+	int	d;
+	int	s;
+}		t_line_param;
+
+#endif

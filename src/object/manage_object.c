@@ -1,22 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniRT.c                                           :+:      :+:    :+:   */
+/*   manage_object.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/12 00:04:19 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/22 10:21:21 by babonnet         ###   ########.fr       */
+/*   Created: 2024/03/19 15:43:19 by babonnet          #+#    #+#             */
+/*   Updated: 2024/03/22 10:16:43 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "scene_elements.h"
-#include "parsing_file.h"
-#include <stdlib.h>
 
-int main(int ac, char **av)
+#include "miniRT.h"
+#include "scene_elements.h"
+
+void add_object(void *object, t_file_type file_type)
 {
-	parse_obj(av[1], NULL);
-	(void)ac;
-	(void)av;
+	t_scene *scene;
+	t_object *new_obj;
+
+	scene = get_scene();
+	new_obj = malloc(sizeof(t_object));
+	if (!new_obj)
+	{
+		free(object);
+		exit(1);
+	}
+	new_obj->object = object;
+	new_obj->file_type = file_type;
+	new_obj->next = scene->object;
+	scene->object = new_obj;
 }

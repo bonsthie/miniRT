@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniRT.c                                           :+:      :+:    :+:   */
+/*   object.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/12 00:04:19 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/22 10:21:21 by babonnet         ###   ########.fr       */
+/*   Created: 2024/03/19 15:56:38 by babonnet          #+#    #+#             */
+/*   Updated: 2024/03/19 15:57:24 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "scene_elements.h"
-#include "parsing_file.h"
-#include <stdlib.h>
+#ifndef OBJECT_H
+#define OBJECT_H
 
-int main(int ac, char **av)
-{
-	parse_obj(av[1], NULL);
-	(void)ac;
-	(void)av;
-}
+#include "miniRT.h"
+
+void add_object(void *object, t_file_type file_type);
+
+#endif

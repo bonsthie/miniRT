@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 22:17:28 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/13 23:23:48 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/03/19 14:09:42 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct s_light
 	t_rotation		rotation;
 	int				color;
 	int				intensity;
-	struct s_camera	*next;
+	struct s_light	*next;
 }					t_light;
 
 /**

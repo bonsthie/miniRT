@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_parsing_obj.c                                :+:      :+:    :+:   */
+/*   free_object.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/16 19:49:33 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/19 15:42:59 by babonnet         ###   ########.fr       */
+/*   Created: 2024/03/19 14:12:22 by babonnet          #+#    #+#             */
+/*   Updated: 2024/03/22 12:24:16 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "free_int.h"
 #include "mesh_obj.h"
-#include "libft.h"
-#include "miniRT.h"
+#include <stdio.h>
 #include <stdlib.h>
 
-void free_mesh(t_mesh *mesh)
+void	free_obj(t_object_mesh *object)
 {
+	t_mesh	*mesh;
+	size_t	i;
+
+	if (object->file_name)
+		free(object->file_name);
+	mesh = &object->mesh;
+	if (!mesh)
+		return ;
 	if (mesh->vertex)
 		free(mesh->vertex);
 	if (mesh->normal)
@@ -24,24 +32,26 @@ void free_mesh(t_mesh *mesh)
 	if (mesh->texture_coord)
 		free(mesh->texture_coord);
 	if (mesh->face)
+	{
+		i = 0;
+		while (i < mesh->size_mesh.face)
+			free(mesh->face[i++].point);
 		free(mesh->face);
-	mesh = NULL;
+	}
+	if (object->file)
+		ft_lstclear(&object->file, free);
 }
 
-int alloc_mesh(t_mesh *mesh)
+void	free_object(t_object *object)
 {
-	t_size_mesh *size_mesh;
-
-	size_mesh = &mesh->size_mesh;
-	ft_printf("%d\n" ,size_mesh->vertex);
-	mesh->vertex = malloc(size_mesh->vertex * sizeof(t_v4f));
-	mesh->normal = malloc(size_mesh->normal * sizeof(t_v4f));
-	mesh->texture_coord = malloc(size_mesh->texture * sizeof(t_texture_coord));
-	mesh->face = malloc(size_mesh->face * sizeof(t_face));
-	if (!mesh->vertex || !mesh->normal || !mesh->texture_coord || !mesh->face)
+	while (object)
 	{
-		free_mesh(mesh);
-		return (1);
+		if (object->object && object->file_type == OBJECT_OBJ)
+			free_obj(object->object);
+		if (object->object)
+			free(object->object);
+		free(object);
+		object = NULL;
 	}
-	return (0);
+	object = NULL;
 }
