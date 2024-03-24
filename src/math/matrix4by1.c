@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_int.h                                        :+:      :+:    :+:   */
+/*   matrix4by1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/21 11:32:42 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/22 21:49:44 by babonnet         ###   ########.fr       */
+/*   Created: 2024/02/07 13:38:38 by babonnet          #+#    #+#             */
+/*   Updated: 2024/03/22 22:30:08 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINT_INT_H
-#define PRINT_INT_H
 
 #include "miniRT.h"
-#include "mlx_data.h"
 
-typedef struct s_line_parm
+__attribute__((always_inline)) void	matrix_multiplication1x4(t_v4f *matrix,
+												t_v4f vector, t_v4f *result)
 {
-	int	first_point;
-	int	second_point;
-	int	d;
-	int	s;
-}		t_line_param;
+	int		i;
+	t_v4f	product;
+	double	dot_product;
 
-void	plot_line(t_mlx *mlx, t_v4f v1, t_v4f v2, int color);
-
-#endif
+	*result = (t_v4f){0, 0, 0, 0};
+	i = 0;
+	while (i < 4)
+	{
+		product = matrix[i] * vector;
+		dot_product = product[0] + product[1] + product[2] + product[3];
+		(*result)[i] = dot_product;
+		i++;
+	}
+}

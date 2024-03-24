@@ -1,5 +1,6 @@
 #include "../object.h"
 #include "libft.h"
+#include "mesh_obj.h"
 #include "mlx.h"
 #include "mlx_data.h"
 #include "obj_intern.h"
@@ -74,5 +75,12 @@ void	parse_obj(const char *name, const char *texture)
 	}
 	fill_obj(new_obj->fd, new_obj);
 	fill_obj_texture(&new_obj->texture, texture);
+	new_obj->scale = 200;
+	new_obj->rotation.pitch = 20;
+	new_obj->rotation.yaw = 40;
+	new_obj->rotation.roll = 20;
+	new_obj->offset.x = 1000;
+	new_obj->offset.y = 800;
+	new_obj->offset.z = 100;
 	close(new_obj->fd);
 }

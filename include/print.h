@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_int.h                                        :+:      :+:    :+:   */
+/*   print.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/21 11:32:42 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/22 21:49:44 by babonnet         ###   ########.fr       */
+/*   Created: 2024/03/22 21:34:06 by babonnet          #+#    #+#             */
+/*   Updated: 2024/03/22 21:57:14 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINT_INT_H
-#define PRINT_INT_H
+#ifndef PRINT_H
+#define PRINT_H
 
-#include "miniRT.h"
+
+#include "mesh_obj.h"
 #include "mlx_data.h"
 
-typedef struct s_line_parm
-{
-	int	first_point;
-	int	second_point;
-	int	d;
-	int	s;
-}		t_line_param;
-
-void	plot_line(t_mlx *mlx, t_v4f v1, t_v4f v2, int color);
+void print_obj(t_object_mesh *object, t_mlx *mlx);
 
 #endif

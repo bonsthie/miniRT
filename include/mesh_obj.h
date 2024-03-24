@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 23:14:48 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/22 09:46:40 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/03/22 22:33:27 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,7 @@ typedef struct s_object_mesh
 	t_offset		offset;
 	float			scale;
 }					t_object_mesh;
+
+void update_size_obj(t_object_mesh *object);
 
 #endif

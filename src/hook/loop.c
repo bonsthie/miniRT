@@ -1,29 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_int.h                                        :+:      :+:    :+:   */
+/*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/21 11:32:42 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/22 21:49:44 by babonnet         ###   ########.fr       */
+/*   Created: 2024/03/24 17:53:49 by babonnet          #+#    #+#             */
+/*   Updated: 2024/03/24 18:14:09 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINT_INT_H
-#define PRINT_INT_H
-
+#include "mesh_obj.h"
 #include "miniRT.h"
-#include "mlx_data.h"
+#include "mlx.h"
+#include "print.h"
+#include "scene_elements.h"
 
-typedef struct s_line_parm
+int loop(void *data)
 {
-	int	first_point;
-	int	second_point;
-	int	d;
-	int	s;
-}		t_line_param;
+	t_object *object;
+	t_mlx *mlx = get_mlx();
 
-void	plot_line(t_mlx *mlx, t_v4f v1, t_v4f v2, int color);
-
-#endif
+	object = get_scene()->object;
+	t_object_mesh *obj = object->object;
+	obj->rotation.yaw++;
+	update_size_obj(object->object);
+	print_obj(object->object, mlx);
+	sleep(3);
+	if (mlx->image)
+		mlx_destroy_image(mlx->connection, mlx->image);
+	(void)data;
+	return (0);
+}

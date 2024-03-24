@@ -1,29 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_int.h                                        :+:      :+:    :+:   */
+/*   maths.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/21 11:32:42 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/22 21:49:44 by babonnet         ###   ########.fr       */
+/*   Created: 2024/03/22 22:09:47 by babonnet          #+#    #+#             */
+/*   Updated: 2024/03/22 22:11:18 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINT_INT_H
-#define PRINT_INT_H
+#ifndef MATHS_H
+# define MATHS_H
+
 
 #include "miniRT.h"
-#include "mlx_data.h"
 
-typedef struct s_line_parm
+typedef struct s_position_matrix
 {
-	int	first_point;
-	int	second_point;
-	int	d;
-	int	s;
-}		t_line_param;
+	t_v4f	*pitch;
+	t_v4f	*yaw;
+	t_v4f	*scale;
+}			t_position_matrix;
 
-void	plot_line(t_mlx *mlx, t_v4f v1, t_v4f v2, int color);
+typedef struct s_rotation_metrics
+{
+	double	cos_pitch;
+	double	sin_pitch;
+	double	cos_yaw;
+	double	sin_yaw;
+}			t_rotation_metrics;
+
+void		matrix_multiplication4x4(t_v4f result[4], t_v4f a[4],
+				t_v4f b[4]);
+void		matrix_multiplication1x4(t_v4f *matrix, t_v4f vector,
+				t_v4f *result);
 
 #endif
