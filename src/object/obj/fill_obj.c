@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:32:56 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/22 15:47:29 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/03/29 14:41:13 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <stddef.h>
 #include <stdio.h>
 
-void	fill_vertex(t_v4f *vertex, size_t size, t_list **file_ll)
+void	fill_vertex(t_vec3 *vertex, size_t size, t_list **file_ll)
 {
 	char	*str;
 
@@ -25,19 +25,19 @@ void	fill_vertex(t_v4f *vertex, size_t size, t_list **file_ll)
 		str = (*file_ll)->content;
 		str++;
 		// printf("%s", str);
-		(*vertex)[0] = ft_strtod(str, &str);
+		(*vertex).x = ft_strtod(str, &str);
 		// printf("%f\n", (*vertex)[0]);
-		(*vertex)[1] = ft_strtod(str, &str);
+		(*vertex).y = ft_strtod(str, &str);
 		// printf("%f\n", (*vertex)[1]);
-		(*vertex)[2] = ft_strtod(str, &str);
+		(*vertex).z = ft_strtod(str, &str);
 		// printf("%f\n", (*vertex)[2]);
-		(*vertex)[3] = 1;
+		(*vertex).w = 1;
 		vertex++;
 		*file_ll = (*file_ll)->next;
 	}
 }
 
-void	fill_normal(t_v4f *vertex, size_t size, t_list **file_ll)
+void	fill_normal(t_vec3 *vertex, size_t size, t_list **file_ll)
 {
 	char	*str;
 
@@ -46,13 +46,13 @@ void	fill_normal(t_v4f *vertex, size_t size, t_list **file_ll)
 		str = (*file_ll)->content;
 		str += 2;
 		// printf("%s", str);
-		(*vertex)[0] = ft_strtod(str, &str);
+		(*vertex).x = ft_strtod(str, &str);
 		// printf("%f\n", (*vertex)[0]);
-		(*vertex)[1] = ft_strtod(str, &str);
+		(*vertex).y = ft_strtod(str, &str);
 		// printf("%f\n", (*vertex)[1]);
-		(*vertex)[2] = ft_strtod(str, &str);
+		(*vertex).z = ft_strtod(str, &str);
 		// printf("%f\n", (*vertex)[2]);
-		(*vertex)[3] = 1;
+		(*vertex).w = 1;
 		vertex++;
 		*file_ll = (*file_ll)->next;
 	}
@@ -98,7 +98,7 @@ int	fill_face(t_face *face, size_t size, t_list **file_ll)
 	{
 		str = (*file_ll)->content;
 		str++;
-		printf("%s", str);
+		//printf("%s", str);
 		face->count = count_face(str);
 		if (!face->count)
 			face->point = NULL;

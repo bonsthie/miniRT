@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 22:04:37 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/22 23:35:54 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/03/29 14:28:26 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,13 @@ void update_size_obj(t_object_mesh *object)
 	i = 0;
 	while(i < object->mesh.size_mesh.vertex)
 	{
-		matrix_multiplication1x4(transforamtion, object->mesh.vertex[i], &object->mesh.vertex[i]);
+		matrix_multiplication1x4(transforamtion, object->mesh.vertex[i].v4f, &object->mesh.vertex[i].v4f);
 		i++;
 	}
 	i = 0;
 	while(i < object->mesh.size_mesh.normal)
 	{
-		matrix_multiplication1x4(transforamtion, object->mesh.normal[i], &object->mesh.normal[i]);
+		matrix_multiplication1x4(transforamtion, object->mesh.normal[i].v4f, &object->mesh.normal[i].v4f);
 		i++;
 	}
 }

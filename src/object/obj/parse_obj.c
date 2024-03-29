@@ -22,9 +22,9 @@ void	fill_mesh(t_mesh *mesh, char **file_name, t_list *file_ll)
 		if (!*file_name && !ft_strncmp("o ", file_ll->content, 2))
 			*file_name = ft_strdup(file_ll->content + 2);
 		else if (!ft_strncmp(file_ll->content, "v ", 2))
-			fill_vertex(mesh->vertex, mesh->size_mesh.vertex, &file_ll);
+			fill_vertex(&mesh->vertex->vec3, mesh->size_mesh.vertex, &file_ll);
 		else if (!ft_strncmp(file_ll->content, "vn ", 3))
-			fill_normal(mesh->normal, mesh->size_mesh.normal, &file_ll);
+			fill_normal(&mesh->normal->vec3, mesh->size_mesh.normal, &file_ll);
 		else if (!ft_strncmp(file_ll->content, "vt ", 3))
 			fill_texture(mesh->texture_coord, mesh->size_mesh.texture,
 				&file_ll);
@@ -76,11 +76,12 @@ void	parse_obj(const char *name, const char *texture)
 	fill_obj(new_obj->fd, new_obj);
 	fill_obj_texture(&new_obj->texture, texture);
 	new_obj->scale = 200;
-	new_obj->rotation.pitch = 20;
+	new_obj->rotation.pitch = 200;
 	new_obj->rotation.yaw = 40;
-	new_obj->rotation.roll = 20;
-	new_obj->offset.x = 1000;
-	new_obj->offset.y = 800;
+	new_obj->rotation.roll = 0;
+	new_obj->offset.x = 1500;
+	new_obj->offset.y = 500;
 	new_obj->offset.z = 100;
 	close(new_obj->fd);
 }
+

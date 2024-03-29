@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 23:14:48 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/22 22:33:27 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/03/29 14:26:58 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ typedef struct s_size_mesh
 
 typedef struct s_mesh
 {
-	t_v4f			*vertex;
-	t_v4f			*normal;
+	union vec			*vertex;
+	union vec			*normal;
 	t_texture_coord	*texture_coord;
 	t_face			*face;
 	t_size_mesh		size_mesh;
