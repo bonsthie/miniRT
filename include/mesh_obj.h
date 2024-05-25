@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 23:14:48 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/29 14:26:58 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/05/25 15:56:54 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,12 @@ typedef struct s_object_mesh
 	t_mesh			mesh;
 	t_texture		texture;
 	t_rotation		rotation;
+	t_rotation		new_rotation;
 	t_offset		offset;
+	t_offset		new_offset;
 	float			scale;
+	float			new_scale;
+	union vec		center;
 }					t_object_mesh;
 
 void update_size_obj(t_object_mesh *object);

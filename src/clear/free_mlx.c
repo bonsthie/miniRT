@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 15:17:09 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/22 21:31:52 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/05/25 13:30:39 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void __attribute__((destructor))free_mlx_data(void)
 {
 	t_mlx *mlx;
 
-	mlx = get_mlx();
 	return ;
+	mlx = get_mlx();
 	if (mlx->connection)
 	{
 		mlx_loop_end(mlx->connection);

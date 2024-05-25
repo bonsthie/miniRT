@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 21:32:24 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/29 14:43:29 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/05/26 00:24:52 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,17 @@
 void print_quad(t_point *point, t_mesh mesh, t_mlx *mlx)
 {
 	plot_line(mlx, mesh.vertex[point[0].vertex].v4f, mesh.vertex[point[1].vertex].v4f, 0xFFFFFFFF);
-	plot_line(mlx, mesh.vertex[point[0].vertex].v4f, mesh.vertex[point[2].vertex].v4f, 0xFF960018);
-	plot_line(mlx, mesh.vertex[point[1].vertex].v4f, mesh.vertex[point[2].vertex].v4f, 0xFF008000);
-	plot_line(mlx, mesh.vertex[point[2].vertex].v4f, mesh.vertex[point[3].vertex].v4f, 0xFF008000);
-	plot_line(mlx, mesh.vertex[point[0].vertex].v4f, mesh.vertex[point[3].vertex].v4f, 0xFF008000);
+	plot_line(mlx, mesh.vertex[point[0].vertex].v4f, mesh.vertex[point[2].vertex].v4f, 0xFFFFFFFF);
+	plot_line(mlx, mesh.vertex[point[1].vertex].v4f, mesh.vertex[point[2].vertex].v4f, 0xFFFFFFFF);
+	plot_line(mlx, mesh.vertex[point[2].vertex].v4f, mesh.vertex[point[3].vertex].v4f, 0xFFFFFFFF);
+	plot_line(mlx, mesh.vertex[point[0].vertex].v4f, mesh.vertex[point[3].vertex].v4f, 0xFFFFFFFF);
 }
 
 void print_triangle(t_point *point, t_mesh mesh, t_mlx *mlx)
 {
 	plot_line(mlx, mesh.vertex[point[0].vertex].v4f, mesh.vertex[point[1].vertex].v4f, 0xFFFFFFFF);
-	plot_line(mlx, mesh.vertex[point[0].vertex].v4f, mesh.vertex[point[2].vertex].v4f, 0xFF960018);
-	plot_line(mlx, mesh.vertex[point[1].vertex].v4f, mesh.vertex[point[2].vertex].v4f, 0xFF008000);
+	plot_line(mlx, mesh.vertex[point[0].vertex].v4f, mesh.vertex[point[2].vertex].v4f, 0xFFFFFFFF);
+	plot_line(mlx, mesh.vertex[point[1].vertex].v4f, mesh.vertex[point[2].vertex].v4f, 0xFFFFFFFF);
 }
 
 t_v4f cross_product(t_v4f a, t_v4f b) {
@@ -60,7 +60,7 @@ t_v4f normalize(t_v4f n)
 	t_v4f vmag;
 
 	mag = magnitude(n);
-	vmag = (t_v4f ){mag, mag, mag, 0};
+	vmag = (t_v4f ){mag, mag, mag, 1};
 	return (n / vmag);
 }
 
@@ -70,33 +70,26 @@ int is_visible(int size, t_point *point, t_mesh mesh)
 	t_v4f ab;
 	t_v4f ca;
 	t_v4f n;
-	t_v4f result;
 
 	if (size < 3)
 		return (1);
-	t_v4f a =  mesh.normal[point[0].normal].v4f;
-	if (size == 4)
-	{
-		result = a * (t_v4f){0, 0, -1, 1};
-		if ((result[0] + result[1] + result[2]) < 0.0f)
-			return (0);
-		return (1);
-	}
-	t_v4f b =  mesh.normal[point[1].normal].v4f;
-	t_v4f c =  mesh.normal[point[2].normal].v4f;
-	ab = a - b;
+	t_v4f a =  mesh.vertex[point[0].vertex].v4f;
+	t_v4f b =  mesh.vertex[point[1].vertex].v4f;
+	t_v4f c =  mesh.vertex[point[2].vertex].v4f;
+	ab = b - a;
 	ca = c - a;
 	n = cross_product(ab, ca);
-	result = normalize(n) * (t_v4f){0, 0, -1, 1};
-	if (result[0] + result[1] + result[2] < 0.0f)
+	n = normalize(n) * (t_v4f){0, 0, -1, 1};
+	if (n[2] <= 0.0f)
 		return (0);
 	return (1);
 }
 
 void print_face(t_face face, t_mesh mesh, t_mlx *mlx)
 {
-	if (!is_visible(face.count, face.point, mesh))
+	if (!is_visible(face.count, face.point, mesh)) {
 		return ;
+	}
 	if (face.count == 3)
 		print_triangle(face.point, mesh, mlx);
 	if (face.count == 4)
@@ -111,15 +104,12 @@ void print_obj(t_object_mesh *object, t_mlx *mlx)
 
     i = 0;
     clock_gettime(CLOCK_MONOTONIC, &start);
-
-    mlx->image = mlx_new_image(mlx->connection, WIDTH, HEIGHT);
+	mlx_clear_window(mlx->connection, mlx->window);
     while (i < object->mesh.size_mesh.face)
     {
         print_face(object->mesh.face[i], object->mesh, mlx);
         i++;
     }
-    mlx_put_image_to_window(mlx->connection, mlx->window, mlx->image, 0, 0);
-
     clock_gettime(CLOCK_MONOTONIC, &end);
 
     long seconds = end.tv_sec - start.tv_sec;

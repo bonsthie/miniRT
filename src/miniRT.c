@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 00:04:19 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/24 18:14:55 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/05/25 16:58:04 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ int	main(__attribute_maybe_unused__ int ac,
 	parse_obj(av[1], 0);
 	object = get_scene()->object;
 	(void)object;
-	update_size_obj(object->object);
-	print_obj(object->object, mlx);
+	/* mlx->image = mlx_new_image(mlx->connection, WIDTH, HEIGHT); */
+	/* update_size_obj(object->object); */
+	/* print_obj(object->object, mlx); */
 	hook(mlx);
-	//mlx_loop_hook(mlx->connection, loop, NULL);
+	mlx_loop_hook(mlx->connection, loop, mlx);
 	mlx_loop(mlx->connection);
 	mlx_destroy_window(mlx->connection, mlx->window);
-	mlx_destroy_image(mlx->connection, mlx->image);
 	mlx_destroy_display(mlx->connection);
 }

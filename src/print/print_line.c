@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 11:31:21 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/22 21:50:09 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/05/25 16:56:14 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@
 	{
 		if (x.first_point < WIDTH && y.first_point < HEIGHT
 			&& x.first_point >= 0 && y.first_point >= 0)
-			mlx_set_image_pixel(mlx->connection, mlx->image, x.first_point,
+			mlx_pixel_put(mlx->connection, mlx->window, x.first_point,
 				y.first_point, color);
 		if (x.first_point == x.second_point && y.first_point == y.second_point)
 			break ;

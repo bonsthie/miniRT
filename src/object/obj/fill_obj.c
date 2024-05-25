@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:32:56 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/29 14:41:13 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/05/26 00:08:18 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,21 @@ static size_t	count_face(char *str)
 	return (i);
 }
 
+
+void parse_face(t_face *face, char **str, int i)
+{
+
+	face->point[i].vertex = strtol(*str, str, 10) - 1;
+	if (**str != '/')
+		return ;
+	(*str)++;
+	face->point[i].texture = strtol(*str, str, 10) - 1;
+	if (**str != '/')
+		return ;
+	(*str)++;
+	face->point[i].normal = strtol(*str, str, 10) - 1;
+}
+
 int	fill_face(t_face *face, size_t size, t_list **file_ll)
 {
 	char	*str;
@@ -114,11 +129,7 @@ int	fill_face(t_face *face, size_t size, t_list **file_ll)
 			while (i < face->count)
 			{
 				// need to change strtol
-				face->point[i].vertex = strtol(str, &str, 10) - 1;
-				str++;
-				face->point[i].texture = strtol(str, &str, 10) - 1;
-				str++;
-				face->point[i].normal = strtol(str, &str, 10) - 1;
+				parse_face(face, &str, i);
 				i++;
 			}
 		}
