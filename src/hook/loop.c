@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 17:53:49 by babonnet          #+#    #+#             */
-/*   Updated: 2024/05/25 13:56:18 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/05/27 15:22:58 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int loop(void *data)
 	update_size_obj(object->object);
 	print_obj(object->object, mlx);
 	obj->new_rotation.yaw = 1;
+	/* obj->new_rotation.pitch = 1; */
+	/* obj->new_rotation.roll = 1; */
 	/* obj->new_offset.y = 1; */
 	/* obj->new_offset.x = 20; */
 	(void)data;

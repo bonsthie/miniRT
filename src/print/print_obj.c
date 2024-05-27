@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 21:32:24 by babonnet          #+#    #+#             */
-/*   Updated: 2024/05/26 00:24:52 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/05/27 16:19:14 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,14 @@ void print_quad(t_point *point, t_mesh mesh, t_mlx *mlx)
 	plot_line(mlx, mesh.vertex[point[0].vertex].v4f, mesh.vertex[point[3].vertex].v4f, 0xFFFFFFFF);
 }
 
+
 void print_triangle(t_point *point, t_mesh mesh, t_mlx *mlx)
 {
 	plot_line(mlx, mesh.vertex[point[0].vertex].v4f, mesh.vertex[point[1].vertex].v4f, 0xFFFFFFFF);
 	plot_line(mlx, mesh.vertex[point[0].vertex].v4f, mesh.vertex[point[2].vertex].v4f, 0xFFFFFFFF);
 	plot_line(mlx, mesh.vertex[point[1].vertex].v4f, mesh.vertex[point[2].vertex].v4f, 0xFFFFFFFF);
 }
+
 
 t_v4f cross_product(t_v4f a, t_v4f b) {
 	t_v4f result;
@@ -91,7 +93,7 @@ void print_face(t_face face, t_mesh mesh, t_mlx *mlx)
 		return ;
 	}
 	if (face.count == 3)
-		print_triangle(face.point, mesh, mlx);
+		rast_tri(face.point, mesh, mlx);
 	if (face.count == 4)
 		print_quad(face.point, mesh, mlx);
 }
