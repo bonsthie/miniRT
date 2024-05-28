@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 11:32:42 by babonnet          #+#    #+#             */
-/*   Updated: 2024/05/27 16:05:28 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/05/28 17:56:05 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct s_line_parm
 	int	s;
 }		t_line_param;
 
-void	plot_line(t_mlx *mlx, t_v4f v1, t_v4f v2, int color);
+void	plot_line(t_mlx *mlx, t_vec3 v1, t_vec3 v2, int color, t_vec3 center);
 void rast_tri(t_point *point, t_mesh mesh, t_mlx *mlx);
 
 #endif

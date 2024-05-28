@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:32:56 by babonnet          #+#    #+#             */
-/*   Updated: 2024/05/26 00:08:18 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/05/28 21:24:05 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static size_t	count_face(char *str)
 		return (0);
 	strs = ft_split(str, ' ');
 	i = 0;
-	while (strs[i])
+	while (strs[i] && ft_isdigit(*strs[i]))
 		i++;
 	free_strs(strs);
 	return (i);

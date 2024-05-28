@@ -14,7 +14,7 @@ void	fill_mesh(t_mesh *mesh, char **file_name, t_list *file_ll)
 		mesh->size_mesh.vertex, mesh->size_mesh.normal, mesh->size_mesh.texture,
 		mesh->size_mesh.face);
 	if (alloc_mesh(mesh))
-		exit_message(1, "Error : [malloc faild in the mesh creation]\n");
+		exit_message(1, "Error : [malloc failed in the mesh creation]\n");
 	while (file_ll)
 	{
 		if (!*file_name && !ft_strncmp("o ", file_ll->content, 2))
@@ -31,7 +31,7 @@ void	fill_mesh(t_mesh *mesh, char **file_name, t_list *file_ll)
 		else if (file_ll)
 			file_ll = file_ll->next;
 		if (error)
-			exit_message(1, "Error : [malloc faild in the mesh creation]\n");
+			exit_message(1, "Error : [malloc failed in the mesh creation]\n");
 	}
 }
 
@@ -46,7 +46,7 @@ void	fill_obj(int fd, t_object_mesh *object)
 	ft_bzero(&mesh->size_mesh, sizeof(t_size_mesh));
 	object->file = parse_line_by_line(fd, &mesh->size_mesh);
 	if (!object->file)
-		exit_message(1, "Error : [malloc faild in the file parsing]\n");
+		exit_message(1, "Error : [malloc failed in the file parsing]\n");
 	fill_mesh(mesh, &object->file_name, object->file);
 	ft_lstclear(&object->file, free);
 }
@@ -73,12 +73,12 @@ void	parse_obj(const char *name, const char *texture)
 	}
 	fill_obj(new_obj->fd, new_obj);
 	fill_obj_texture(&new_obj->texture, texture);
-	new_obj->new_scale = 200;
-	new_obj->new_rotation.pitch = 200;
-	new_obj->new_rotation.yaw = 40;
+	new_obj->new_scale = 150;
+	new_obj->new_rotation.pitch = 90;
+	new_obj->new_rotation.yaw = 0;
 	new_obj->new_rotation.roll = 0;
-	new_obj->new_offset.x = 1000;
-	new_obj->new_offset.y = 500;
+	new_obj->new_offset.x = 1920.0f * 0.5f;
+	new_obj->new_offset.y = 1080.0f * 0.5f;
 	new_obj->new_offset.z = 100;
 	close(new_obj->fd);
 }

@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 22:04:37 by babonnet          #+#    #+#             */
-/*   Updated: 2024/05/25 16:32:30 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/05/28 20:34:07 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "mesh_obj.h"
 #include "miniRT.h"
 
+#include <stdio.h>
 
 void create_transformation_matrix(t_v4f *transformation, t_object_mesh *object)
 {
@@ -73,6 +74,7 @@ void reset_transformation(t_object_mesh *object)
 	object->new_offset.y = 0;
 	object->new_offset.z = 0;
 }
+
 
 void find_center(t_object_mesh *object)
 {
