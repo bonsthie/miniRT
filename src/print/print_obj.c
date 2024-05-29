@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 21:32:24 by babonnet          #+#    #+#             */
-/*   Updated: 2024/05/28 21:24:11 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/05/29 19:24:27 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <stdio.h>
 #include <time.h>
 
-void print_quad(t_point *point, t_mesh mesh, t_mlx *mlx, t_vec3 center)
+void print_quad_mesh(t_point *point, t_mesh mesh, t_mlx *mlx, t_vec3 center)
 {
 	plot_line(mlx, mesh.vertex[point[0].vertex].vec3, mesh.vertex[point[1].vertex].vec3, 0x88FFFFFF, center);
 	plot_line(mlx, mesh.vertex[point[0].vertex].vec3, mesh.vertex[point[2].vertex].vec3, 0x88FFFFFF, center);
@@ -28,11 +28,35 @@ void print_quad(t_point *point, t_mesh mesh, t_mlx *mlx, t_vec3 center)
 }
 
 
-void print_triangle(t_point *point, t_mesh mesh, t_mlx *mlx, t_vec3 center)
+void print_triangle_mesh(t_point *point, t_mesh mesh, t_mlx *mlx, t_vec3 center)
 {
 	plot_line(mlx, mesh.vertex[point[0].vertex].vec3, mesh.vertex[point[1].vertex].vec3, 0x88FFFFFF, center);
 	plot_line(mlx, mesh.vertex[point[0].vertex].vec3, mesh.vertex[point[2].vertex].vec3, 0x88FFFFFF, center);
 	plot_line(mlx, mesh.vertex[point[1].vertex].vec3, mesh.vertex[point[2].vertex].vec3, 0x88FFFFFF, center);
+}
+
+void print_quad_rast(t_point *point, t_mesh mesh, t_mlx *mlx, t_vec3 center)
+{
+	t_tri triangle;
+	triangle.p1 = mesh.vertex[point[0].vertex].vec3;
+	triangle.p2 = mesh.vertex[point[1].vertex].vec3;
+	triangle.p3 = mesh.vertex[point[2].vertex].vec3;
+	rast_tri(triangle, mlx, 0x8800FF00);
+	triangle.p3 = mesh.vertex[point[3].vertex].vec3;
+	triangle.p2 = mesh.vertex[point[2].vertex].vec3;
+	rast_tri(triangle, mlx, 0x88FF0000);
+	(void)center;
+}
+
+
+void print_triangle_rast(t_point *point, t_mesh mesh, t_mlx *mlx, t_vec3 center)
+{
+	t_tri triangle;
+	triangle.p1 = mesh.vertex[point[0].vertex].vec3;
+	triangle.p2 = mesh.vertex[point[1].vertex].vec3;
+	triangle.p3 = mesh.vertex[point[2].vertex].vec3;
+	rast_tri(triangle, mlx, 0x88FFFFFF);
+	(void)center;
 }
 
 
@@ -94,9 +118,9 @@ void print_face(t_face face, t_mesh mesh, t_mlx *mlx, t_vec3 center)
 	}
 
 	if (face.count == 3)
-		print_triangle(face.point, mesh, mlx, center);
+		print_triangle_rast(face.point, mesh, mlx, center);
 	if (face.count == 4)
-		print_quad(face.point, mesh, mlx, center);
+		print_quad_rast(face.point, mesh, mlx, center);
 }
 
 
@@ -122,6 +146,6 @@ void print_obj(t_object_mesh *object, t_mlx *mlx)
 
     double elapsed = seconds + ns*1e-9;
 	(void)elapsed;
-    printf("time = %f\n", elapsed);
+    /* printf("time = %f\n", elapsed); */
 }
 
