@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 21:32:24 by babonnet          #+#    #+#             */
-/*   Updated: 2024/05/29 19:24:27 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/05/29 19:41:21 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,6 @@ void print_obj(t_object_mesh *object, t_mlx *mlx)
 
     double elapsed = seconds + ns*1e-9;
 	(void)elapsed;
-    /* printf("time = %f\n", elapsed); */
+    printf("time = %f\n", elapsed);
 }
 

@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:29:06 by babonnet          #+#    #+#             */
-/*   Updated: 2024/05/29 19:27:24 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/05/29 19:41:49 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ void rast_tri(t_tri triangle, t_mlx *mlx, unsigned int color)
 			// is in the triangle
 			if (w0 >= 0 && w1 >= 0 && w2 >= 0) 
 			{
-				mlx_pixel_put(mlx->connection, mlx->window, x, y, color);
+				if (x >= 0 && x <= WIDTH && y >= 0 && y <= HEIGHT)
+					mlx_pixel_put(mlx->connection, mlx->window, x, y, color);
 			}
 			x++;
 		}
