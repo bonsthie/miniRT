@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 11:32:42 by babonnet          #+#    #+#             */
-/*   Updated: 2024/05/29 19:21:47 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/05/30 19:08:36 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,19 @@ typedef struct s_line_parm
 	int	s;
 }		t_line_param;
 
+typedef struct s_vertex {
+	t_vec3 position;
+	t_vec3 normal;
+
+} t_vertex;
+
 typedef struct s_tri {
-	t_vec3 p1;
-	t_vec3 p2;
-	t_vec3 p3;
+	t_vertex vertex1;
+	t_vertex vertex2;
+	t_vertex vertex3;
 } t_tri;
 
 void	plot_line(t_mlx *mlx, t_vec3 v1, t_vec3 v2, int color, t_vec3 center);
-void rast_tri(t_tri triangle, t_mlx *mlx, unsigned int color);
+void rast_tri(t_tri triangle, t_mlx *mlx, unsigned int color, int zbuffer[WIDTH][HEIGHT]);
 
 #endif

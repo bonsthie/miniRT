@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 23:18:57 by babonnet          #+#    #+#             */
-/*   Updated: 2024/03/29 14:37:28 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/05/30 17:12:04 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ struct s_scene;
 
 // Aligned vector types for optimal hardware utilization by use of avx.
 typedef float	__attribute__((aligned(16), vector_size(16))) t_v4f;
+
 
 typedef struct s_vec3
 {
