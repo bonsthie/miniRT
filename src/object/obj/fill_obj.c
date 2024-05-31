@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:32:56 by babonnet          #+#    #+#             */
-/*   Updated: 2024/05/29 16:43:27 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/05/31 16:48:45 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	fill_vertex(t_vec3 *vertex, size_t size, t_list **file_ll)
 			*file_ll = (*file_ll)->next;
 		str = (*file_ll)->content;
 	}
+	if (total_size == size)
+		total_size = 0;
 }
 
 void	fill_normal(t_vec3 *vertex, size_t size, t_list **file_ll)
@@ -58,6 +60,8 @@ void	fill_normal(t_vec3 *vertex, size_t size, t_list **file_ll)
 			*file_ll = (*file_ll)->next;
 		str = (*file_ll)->content;
 	}
+	if (total_size == size)
+		total_size = 0;
 }
 
 void	fill_texture(t_texture_coord *texture_coord, size_t size,
@@ -79,6 +83,8 @@ void	fill_texture(t_texture_coord *texture_coord, size_t size,
 			str = (*file_ll)->content;
 		total_size++;
 	}
+	if (total_size == size)
+		total_size = 0;
 }
 
 static size_t	count_face(char *str)
@@ -148,5 +154,7 @@ int	fill_face(t_face *face, size_t size, t_list **file_ll)
 			str = (*file_ll)->content;
 		total_size++;
 	}
+	if (total_size == size)
+		total_size = 0;
 	return (0);
 }

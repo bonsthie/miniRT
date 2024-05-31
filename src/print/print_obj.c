@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 21:32:24 by babonnet          #+#    #+#             */
-/*   Updated: 2024/05/30 19:39:15 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/05/31 20:30:43 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	print_triangle_mesh(t_point *point, t_mesh mesh, t_mlx *mlx,
 		mesh.vertex[point[2].vertex].vec3, 0x88FFFFFF, center);
 }
 
-void	print_quad_rast(t_point *point, t_mesh mesh, t_mlx *mlx, unsigned int color, int zbuffer[WIDTH][HEIGHT])
+void	print_quad_rast(t_point *point, t_mesh mesh, t_mlx *mlx, unsigned int color, int zbuffer[HEIGHT][WIDTH])
 {
 	t_tri	triangle;
 
@@ -58,7 +58,7 @@ void	print_quad_rast(t_point *point, t_mesh mesh, t_mlx *mlx, unsigned int color
 }
 
 void	print_triangle_rast(t_point *point, t_mesh mesh, t_mlx *mlx,
-			unsigned int color, int zbuffer[WIDTH][HEIGHT])
+			unsigned int color, int zbuffer[HEIGHT][WIDTH])
 {
 	t_tri	triangle;
 
@@ -116,7 +116,7 @@ t_v4f	is_visible(int size, t_point *point, t_mesh mesh)
 	return (n);
 }
 
-void	print_face(t_face face, t_mesh mesh, t_mlx *mlx, int zbuffer[WIDTH][HEIGHT])
+void	print_face(t_face face, t_mesh mesh, t_mlx *mlx, int zbuffer[HEIGHT][WIDTH])
 {
 	t_v4f	normal;
 	t_v4f	light_dir;
@@ -124,41 +124,39 @@ void	print_face(t_face face, t_mesh mesh, t_mlx *mlx, int zbuffer[WIDTH][HEIGHT]
 	normal = is_visible(face.count, face.point, mesh);
 	if (normal[2] <= 0.0f)
 		return ;
+
+
 	light_dir = normalize((t_v4f){0.0f, 0.0f, 1.0f});
 	t_v4f dot = normal * light_dir;
 	float intensity = fmax(0.0f, dot[0] + dot[1] + dot[2]);
 	unsigned int grey_value = (unsigned int)(intensity * 255);
 	unsigned int color =  0xFF000000 | (grey_value << 16) | (grey_value << 8) | grey_value;
+
+
+	/* printf("%ld\n", face.count); */
+
 	if (face.count == 3)
 		print_triangle_rast(face.point, mesh, mlx, color, zbuffer);
 	if (face.count == 4)
 		print_quad_rast(face.point, mesh, mlx, color, zbuffer);
 }
 
-void	print_obj(t_object_mesh *object, t_mlx *mlx)
+void	print_obj(t_object_mesh *object, t_mlx *mlx, int zbuffer[HEIGHT][WIDTH])
 {
-	size_t	i;
 	long	seconds;
 	long	ns;
 	double	elapsed;
-	int zbuffer[WIDTH][HEIGHT] = {0};
-	for (int i = 0; i < WIDTH; i++)
-	{
-		for (int j = 0; j < HEIGHT; j++)
-			zbuffer[i][j] = INT_MAX;
-	}
 
 	struct timespec start, end;
-	i = 0;
 	/* printf("start"); */
 	clock_gettime(CLOCK_MONOTONIC, &start);
 	mlx_clear_window(mlx->connection, mlx->window);
-	while (i < object->mesh.size_mesh.face)
+	#pragma omp parallel for
+	for (size_t i = 0 ;i < object->mesh.size_mesh.face; i++)
 	{
 		print_face(object->mesh.face[i], object->mesh, mlx,
 			zbuffer);
 		/* printf("face n %ld\n", i); */
-		i++;
 	}
 	clock_gettime(CLOCK_MONOTONIC, &end);
 	seconds = end.tv_sec - start.tv_sec;

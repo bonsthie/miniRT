@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 22:04:37 by babonnet          #+#    #+#             */
-/*   Updated: 2024/05/28 20:34:07 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/05/31 17:19:57 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,21 +99,18 @@ void find_center(t_object_mesh *object)
 void update_size_obj(t_object_mesh *object)
 {
 	t_v4f transforamtion[4];
-	size_t i;
 
 	find_center(object);
 	create_transformation_matrix(transforamtion, object);
-	i = 0;
-	while(i < object->mesh.size_mesh.vertex)
+	#pragma omp parallel for
+	for (size_t i = 0;i < object->mesh.size_mesh.vertex; i++)
 	{
 		matrix_multiplication1x4(transforamtion, object->mesh.vertex[i].v4f, &object->mesh.vertex[i].v4f);
-		i++;
 	}
-	i = 0;
-	while(i < object->mesh.size_mesh.normal)
+	#pragma omp parallel for
+	for(size_t i = 0; i < object->mesh.size_mesh.normal; i++)
 	{
 		matrix_multiplication1x4(transforamtion, object->mesh.normal[i].v4f, &object->mesh.normal[i].v4f);
-		i++;
 	}
 	reset_transformation(object);
 }

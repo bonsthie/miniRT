@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 17:53:49 by babonnet          #+#    #+#             */
-/*   Updated: 2024/05/29 19:28:11 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/05/31 20:45:08 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,17 @@ int loop(void *data)
 {
 	t_object *object;
 	t_mlx *mlx = data;
+	int zbuffer[HEIGHT][WIDTH];
+	for (int i = 0; i < HEIGHT; i++)
+	{
+		for (int j = 0; j < WIDTH; j++)
+			zbuffer[i][j] = INT_MAX;
+	}
 
 	object = get_scene()->object;
 	t_object_mesh *obj = object->object;
 	update_size_obj(object->object);
-	print_obj(object->object, mlx);
+	print_obj(object->object, mlx, zbuffer);
 	obj->new_rotation.yaw = 1;
 	/* obj->new_rotation.pitch = 1; */
 	/* obj->new_rotation.roll = 1; */

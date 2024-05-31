@@ -2,8 +2,8 @@ NAME = miniRT
 NAME_BONUS = miniRT_bonus
 
 ##################################### DATA ##########################################
-CC := clang
-CFLAGS = -Wall -Wextra -Werror -mavx2 -MMD -MP -g
+CC := gcc
+CFLAGS = -Wall -Wextra -Werror -mavx2 -MMD -MP -g -fopenmp
 SRC_DIR := src
 SRC_DIR_BONUS := src_bonus
 OBJ_DIR := obj
@@ -11,7 +11,7 @@ OBJ_DIR_BONUS := obj_bonus
 HSRCS := include
 HSRCS_BONUS := include_bonus
 
-#source file are decalred in the sources.mk file
+#source file are declared in the sources.mk file
 include sources.mk
 
 OBJ := $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
