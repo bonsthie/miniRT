@@ -3,6 +3,10 @@ src {
 		parsing_scene
 		parsing_obj
 	}
+	free {
+		free scene
+		free obj
+	}
 	scene {
 		scene printing
 		object selectio
