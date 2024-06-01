@@ -19,8 +19,19 @@ src {
 	}
 	driver {
 		rasterizer {
+			{
+				// the rasterizer take a struct that is initialise in the mlx loop each frame
+				struct img
+				{
+					int zbuffer[HEIGHT][WIDTH] // the order is important for the rasterizer
+					uint color[HEIGHT][WIDTH]
+					int obj_id[HEIGHT][WIDTH] // to now on wich obj i'm clicking
+				}
+				// may be the size is a little bit overkill we will see in the future
+				// the print is done at the end of the loop to avoid call overhead
+			}
 			triangle rasterizer // with zbuffering check and band check
-			rectangle rasterizer
+			rectangle rasterizer 
 			triangle mesh
 			rectangle mesh
 			background loader
@@ -37,3 +48,19 @@ src {
 		}
 	}
 }
+
+
+mlx loop 
+{
+	init struct img
+	fill the scene img with the struct
+	print the struct img
+}
+
+typedef struct s_scene
+{
+	t_object		*object;
+	t_light			*light;
+	t_camera		*cam;
+	t_mlx			*mlx;
+}					t_scene;
