@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:29:06 by babonnet          #+#    #+#             */
-/*   Updated: 2024/05/31 21:06:15 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/02 21:33:43 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,6 +222,7 @@ void rast_tri(t_tri triangle, t_mlx *mlx, unsigned int color, int zbuffer[HEIGHT
             unsigned int mask = ~(mask0 | mask1 | mask2);
 			/* if (mask == 0xffffffff) */
 			/* 	do_mask_full_sse(by, bx, mlx, triangle, zbuffer, color); */
+			printf("oio");
 			if (mask)
 				do_mask(mask, by, bx, mlx, triangle, zbuffer, color);
         }
