@@ -73,13 +73,13 @@ void	parse_obj(const char *name, const char *texture)
 	}
 	fill_obj(new_obj->fd, new_obj);
 	fill_obj_texture(&new_obj->texture, texture);
-	new_obj->new_scale = 80;
-	new_obj->new_rotation.pitch = 180;
-	new_obj->new_rotation.yaw = 0;
+	new_obj->new_scale = 100;
+	new_obj->new_rotation.pitch = 10;
+	new_obj->new_rotation.yaw = 30;
 	new_obj->new_rotation.roll = 0;
-	new_obj->new_offset.x = 1920.0f * 0.5f;
-	new_obj->new_offset.y = 1080.0f * 0.5f;
-	new_obj->new_offset.z = 100;
+	new_obj->new_offset.x = 1500;
+	new_obj->new_offset.y = 1500;
+	new_obj->new_offset.z = 1;
 	close(new_obj->fd);
 }
 
