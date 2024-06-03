@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:29:06 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/01 17:12:06 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/03 12:43:43 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,77 +108,6 @@ void do_mask(int mask, int by, int bx, t_mlx *mlx, t_tri triangle, int zbuffer[H
 		}
 	}
 }
-
-typedef int __attribute__((vector_size(16), aligned(16))) t__m128i32;
-
-void do_mask_sse(int mask, int by, int bx, t_mlx *mlx, t_tri triangle, int zbuffer[HEIGHT][WIDTH], int color)
-{
-	const __m128i mask_height = (__m128i)(t__m128i32){HEIGHT - 1, HEIGHT - 1, HEIGHT - 1, HEIGHT - 1};
-	const __m128i mask_width = (__m128i)(t__m128i32){WIDTH - 1, WIDTH - 1, WIDTH - 1, WIDTH - 1};
-	const __m128i mask_zeros = (__m128i)(t__m128i32){0, 0, 0, 0};
-
-    __m128i mask_x = _mm_setr_epi32(bx, bx + 1, bx + 2, bx + 3);
-    __m128i mask_z = _mm_set1_epi32(triangle.vertex1.position.z);
-
-    for (int y = by; y < by + 4; y++) {
-        if (y < 0 || y >= HEIGHT) continue;
-        __m128i mask_y = _mm_set1_epi32(y);
-
-        __m128i mask_in_bounds_x = _mm_and_si128(_mm_cmpgt_epi32(mask_width, mask_x), _mm_cmpgt_epi32(mask_x, mask_zeros));
-        __m128i mask_in_bounds_y = _mm_cmpgt_epi32(mask_y, mask_zeros);
-        mask_in_bounds_y = _mm_and_si128(mask_in_bounds_y, _mm_cmpgt_epi32(mask_height, mask_y));
-
-        __m128i z_values = _mm_loadu_si128((__m128i *)&zbuffer[y][bx]);
-        __m128i mask_z_check = _mm_cmpgt_epi32(mask_z, z_values);
-
-        __m128i mask_final = _mm_and_si128(mask_in_bounds_x, mask_in_bounds_y);
-        mask_final = _mm_and_si128(mask_final, mask_z_check);
-
-	 int results[4];
-        _mm_storeu_si128((__m128i*)results, mask_final);
-        for (int i = 0; i < 4; i++) {
-            if (results[i]) {
-                zbuffer[y][bx + i] = triangle.vertex1.position.z;
-                mlx_pixel_put(mlx->connection, mlx->window, bx + i, y, color);
-            }
-        }
-		(void)mask;
-    }
-}
-
-static inline void do_mask_full_sse(int by, int bx, t_mlx *mlx, t_tri triangle, int zbuffer[HEIGHT][WIDTH], int color) {
-	const __m128i mask_height = (__m128i)(t__m128i32){HEIGHT - 1, HEIGHT - 1, HEIGHT - 1, HEIGHT - 1};
-	const __m128i mask_width = (__m128i)(t__m128i32){WIDTH - 1, WIDTH - 1, WIDTH - 1, WIDTH - 1};
-	const __m128i mask_zeros = (__m128i)(t__m128i32){0, 0, 0, 0};
-
-    __m128i mask_x = _mm_setr_epi32(bx, bx + 1, bx + 2, bx + 3);
-    __m128i mask_z = _mm_set1_epi32(triangle.vertex1.position.z);
-
-    for (int y = by; y < by + 4; y++) {
-        if (y < 0 || y >= HEIGHT) continue;
-        __m128i mask_y = _mm_set1_epi32(y);
-
-        __m128i mask_in_bounds_x = _mm_and_si128(_mm_cmpgt_epi32(mask_width, mask_x), _mm_cmpgt_epi32(mask_x, mask_zeros));
-        __m128i mask_in_bounds_y = _mm_cmpgt_epi32(mask_y, mask_zeros);
-        mask_in_bounds_y = _mm_and_si128(mask_in_bounds_y, _mm_cmpgt_epi32(mask_height, mask_y));
-
-        __m128i z_values = _mm_loadu_si128((__m128i *)&zbuffer[y][bx]);
-        __m128i mask_z_check = _mm_cmpgt_epi32(mask_z, z_values);
-
-        __m128i mask_final = _mm_and_si128(mask_in_bounds_x, mask_in_bounds_y);
-        mask_final = _mm_and_si128(mask_final, mask_z_check);
-
-	 int results[4];
-        _mm_storeu_si128((__m128i*)results, mask_final);
-        for (int i = 0; i < 4; i++) {
-            if (results[i]) {
-                zbuffer[y][bx + i] = triangle.vertex1.position.z;
-                mlx_pixel_put(mlx->connection, mlx->window, bx + i, y, color);
-            }
-        }
-    }
-}
-
 
 
 void rast_tri(t_tri triangle, t_mlx *mlx, unsigned int color, int zbuffer[HEIGHT][WIDTH]) 
