@@ -6,27 +6,18 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:29:06 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/03 11:15:19 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/03 17:24:46 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <math.h>
+#include <strings.h>
 #include "mesh_obj.h"
 #include "miniRT.h"
 #include "mlx.h"
 #include "mlx_data.h"
 #include "print_int.h"
-
-t_tri mesh_to_triangle(t_mesh mesh, t_point point[3])
-{
-	t_tri triangle;
-
-	triangle.vertex1.position = mesh.vertex[point[0].vertex].vec3;
-	triangle.vertex2.position = mesh.vertex[point[1].vertex].vec3;
-	triangle.vertex3.position = mesh.vertex[point[2].vertex].vec3;
-	return (triangle);
-}
 
 #if defined(__AVX2__)
 #include <immintrin.h>
@@ -99,7 +90,8 @@ void do_mask(int mask, int by, int bx, t_mlx *mlx, t_tri triangle, int zbuffer[H
 		{
 			if (mask & 1)
 			{
-				if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT && triangle.vertex1.position.z < zbuffer[y][x]) {
+				if (triangle.vertex1.position.z < zbuffer[y][x])
+				{
 					zbuffer[y][x] = triangle.vertex1.position.z;
 					mlx_pixel_put(mlx->connection, mlx->window, x, y, color);
 				}
@@ -118,29 +110,26 @@ void rast_tri(t_tri triangle, t_mlx *mlx, unsigned int color, int zbuffer[HEIGHT
     int max_x = (int)fmax(triangle.vertex1.position.x, fmax(triangle.vertex2.position.x, triangle.vertex3.position.x));
     int max_y = (int)fmax(triangle.vertex1.position.y, fmax(triangle.vertex2.position.y, triangle.vertex3.position.y));
 
+	min_x = fmax(min_x, 0);
+	min_y = fmax(min_y, 0);
+	max_x = fmin(max_x, WIDTH - 1);
+	max_y = fmin(max_y, HEIGHT - 1);
+
     // Edge function coefficients
-    int A12 = triangle.vertex2.position.y - triangle.vertex1.position.y;
-    int B12 = triangle.vertex1.position.x - triangle.vertex2.position.x;
-    int A23 = triangle.vertex3.position.y - triangle.vertex2.position.y;
-    int B23 = triangle.vertex2.position.x - triangle.vertex3.position.x;
-    int A31 = triangle.vertex1.position.y - triangle.vertex3.position.y;
-    int B31 = triangle.vertex3.position.x - triangle.vertex1.position.x;
+    int dwdx2 = triangle.vertex2.position.y - triangle.vertex1.position.y;
+    int dwdy2 = triangle.vertex1.position.x - triangle.vertex2.position.x;
+    int dwdx0 = triangle.vertex3.position.y - triangle.vertex2.position.y;
+    int dwdy0 = triangle.vertex2.position.x - triangle.vertex3.position.x;
+    int dwdx1 = triangle.vertex1.position.y - triangle.vertex3.position.y;
+    int dwdy1 = triangle.vertex3.position.x - triangle.vertex1.position.x;
 
     // Loop over the bounding box in steps of 4
     for (int by = min_y; by <= max_y; by += 4) {
         for (int bx = min_x; bx <= max_x; bx += 4) {
             // Compute edge function values at the top-left corner of the block
-            int w0 = A23 * (bx - triangle.vertex2.position.x) + B23 * (by - triangle.vertex2.position.y);
-            int w1 = A31 * (bx - triangle.vertex3.position.x) + B31 * (by - triangle.vertex3.position.y);
-            int w2 = A12 * (bx - triangle.vertex1.position.x) + B12 * (by - triangle.vertex1.position.y);
-
-            // Compute edge function increments
-            int dwdx0 = A23;
-            int dwdy0 = B23;
-            int dwdx1 = A31;
-            int dwdy1 = B31;
-            int dwdx2 = A12;
-            int dwdy2 = B12;
+            int w0 = dwdx0 * (bx - triangle.vertex2.position.x) + dwdy0 * (by - triangle.vertex2.position.y);
+            int w1 = dwdx1 * (bx - triangle.vertex3.position.x) + dwdy1 * (by - triangle.vertex3.position.y);
+            int w2 = dwdx2 * (bx - triangle.vertex1.position.x) + dwdy2 * (by - triangle.vertex1.position.y);
 
             // Build masks
             unsigned int mask0 = build_mask_linear(w0, dwdx0, dwdy0);
@@ -149,8 +138,6 @@ void rast_tri(t_tri triangle, t_mlx *mlx, unsigned int color, int zbuffer[HEIGHT
 
             // Combine masks to find pixels inside the triangle
             unsigned int mask = ~(mask0 | mask1 | mask2);
-			/* if (mask == 0xffffffff) */
-			/* 	do_mask_full_sse(by, bx, mlx, triangle, zbuffer, color); */
 			if (mask)
 				do_mask(mask, by, bx, mlx, triangle, zbuffer, color);
         }

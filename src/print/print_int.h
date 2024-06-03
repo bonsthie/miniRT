@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 11:32:42 by babonnet          #+#    #+#             */
-/*   Updated: 2024/05/31 20:29:39 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/03 16:58:12 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,14 @@
 #include "mesh_obj.h"
 #include "miniRT.h"
 #include "mlx_data.h"
+
+struct lp_rast_plane {
+   int64_t c;
+   int32_t dcdx;
+   int32_t dcdy;
+   uint32_t eo;
+   uint32_t pad;
+};
 
 typedef struct s_line_parm
 {

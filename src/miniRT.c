@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 00:04:19 by babonnet          #+#    #+#             */
-/*   Updated: 2024/05/31 16:49:51 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/03 15:34:50 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	main(__attribute_maybe_unused__ int ac,
 
 	mlx = init_mlx_data();
 	parse_obj(av[1], 0);
-	parse_obj(av[2], 0);
 	object = get_scene()->object;
 	(void)object;
 	/* mlx->image = mlx_new_image(mlx->connection, WIDTH, HEIGHT); */

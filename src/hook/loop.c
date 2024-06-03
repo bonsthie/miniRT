@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 17:53:49 by babonnet          #+#    #+#             */
-/*   Updated: 2024/05/31 20:45:08 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/03 17:19:45 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@
 
 int loop(void *data)
 {
+	/* static int oui = 0; */
+	/* if (oui > 1) */
+	/* 	return (1); */
+	/* oui++; */
 	t_object *object;
 	t_mlx *mlx = data;
 	int zbuffer[HEIGHT][WIDTH];
