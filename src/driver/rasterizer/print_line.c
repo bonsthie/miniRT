@@ -6,13 +6,14 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 11:31:21 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/04 17:06:23 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/05 00:22:32 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include <stdlib.h>
 #include "_rasterizer.h"
+#include "../_rt_mlx.h"
 
 static inline void	update_position(t_line_param *x, t_line_param *y, int *err)
 {

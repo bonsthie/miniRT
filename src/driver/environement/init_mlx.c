@@ -6,11 +6,11 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:57:08 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/03 18:00:36 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/05 00:40:21 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "_rt_mlx.h"
+#include "../_rt_mlx.h"
 #include <mlx.h>
 #include <stdlib.h>
 

@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 15:56:38 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/03 21:16:23 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/05 00:44:14 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@
 
 void add_object(t_scene *scene, void *object, t_file_type file_type);
 t_object_mesh	*parse_obj(const char *name, const char *texture);
-void	print_obj(t_object_mesh *object, t_img *img);
+void	print_obj_to_image(t_object_mesh *object, t_img *img);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 21:32:24 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/04 17:03:19 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/05 00:43:59 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	print_face(t_face face, t_mesh mesh, t_img *img)
 		display_quad_rast(info, img, color);
 }
 
-void	print_obj(t_object_mesh *object, t_img *img)
+void	print_obj_to_image(t_object_mesh *object, t_img *img)
 {
 	long	seconds;
 	long	ns;

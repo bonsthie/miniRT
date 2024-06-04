@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:18:38 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/04 17:46:36 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/05 00:43:16 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,13 @@ union vec
 	t_vec3		vec3;
 };
 
+typedef void * t_image;
+
 /**
  * @struct s_img
  * @brief Structure to hold image data, including z-buffer, color data, and object IDs
  */
-typedef struct				s_img
-{
-	int				zbuffer[HEIGHT][WIDTH];    /**< Z-buffer array for depth information */
-	unsigned int	color[HEIGHT][WIDTH];      /**< Color buffer array */
-	int				obj_id[HEIGHT][WIDTH];     /**< Object ID buffer array */
-} t_img;
+typedef struct	s_img t_img;
 
 /**
  * @struct s_rt_render_info
@@ -124,5 +121,8 @@ void	display_quad_mesh(t_rt_render_info info[4], t_img *img, unsigned int color)
  * @param color		Color to use for the line
  */
 void	display_line(t_rt_render_info info[2], t_img *img, unsigned int color);
+
+
+void rt_print_img_screen(t_img *img, unsigned int x, unsigned int y);
 
 #endif /* MLX_DATA_H */

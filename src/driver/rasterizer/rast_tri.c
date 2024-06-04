@@ -6,16 +6,14 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:29:06 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/04 19:42:04 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/05 00:22:38 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
-#include <strings.h>
-#include <rt_mesh_obj.h>
-#include <miniRT.h>
 #include <rt_driver.h>
 #include "_rasterizer.h"
+#include "../_rt_mlx.h"
 
 #define FIXED_ORDER 11
 
