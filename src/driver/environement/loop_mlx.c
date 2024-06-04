@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 18:14:03 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/05 00:40:34 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/05 01:12:31 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ static int _loop(void *data)
 
 	mlx = data;
 	update_img(mlx->img);
-	mlx->scene_function(mlx->scene, mlx->img);
+	mlx->scene_function(mlx->scene, mlx->img, &mlx->screen);
 	return (0);
 }
 
-int rt_loop(t_scene *scene, int loop(t_scene *scene, t_img *img))
+int rt_loop(t_scene *scene, int loop(t_scene *scene, t_img *img, t_screen *screen))
 {
 	t_mlx mlx;
 
@@ -57,13 +57,14 @@ int rt_loop(t_scene *scene, int loop(t_scene *scene, t_img *img))
 		free(mlx.img);
 		return (1);
 	}
-	mlx.img->connection = mlx.connection;
-	mlx.img->window = mlx.window;
 	mlx.scene = scene;
 	mlx.scene_function = loop;
 	hook(&mlx);
-	mlx_loop_hook(mlx.connection, _loop, &mlx);
-	mlx_loop(mlx.connection);
+	mlx_loop_hook(mlx.screen.connection, _loop, &mlx);
+	mlx_loop(mlx.screen.connection);
+	free(mlx.img);
+	mlx_clear_window(mlx.screen.connection, mlx.screen.window);
+	mlx_destroy_display(mlx.screen.connection);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:18:38 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/05 00:43:16 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/05 01:10:46 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 #  define HEIGHT 1080
 # endif
 
-struct s_scene;
 typedef struct s_scene t_scene;
+typedef struct s_screen t_screen;
 
 // Aligned vector types for optimal hardware utilization by use of AVX.
 typedef float	__attribute__((aligned(16), vector_size(16))) t_v4f;
@@ -75,7 +75,7 @@ typedef struct s_rt_render_info
  *
  * @return (int)	Status of the loop execution
  */
-int rt_loop(t_scene *scene, int loop(t_scene *scene, t_img *img));
+int rt_loop(t_scene *scene, int loop(t_scene *scene, t_img *img, t_screen *screen));
 
 /**
  * @brief Rasterize and display a triangle on the image
@@ -123,6 +123,6 @@ void	display_quad_mesh(t_rt_render_info info[4], t_img *img, unsigned int color)
 void	display_line(t_rt_render_info info[2], t_img *img, unsigned int color);
 
 
-void rt_print_img_screen(t_img *img, unsigned int x, unsigned int y);
+void rt_print_img_screen(t_img *img, t_screen *screen, unsigned int x, unsigned int y);
 
 #endif /* MLX_DATA_H */
