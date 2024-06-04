@@ -1,36 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix4by4.c                                       :+:      :+:    :+:   */
+/*   rt_math.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/05 20:31:44 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/04 17:06:51 by babonnet         ###   ########.fr       */
+/*   Created: 2024/03/22 22:09:47 by babonnet          #+#    #+#             */
+/*   Updated: 2024/06/04 17:04:31 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef MATHS_H
+# define MATHS_H
+
 #include <rt_driver.h>
 
-void	matrix_multiplication4x4(t_v4f result[4], t_v4f a[4], t_v4f b[4])
+typedef struct s_position_matrix
 {
-	int		i;
-	int		j;
-	t_v4f	temp;
-	t_v4f	replicated;
+	t_v4f	*pitch;
+	t_v4f	*yaw;
+	t_v4f	*scale;
+}			t_position_matrix;
 
-	i = 0;
-	while (i < 4)
-	{
-		temp = (t_v4f){0, 0, 0, 0};
-		j = 0;
-		while (j < 4)
-		{
-			replicated = (t_v4f){a[i][j], a[i][j], a[i][j], a[i][j]};
-			temp += replicated * b[j];
-			j++;
-		}
-		result[i] = temp;
-		i++;
-	}
-}
+typedef struct s_rotation_metrics
+{
+	double	cos_pitch;
+	double	sin_pitch;
+	double	cos_yaw;
+	double	sin_yaw;
+}			t_rotation_metrics;
+
+void		matrix_multiplication4x4(t_v4f result[4], t_v4f a[4],
+				t_v4f b[4]);
+void		matrix_multiplication1x4(t_v4f *matrix, t_v4f vector,
+				t_v4f *result);
+
+#endif

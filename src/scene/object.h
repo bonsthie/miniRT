@@ -1,36 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix4by4.c                                       :+:      :+:    :+:   */
+/*   object.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/05 20:31:44 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/04 17:06:51 by babonnet         ###   ########.fr       */
+/*   Created: 2024/03/19 15:56:38 by babonnet          #+#    #+#             */
+/*   Updated: 2024/06/03 21:16:23 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <rt_driver.h>
+#ifndef OBJECT_H
+#define OBJECT_H
 
-void	matrix_multiplication4x4(t_v4f result[4], t_v4f a[4], t_v4f b[4])
-{
-	int		i;
-	int		j;
-	t_v4f	temp;
-	t_v4f	replicated;
+#include "rt_driver.h"
+#include <miniRT.h>
+#include <rt_scene_elements.h>
 
-	i = 0;
-	while (i < 4)
-	{
-		temp = (t_v4f){0, 0, 0, 0};
-		j = 0;
-		while (j < 4)
-		{
-			replicated = (t_v4f){a[i][j], a[i][j], a[i][j], a[i][j]};
-			temp += replicated * b[j];
-			j++;
-		}
-		result[i] = temp;
-		i++;
-	}
-}
+void add_object(t_scene *scene, void *object, t_file_type file_type);
+t_object_mesh	*parse_obj(const char *name, const char *texture);
+void	print_obj(t_object_mesh *object, t_img *img);
+
+#endif

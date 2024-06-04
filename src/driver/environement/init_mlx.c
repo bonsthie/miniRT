@@ -1,36 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix4by4.c                                       :+:      :+:    :+:   */
+/*   init_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/05 20:31:44 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/04 17:06:51 by babonnet         ###   ########.fr       */
+/*   Created: 2024/06/03 17:57:08 by babonnet          #+#    #+#             */
+/*   Updated: 2024/06/03 18:00:36 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <rt_driver.h>
+#include "_rt_mlx.h"
+#include <mlx.h>
+#include <stdlib.h>
 
-void	matrix_multiplication4x4(t_v4f result[4], t_v4f a[4], t_v4f b[4])
+int init_mlx_data(t_mlx *mlx)
 {
-	int		i;
-	int		j;
-	t_v4f	temp;
-	t_v4f	replicated;
-
-	i = 0;
-	while (i < 4)
+	mlx->connection = mlx_init();
+	if (!mlx->connection)
+		return (1);
+	mlx->window = mlx_new_window(mlx->connection, WIDTH, HEIGHT, "miniRT");
+	if (!mlx->window)
 	{
-		temp = (t_v4f){0, 0, 0, 0};
-		j = 0;
-		while (j < 4)
-		{
-			replicated = (t_v4f){a[i][j], a[i][j], a[i][j], a[i][j]};
-			temp += replicated * b[j];
-			j++;
-		}
-		result[i] = temp;
-		i++;
+		free(mlx->connection);
+		return (1);
 	}
+	return (0);
 }

@@ -1,36 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix4by4.c                                       :+:      :+:    :+:   */
+/*   _rt_mlx.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/05 20:31:44 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/04 17:06:51 by babonnet         ###   ########.fr       */
+/*   Created: 2024/06/03 17:59:40 by babonnet          #+#    #+#             */
+/*   Updated: 2024/06/04 19:26:52 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef _RT_MLX_H
+#define _RT_MLX_H
+
 #include <rt_driver.h>
+#include <rt_scene_elements.h>
 
-void	matrix_multiplication4x4(t_v4f result[4], t_v4f a[4], t_v4f b[4])
+typedef int (*scene_func)(t_scene *scene, t_img *img);
+
+typedef struct s_mlx
 {
-	int		i;
-	int		j;
-	t_v4f	temp;
-	t_v4f	replicated;
+	void				*connection;
+	void				*window;
+	void				*image;
+	int					mouse_x;
+	int					mouse_y;
 
-	i = 0;
-	while (i < 4)
-	{
-		temp = (t_v4f){0, 0, 0, 0};
-		j = 0;
-		while (j < 4)
-		{
-			replicated = (t_v4f){a[i][j], a[i][j], a[i][j], a[i][j]};
-			temp += replicated * b[j];
-			j++;
-		}
-		result[i] = temp;
-		i++;
-	}
-}
+	t_scene				*scene;
+	t_img				*img;
+	scene_func			scene_function;
+}						t_mlx;
+
+int init_mlx_data(t_mlx *mlx);
+void free_mlx_data(void);
+void	hook(t_mlx *mlx);
+
+#endif

@@ -5,35 +5,38 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/12 00:04:19 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/03 15:34:50 by babonnet         ###   ########.fr       */
+/*   Created: 2024/06/03 18:58:46 by babonnet          #+#    #+#             */
+/*   Updated: 2024/06/04 13:33:48 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "hook.h"
-#include "mesh_obj.h"
-#include "mlx.h"
-#include "mlx_data.h"
-#include "parsing_file.h"
-#include "print.h"
-#include "scene_elements.h"
+#include <rt_driver.h>
+#include <miniRT.h>
+#include <stdio.h>
 
-int	main(__attribute_maybe_unused__ int ac,
-		__attribute_maybe_unused__ char **av)
+#include "scene/object.h"
+#include "rt_mesh_obj.h"
+#include "rt_scene_elements.h"
+
+int loop(t_scene *scene, t_img *img)
 {
-	t_mlx	*mlx;
-	t_object *object;
+	(void)scene;
+	t_object_mesh *obj = scene->object->object;
 
-	mlx = init_mlx_data();
-	parse_obj(av[1], 0);
-	object = get_scene()->object;
-	(void)object;
-	/* mlx->image = mlx_new_image(mlx->connection, WIDTH, HEIGHT); */
-	/* update_size_obj(object->object); */
-	/* print_obj(object->object, mlx); */
-	hook(mlx);
-	mlx_loop_hook(mlx->connection, loop, mlx);
-	mlx_loop(mlx->connection);
-	mlx_destroy_window(mlx->connection, mlx->window);
-	mlx_destroy_display(mlx->connection);
+	print_obj(obj, img);
+
+	obj->new_rotation.yaw = 1;
+	update_size_obj(obj);
+	return (0);
+}
+
+int main(int ac, char **av)
+{
+	t_scene scene;
+	
+	scene.object = NULL;
+	add_object(&scene, parse_obj(av[1], NULL), OBJECT_OBJ);
+	(void)av;
+	(void)ac;
+	rt_loop(&scene, loop);
 }
