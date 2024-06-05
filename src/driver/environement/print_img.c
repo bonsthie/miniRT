@@ -7,10 +7,11 @@ void rt_print_img_screen(t_img *img, t_screen *screen, unsigned int x, unsigned 
 	int x_tmp;
 
 	x_tmp = x;
-	while (y < HEIGHT)
+	y += RT_UI_TOP_BAR;
+	while (y < RT_HEIGHT)
 	{
 		x = x_tmp;
-		while (x < WIDTH)
+		while (x < RT_WIDTH - RT_UI_SIDE_BAR)
 		{
 			mlx_pixel_put(screen->connection, screen->window, x, y, img->color[y][x]);
 			x++;

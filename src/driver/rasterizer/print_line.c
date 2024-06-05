@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 11:31:21 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/05 00:22:32 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/05 12:19:06 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	plot_line(t_vec3 v1, t_vec3 v2, t_img *img, unsigned int color)
 	{
 		v1.x = x.first_point;
 		v1.y = y.first_point;
-		if (x.first_point < WIDTH && y.first_point < HEIGHT
+		if (x.first_point < RT_WIDTH && y.first_point < RT_HEIGHT
 			&& x.first_point >= 0 && y.first_point >= 0)
 		{
 			img->color[y.first_point][x.first_point] = color;

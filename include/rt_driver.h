@@ -6,23 +6,45 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:18:38 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/05 01:10:46 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/05 12:34:00 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MLX_DATA_H
-# define MLX_DATA_H
+#ifndef RT_DRIVER_H
+# define RT_DRIVER_H
 
-# ifndef WIDTH
-#  define WIDTH 1920
+# ifndef RT_WIDTH
+#  define RT_WIDTH 1920
 # endif
 
-# ifndef HEIGHT
-#  define HEIGHT 1080
+# ifndef RT_HEIGHT
+#  define RT_HEIGHT 1080
 # endif
+
+# ifndef RT_UI_TOP_BAR
+#  define RT_UI_TOP_BAR 40
+# endif
+
+# ifndef RT_UI_SIDE_BAR
+#  define RT_UI_SIDE_BAR 300
+# endif
+
+# ifndef RT_BACKGROUND_COLOR
+#  define RT_BACKGROUND_COLOR 0xFF3F3F3F
+# endif
+
+# ifndef RT_UI_TOP_BAR_COLOR
+#  define RT_UI_TOP_BAR_COLOR 0xFF181818
+# endif
+
+# ifndef RT_UI_SIDE_BAR_COLOR
+#  define RT_UI_SIDE_BAR_COLOR 0xFF303030
+# endif
+
 
 typedef struct s_scene t_scene;
 typedef struct s_screen t_screen;
+typedef struct s_rt t_rt;
 
 // Aligned vector types for optimal hardware utilization by use of AVX.
 typedef float	__attribute__((aligned(16), vector_size(16))) t_v4f;
@@ -68,14 +90,36 @@ typedef struct s_rt_render_info
 } t_rt_render_info;
 
 /**
+ * @brief Initialize ray tracing structure
+ *
+ * @return (t_rt*) Pointer to the initialized ray tracing structure
+ */
+t_rt	*rt_init(void);
+
+/**
+ * @brief Destroy ray tracing structure
+ *
+ * @param rt Pointer to the ray tracing structure to be destroyed
+ */
+void rt_destroy(t_rt *rt);
+
+/**
+ * @brief Print the UI screen
+ *
+ * @param screen Pointer to the screen structure
+ */
+void rt_print_ui_screen(t_screen *screen);
+
+/**
  * @brief Main loop function for ray tracing
  *
  * @param scene		Scene to be rendered
+ * @param rt		Ray tracing structure
  * @param loop		Function to be executed in each loop iteration
  *
  * @return (int)	Status of the loop execution
  */
-int rt_loop(t_scene *scene, int loop(t_scene *scene, t_img *img, t_screen *screen));
+int rt_loop(t_scene *scene, t_rt *rt, int loop(t_scene *scene, t_img *img, t_screen *screen));
 
 /**
  * @brief Rasterize and display a triangle on the image
@@ -122,7 +166,14 @@ void	display_quad_mesh(t_rt_render_info info[4], t_img *img, unsigned int color)
  */
 void	display_line(t_rt_render_info info[2], t_img *img, unsigned int color);
 
-
+/**
+ * @brief Print the image on the screen
+ *
+ * @param img	Image structure to be printed
+ * @param screen Screen structure where the image will be printed
+ * @param x		X coordinate on the screen
+ * @param y		Y coordinate on the screen
+ */
 void rt_print_img_screen(t_img *img, t_screen *screen, unsigned int x, unsigned int y);
 
-#endif /* MLX_DATA_H */
+#endif /* RT_DRIVER_H */

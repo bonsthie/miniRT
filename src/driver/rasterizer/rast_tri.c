@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:29:06 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/05 00:22:38 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/05 12:19:36 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "_rasterizer.h"
 #include "../_rt_mlx.h"
 
-#define FIXED_ORDER 11
+#define FIXED_ORDER 8
 
 #if defined(__AVX2__)
 #include <immintrin.h>
@@ -86,7 +86,7 @@ void do_mask(int mask, int by, int bx, t_tri triangle, t_img *img, unsigned int 
 		{
 			if (mask & 1)
 			{
-				if (y > 0 && x > 0 && x <= WIDTH && y <= HEIGHT && triangle.vertex1.position.z <= img->zbuffer[y][x])
+				if (y > 0 && x > 0 && x <= RT_WIDTH && y <= RT_HEIGHT && triangle.vertex1.position.z <= img->zbuffer[y][x])
 				{
 					img->zbuffer[y][x] = triangle.vertex1.position.z;
 					img->color[y][x] = color;
@@ -108,8 +108,8 @@ void rast_tri(t_tri triangle, t_img *img, unsigned int color)
 
 	min_x = fmax(min_x, 0);
 	min_y = fmax(min_y, 0);
-	max_x = fmin(max_x, WIDTH - 1);
-	max_y = fmin(max_y, HEIGHT - 1);
+	max_x = fmin(max_x, RT_WIDTH - 1);
+	max_y = fmin(max_y, RT_HEIGHT - 1);
 
     // Edge function coefficients
     int dwdx2 = (triangle.vertex2.position.y - triangle.vertex1.position.y) * (1 << FIXED_ORDER);

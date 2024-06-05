@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hook_window.c                                      :+:      :+:    :+:   */
+/*   rt_destroy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/22 15:09:22 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/05 11:39:20 by babonnet         ###   ########.fr       */
+/*   Created: 2024/06/05 11:37:27 by babonnet          #+#    #+#             */
+/*   Updated: 2024/06/05 11:38:15 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx.h"
-#include <stdlib.h>
+#include "../_rt_mlx.h"
+#include <mlx.h>
 
-int	window_hook(int event, void *param)
+void rt_destroy(t_rt *rt)
 {
-	if (event == 0)
-		mlx_loop_end(param);
-	return (0);
+	mlx_clear_window(rt->mlx, rt->win);
+	mlx_destroy_display(rt->mlx);
 }

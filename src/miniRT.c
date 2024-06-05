@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 18:58:46 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/05 01:11:20 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/05 11:38:37 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,15 @@ int loop(t_scene *scene, t_img *img, t_screen *screen)
 int main(int ac, char **av)
 {
 	t_scene scene;
-	
+	t_rt	*rt;
+
+	rt = rt_init();
+	if (!rt)
+		return (1);
 	scene.object = NULL;
 	add_object(&scene, parse_obj(av[1], NULL), OBJECT_OBJ);
 	(void)av;
 	(void)ac;
-	rt_loop(&scene, loop);
+	rt_loop(&scene, rt, loop);
+	rt_destroy(rt);
 }
