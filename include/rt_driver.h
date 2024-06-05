@@ -6,12 +6,21 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:18:38 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/05 12:34:00 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/05 17:10:23 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file rt_driver.h
+ * @brief A driver to give the MacroLibX more options than put pixel.
+ */
+
 #ifndef RT_DRIVER_H
 # define RT_DRIVER_H
+
+# ifndef RT_WIN_NAME
+#  define RT_WIN_NAME "miniRT"
+# endif
 
 # ifndef RT_WIDTH
 #  define RT_WIDTH 1920
@@ -41,10 +50,8 @@
 #  define RT_UI_SIDE_BAR_COLOR 0xFF303030
 # endif
 
-
 typedef struct s_scene t_scene;
 typedef struct s_screen t_screen;
-typedef struct s_rt t_rt;
 
 // Aligned vector types for optimal hardware utilization by use of AVX.
 typedef float	__attribute__((aligned(16), vector_size(16))) t_v4f;
@@ -85,23 +92,23 @@ typedef struct	s_img t_img;
  */
 typedef struct s_rt_render_info
 {
-	t_vec3	vector; /**< Vector information for rendering */
-	t_vec3	normal; /**< Normal vector information for rendering */
+	t_vec3	vector;
+	t_vec3	normal;
 } t_rt_render_info;
 
 /**
  * @brief Initialize ray tracing structure
  *
- * @return (t_rt*) Pointer to the initialized ray tracing structure
+ * @return (t_screen*) Pointer to the initialized screen structure
  */
-t_rt	*rt_init(void);
+t_screen	*rt_init(void);
 
 /**
  * @brief Destroy ray tracing structure
  *
- * @param rt Pointer to the ray tracing structure to be destroyed
+ * @param screen Pointer to the screen structure to be destroyed
  */
-void rt_destroy(t_rt *rt);
+void rt_destroy(t_screen *screen);
 
 /**
  * @brief Print the UI screen
@@ -119,7 +126,11 @@ void rt_print_ui_screen(t_screen *screen);
  *
  * @return (int)	Status of the loop execution
  */
-int rt_loop(t_scene *scene, t_rt *rt, int loop(t_scene *scene, t_img *img, t_screen *screen));
+int rt_loop(t_scene *scene, t_screen *screen, int loop(t_scene *scene, t_img *img, t_screen *screen));
+
+/**
+ * DISPLAY ACTION
+ */
 
 /**
  * @brief Rasterize and display a triangle on the image
@@ -175,5 +186,26 @@ void	display_line(t_rt_render_info info[2], t_img *img, unsigned int color);
  * @param y		Y coordinate on the screen
  */
 void rt_print_img_screen(t_img *img, t_screen *screen, unsigned int x, unsigned int y);
+
+
+/**
+ * BUTTON ACTION
+ */
+
+void rt_add_text_button_top(t_screen *screen, char *text, void *data, void f(void *));
+/* void rt_add_icon_png_top(t_screen *screen, void *icon, char *id); */
+/* void rt_add_text_button_side(t_screen *screen, char *text, char *id); */
+/* void rt_add_icon_png_side(t_screen *screen, void *icon, char *id); */
+/* void rt_add_separator_side(t_screen *screen, char *text, char *id); */
+/*  */
+/* void rt_add_after_text_button_top(t_screen *screen, char *text, char *id, char *after_id); */
+/* void rt_add_after_icon_png_top(t_screen *screen, void *icon, char *id, char *after_id); */
+/* void rt_add_after_text_button_side(t_screen *screen, char *text, char *id, char *after_id); */
+/* void rt_add_after_icon_png_side(t_screen *screen, void *icon, char *id, char *after_id); */
+/* void rt_add_after_text_button_side(t_screen *screen, char *text, char *id, char *after_id); */
+/* void rt_add_after_separator_button_top(t_screen *screen, char *id, char *after_id); */
+
+void rt_print_button(t_screen *screen);
+/* void rt_remove_button(t_screen *screen, char *id); */
 
 #endif /* RT_DRIVER_H */

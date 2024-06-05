@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 21:32:24 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/05 10:28:46 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/05 17:12:45 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,5 @@ void	print_obj_to_image(t_object_mesh *object, t_img *img)
 	ns = end.tv_nsec - start.tv_nsec;
 	elapsed = seconds + ns * 1e-9;
 	(void)elapsed;
-	printf("time = %f\n", elapsed);
+	/* printf("time = %f\n", elapsed); */
 }

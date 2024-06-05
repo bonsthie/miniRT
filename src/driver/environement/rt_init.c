@@ -1,26 +1,31 @@
 #include "../_rt_mlx.h"
-#include "mlx.h"
-#include "rt_driver.h"
+#include <mlx.h>
+#include <rt_driver.h>
+#include <libft.h>
 
-t_rt	*rt_init(void)
+t_screen	*rt_init(void)
 {
-	t_rt	*rt;
+	t_screen	*screen;
 
-	rt = malloc(sizeof(t_rt));
-	if (!rt)
+	screen = malloc(sizeof(t_screen));
+	if (!screen)
 		return (NULL);
-	rt->mlx = mlx_init();
-	if (!rt->mlx)
+	screen->mlx = mlx_init();
+	if (!screen->mlx)
 	{
-		free(rt);
+		free(screen);
 		return (NULL);
 	}
-	rt->win = mlx_new_window(rt->mlx, RT_WIDTH, RT_HEIGHT, RT_WIN_NAME);
-	if (!rt->win)
+	screen->win = mlx_new_window(screen->mlx, RT_WIDTH, RT_HEIGHT, RT_WIN_NAME);
+	if (!screen->win)
 	{
-		free(rt);
-		mlx_destroy_display(rt->mlx);
+		free(screen);
+		mlx_destroy_display(screen->mlx);
 		return (NULL);
 	}
-	return (rt);
+	screen->button_top = NULL;
+	screen->button_side = NULL;
+	screen->mouse_x = INT_MIN;
+	screen->mouse_y = INT_MIN;
+	return (screen);
 }

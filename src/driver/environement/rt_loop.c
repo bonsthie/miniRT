@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   loop_mlx.c                                         :+:      :+:    :+:   */
+/*   rt_loop.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 18:14:03 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/05 12:19:06 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/05 17:11:30 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 
 #include <libft.h>
 #include <rt_scene_elements.h>
-#include <stdio.h>
 
 static void update_img(t_img *img)
 {
@@ -43,11 +42,11 @@ static int _loop(void *data)
 
 	mlx = data;
 	update_img(mlx->img);
-	mlx->scene_function(mlx->scene, mlx->img, &mlx->screen);
+	mlx->scene_function(mlx->scene, mlx->img, mlx->screen);
 	return (0);
 }
 
-int rt_loop(t_scene *scene, t_rt *rt, int loop(t_scene *scene, t_img *img, t_screen *screen))
+int rt_loop(t_scene *scene, t_screen *screen, int loop(t_scene *scene, t_img *img, t_screen *screen))
 {
 	t_mlx mlx;
 
@@ -56,12 +55,12 @@ int rt_loop(t_scene *scene, t_rt *rt, int loop(t_scene *scene, t_img *img, t_scr
 		return (1);
 	mlx.scene = scene;
 	mlx.scene_function = loop;
-	mlx.screen.connection = rt->mlx;
-	mlx.screen.window = rt->win;
+	mlx.screen = screen;
 	hook(&mlx);
-	rt_print_ui_screen(&mlx.screen);
-	mlx_loop_hook(rt->mlx, _loop, &mlx);
-	mlx_loop(rt->mlx);
+	rt_print_ui_screen(mlx.screen);
+	rt_print_button(screen);
+	mlx_loop_hook(screen->mlx, _loop, &mlx);
+	mlx_loop(screen->mlx);
 	free(mlx.img);
 	return (0);
 }
