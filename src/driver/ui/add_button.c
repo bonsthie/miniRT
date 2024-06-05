@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 15:23:44 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/05 16:42:00 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/05 19:24:52 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void rt_add_text_button_top(t_screen *screen, char *text, void *data, void f(voi
 	new_button->func = f;
 	new_button->name = ft_strdup(text);
 	new_button->next = NULL;
+	new_button->action = SLEEP;
 	button_top = screen->button_top;
 	if (!button_top)
 	{

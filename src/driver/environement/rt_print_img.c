@@ -18,5 +18,4 @@ void rt_print_img_screen(t_img *img, t_screen *screen, unsigned int x, unsigned 
 		}
 		y++;
 	}
-
 }

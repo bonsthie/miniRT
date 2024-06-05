@@ -6,13 +6,14 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 18:58:46 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/05 17:11:51 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/05 20:55:29 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rt_driver.h>
 #include <rt_mesh_obj.h>
 #include <rt_scene_elements.h>
+#include <stdio.h>
 
 #include "scene/object.h"
 
@@ -29,6 +30,7 @@ int loop(t_scene *scene, t_img *img, t_screen *screen)
 void non(void *non)
 {
 	(void)non;
+	printf("click on button omg\n");
 }
 
 int main(int ac, char **av)
@@ -43,6 +45,7 @@ int main(int ac, char **av)
 	rt_add_text_button_top(screen, "comment", NULL, non);
 	rt_add_text_button_top(screen, "ca", NULL, non);
 	rt_add_text_button_top(screen, "va", NULL, non);
+	rt_add_text_button_top(screen, "windows", NULL, non);
 	scene.object = NULL;
 	add_object(&scene, parse_obj(av[1], NULL), OBJECT_OBJ);
 	(void)av;

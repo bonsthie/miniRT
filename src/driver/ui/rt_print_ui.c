@@ -44,4 +44,5 @@ void rt_print_ui_screen(t_screen *screen)
 {
 	print_top_ui_background(screen);
 	print_side_ui_background(screen);
+	rt_print_button(screen);
 }

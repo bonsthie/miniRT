@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:59:40 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/05 16:48:28 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/05 18:38:31 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,10 @@
 
 # include <rt_driver.h>
 # include <rt_scene_elements.h>
+# include "_rt_button.h"
 
 typedef int				(*t_scene_func)(t_scene *scene, t_img *img,
 					t_screen *screen);
-typedef void (t_button_func)(void *data);
-
-enum e_button_type
-{
-	IMG,
-	TXT,
-	SEPARATOR,
-};
-
-#define TXT_BUTTON_SIDE 40
-
-typedef struct s_button
-{
-	enum e_button_type	type;
-	char				*name;
-	void				*data;
-	t_button_func		*func;
-	struct s_button		*next;
-}						t_button;
 
 typedef struct s_screen
 {
