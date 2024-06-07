@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_destroy.c                                       :+:      :+:    :+:   */
+/*   hook_key_up.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/05 11:37:27 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/07 22:09:20 by babonnet         ###   ########.fr       */
+/*   Created: 2024/06/07 21:22:31 by babonnet          #+#    #+#             */
+/*   Updated: 2024/06/07 22:15:19 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../_rt_mlx.h"
 #include <mlx.h>
+#include <signal.h>
+#include <stdio.h>
+#include "../_hook.h"
 
-void rt_destroy(t_screen *screen)
+
+int keyup_hook(int key, void *data)
 {
-	t_button *tmp;
+	t_screen *screen;
 
-	mlx_clear_window(screen->mlx, screen->win);
-	/* mlx_destroy_display(screen->mlx); */
-	while (screen->button_top)
+	screen = data;
+	if (key == A_KEY)
 	{
-		tmp = screen->button_top->next;
-		free(screen->button_top);
-		screen->button_top = tmp;
+		kill(screen->error_pid, SIGUSR1);
 	}
-	while (screen->button_side)
-	{
-		tmp = screen->button_side->next;
-		free(screen->button_side);
-		screen->button_side = tmp;
-	}
-	free(screen);
+	return (0);
 }

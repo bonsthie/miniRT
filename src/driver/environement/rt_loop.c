@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 18:14:03 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/05 21:20:15 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/06 14:27:54 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void uptade_top_bar_status(t_button *button, int mouse_x)
 	count = 0;
 	while(button)
 	{
-		offset = count + ft_strlen(button->name) * 12 + RT_BUTTON_SIDE_PADDING + 2;
+		offset = count + ft_strlen(button->name) * 11 + RT_BUTTON_SIDE_PADDING + 2;
 		
 		if (mouse_x > count && mouse_x <= offset && button->action != CLICK)
 			button->action = HOWEVER;
@@ -54,14 +54,34 @@ void uptade_top_bar_status(t_button *button, int mouse_x)
 	}
 }
 
+
+int has_a_button_click(t_screen *screen)
+{
+	t_button *button;
+
+	button = screen->button_top;
+	while(button)
+	{
+		
+		if (button->action == CLICK)
+		{
+			button->action = SLEEP;
+			return (1);
+		}
+		button = button->next;
+	}
+	return (0);
+}
+
 void rt_update_ui(t_screen *screen)
 {
 	reset_however_button(screen);
-	if (screen->mouse_y <= RT_UI_TOP_BAR)
+	if (screen->mouse_y <= RT_UI_TOP_BAR + 30)
 	{
-		uptade_top_bar_status(screen->button_top, screen->mouse_x);
+		if (screen->mouse_y <= RT_UI_TOP_BAR)
+			uptade_top_bar_status(screen->button_top, screen->mouse_x);
+		rt_print_ui_screen(screen);
 	}
-	rt_print_ui_screen(screen);
 }
 
 static int _loop(void *data)

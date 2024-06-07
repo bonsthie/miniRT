@@ -1,14 +1,14 @@
 #include "../_hook.h"
 #include "rt_driver.h"
 
-void however_to_click(t_button *button)
+void however_to_click(t_screen *screen, t_button *button)
 {
 	while (button)
 	{
 		if (button->action == HOWEVER)
 		{
-			button->func(button->data);
 			button->action = CLICK;
+			rt_print_button(screen);
 			return ;
 		}
 		button = button->next;
@@ -18,8 +18,8 @@ void however_to_click(t_button *button)
 void mousedown_hook_top_bar(int key, t_screen *screen)
 {
 	if (key == MOUSE_LEFT)
-		however_to_click(screen->button_top);
-	rt_print_button(screen);
+		however_to_click(screen, screen->button_top);
+	/* rt_print_button(screen); */
 
 }
 

@@ -8,7 +8,8 @@ void click_to_however(t_button *button)
 	{
 		if (button->action == CLICK)
 		{
-			button->action = HOWEVER;
+			button->func(button->data);
+			button->action = SLEEP;
 			return ;
 		}
 		button = button->next;
@@ -17,8 +18,13 @@ void click_to_however(t_button *button)
 
 void mouseup_hook_top_bar(int key, t_screen *screen)
 {
+	(void)key;
+	(void)screen;
 	if (key == MOUSE_LEFT)
+	{
 		click_to_however(screen->button_top);
+		rt_print_button(screen);
+	}
 
 }
 

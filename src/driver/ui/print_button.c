@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 15:38:57 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/05 21:10:33 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/05 21:21:24 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,12 @@ void	rt_print_button(t_screen *screen)
 			color = RT_BUTTON_COLOR_HOWEVER;
 		else if (button_top->action == CLICK)
 		{
-			printf("oui\n");
 			color = RT_BUTTON_COLOR_CLICK;
 		}
 		else
 			color = RT_BUTTON_COLOR;
 		if (button_top->type == TXT)
 		{
-			 if (button_top->action == CLICK)
-				printf("non\n");
 			print_button_top_txt(screen, button_top, &pixel_padding, color);
 		}
 		button_top = button_top->next;

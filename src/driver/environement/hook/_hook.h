@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 15:10:56 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/05 20:59:40 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/07 21:26:06 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 int	window_hook(int event, void *param);
 int mousedown_hook(int key, void *data);
 int mouseup_hook(int key, void *data);
+int keyup_hook(int key, void *data);
 
 enum e_keycode
 {

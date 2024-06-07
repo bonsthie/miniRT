@@ -1,35 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_destroy.c                                       :+:      :+:    :+:   */
+/*   rt_new_window.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/05 11:37:27 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/07 22:09:20 by babonnet         ###   ########.fr       */
+/*   Created: 2024/06/07 15:22:18 by babonnet          #+#    #+#             */
+/*   Updated: 2024/06/07 15:35:30 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "mlx.h"
 #include "../_rt_mlx.h"
-#include <mlx.h>
 
-void rt_destroy(t_screen *screen)
+void *rt_new_window(t_screen *screen)
 {
-	t_button *tmp;
-
-	mlx_clear_window(screen->mlx, screen->win);
-	/* mlx_destroy_display(screen->mlx); */
-	while (screen->button_top)
-	{
-		tmp = screen->button_top->next;
-		free(screen->button_top);
-		screen->button_top = tmp;
-	}
-	while (screen->button_side)
-	{
-		tmp = screen->button_side->next;
-		free(screen->button_side);
-		screen->button_side = tmp;
-	}
-	free(screen);
+	return (mlx_new_window(screen->mlx, 100, 30, "test"));
 }

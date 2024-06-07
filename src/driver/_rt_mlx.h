@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:59:40 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/05 18:38:31 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/07 21:42:29 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ typedef struct s_screen
 
 	t_button			*button_top;
 	t_button			*button_side;
+
+	int					error_pid;
 }						t_screen;
 
 typedef struct s_img
