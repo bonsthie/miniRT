@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 21:32:24 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/07 13:23:34 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/08 17:50:32 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ void	print_face(t_face face, t_mesh mesh, t_img *img)
 	unsigned int green = (unsigned int)(168 * intensity);
 	unsigned int blue = (unsigned int)(53 * intensity);
 
-	// Combine into a single ARGB value
 	unsigned int color = 0xFF000000 | (red << 16) | (green << 8) | blue;
 
 	info[0].vector = mesh.vertex[face.point[0].vertex].vec3;
@@ -104,9 +103,8 @@ void	print_obj_to_image(t_object_mesh *object, t_img *img)
 	double	elapsed;
 
 	struct timespec start, end;
-	/* printf("start"); */
 	clock_gettime(CLOCK_MONOTONIC, &start);
-	//#pragma omp parallel for
+	#pragma omp parallel for
 	for (size_t i = 0 ;i < object->mesh.size_mesh.face; i++)
 	{
 		print_face(object->mesh.face[i], object->mesh, img);

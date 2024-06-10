@@ -1,6 +1,7 @@
 #include "libft.h"
 #include <rt_mesh_obj.h>
 #include "obj_intern.h"
+#include "rt_driver.h"
 #include <fcntl.h>
 #include <stdio.h>
 
@@ -62,8 +63,7 @@ t_object_mesh	*parse_obj(const char *name, const char *texture)
 
 	new_obj = ft_calloc(1, sizeof(t_object_mesh));
 	if (!new_obj)
-		exit_message(1,
-			"Error : [malloc fild in the creation of a new object]\n");
+		exit_message(1, "Error : [malloc fild in the creation of a new object]\n");
 	new_obj->fd = open(name, O_RDONLY);
 	if (new_obj->fd < 0)
 	{

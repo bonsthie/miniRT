@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 18:58:46 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/07 21:19:45 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/08 18:46:44 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <pthread.h>
+
+t_screen	*screen;
 
 int	loop(t_scene *scene, t_img *img, t_screen *screen)
 {
@@ -33,6 +35,14 @@ int	loop(t_scene *scene, t_img *img, t_screen *screen)
 	return (0);
 }
 
+int is_valid_format(char *file)
+{
+	size_t size_file;
+
+	size_file = ft_strlen(file);
+	return (!ft_strncmp((file + size_file - 4), ".obj", 4));
+}
+
 void	open_file_dialog(void *data)
 {
 	t_scene	*scene;
@@ -43,7 +53,7 @@ void	open_file_dialog(void *data)
 	fp = popen("zenity --file-selection --title=\"Select a file\"", "r");
 	if (fp == NULL)
 	{
-		ft_printf("Failed to run zenity command\n");
+		rt_error_window(screen, "Failed to run zenity command\n");
 		return ;
 	}
 	if (fgets(filename, sizeof(filename), fp) != NULL)
@@ -53,11 +63,14 @@ void	open_file_dialog(void *data)
 	}
 	else
 	{
-		ft_printf("No file selected.\n");
+		rt_error_window(screen, "No file selected.\n");
 		return ;
 	}
 	pclose(fp);
-	add_object(scene, parse_obj(filename, NULL), OBJECT_OBJ);
+	if (!is_valid_format(filename))
+		rt_error_window(screen, "file Format not supported\n");
+	else
+		add_object(scene, parse_obj(filename, NULL), OBJECT_OBJ);
 }
 
 void	non(void *non)
@@ -69,15 +82,19 @@ void	non(void *non)
 int	main(int ac, char **av)
 {
 	t_scene		scene;
-	t_screen	*screen;
 
 	scene.object = NULL;
 	scene.object = NULL;
-	if (av[1])
-		add_object(&scene, parse_obj(av[1], NULL), OBJECT_OBJ);
 	screen = rt_init();
 	if (!screen)
 		return (1);
+	if (av[1])
+	{
+		if (!is_valid_format(av[1]))
+			rt_error_window(screen, "file Format not supported\n");
+		else
+			add_object(&scene, parse_obj(av[1], NULL), OBJECT_OBJ);
+	}
 	rt_add_text_button_top(screen, "file", &scene, open_file_dialog);
 	rt_add_text_button_top(screen, "yoo", NULL, non);
 	rt_add_text_button_top(screen, "comment", NULL, non);

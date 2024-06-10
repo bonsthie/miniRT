@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:18:38 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/07 15:49:08 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/10 11:55:12 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # define RT_DRIVER_H
 
 # include <stdint.h>
+
 # ifndef RT_WIN_NAME
 #  define RT_WIN_NAME "miniRT"
 # endif
@@ -49,6 +50,10 @@
 
 # ifndef RT_UI_SIDE_BAR_COLOR
 #  define RT_UI_SIDE_BAR_COLOR 0xFF303030
+# endif
+
+# ifndef RT_ERROR_WINDOW
+#  define RT_ERROR_WINDOW 1
 # endif
 
 typedef struct s_scene	t_scene;
@@ -255,5 +260,7 @@ void	rt_add_text_button_top(t_screen *screen, char *text, void *data,
 
 void	rt_print_button(t_screen *screen);
 /* void rt_remove_button(t_screen *screen, char *id); */
+
+void rt_error_window(t_screen *screen, const char *error_msg);
 
 #endif /* RT_DRIVER_H */

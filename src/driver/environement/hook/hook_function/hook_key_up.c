@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 21:22:31 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/07 22:15:19 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/09 21:34:48 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,11 @@ int keyup_hook(int key, void *data)
 	screen = data;
 	if (key == A_KEY)
 	{
-		kill(screen->error_pid, SIGUSR1);
+		union sigval sv;
+		sv.sival_ptr = "press A";
+		sigqueue(screen->error_pid, SIGUSR1, sv);
 	}
+	if (key == ESCAPE)
+		mlx_loop_end(screen->mlx);
 	return (0);
 }
