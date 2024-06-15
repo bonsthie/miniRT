@@ -6,11 +6,12 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 20:31:44 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/04 17:06:51 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/11 19:18:11 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rt_driver.h>
+#include <immintrin.h>
 
 void	matrix_multiplication4x4(t_v4f result[4], t_v4f a[4], t_v4f b[4])
 {

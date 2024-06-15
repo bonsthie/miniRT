@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 21:32:24 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/08 17:50:32 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/11 16:14:23 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ void	print_face(t_face face, t_mesh mesh, t_img *img)
 	light_dir = normalize((t_v4f){0.0f, 0.0f, 1.0f});
 	t_v4f dot = normal * light_dir;
 	float intensity = fmax(0.0f, dot[0] + dot[1] + dot[2]);
-	/* unsigned int grey_value = (unsigned int)(intensity * 255); */
 	unsigned int red = (unsigned int)(240 * intensity);
 	unsigned int green = (unsigned int)(168 * intensity);
 	unsigned int blue = (unsigned int)(53 * intensity);
@@ -114,5 +113,5 @@ void	print_obj_to_image(t_object_mesh *object, t_img *img)
 	ns = end.tv_nsec - start.tv_nsec;
 	elapsed = seconds + ns * 1e-9;
 	(void)elapsed;
-	printf("time = %f\n", elapsed);
+	/* printf("time = %f\n", elapsed); */
 }

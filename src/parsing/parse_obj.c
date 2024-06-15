@@ -75,7 +75,7 @@ t_object_mesh	*parse_obj(const char *name, const char *texture)
 	new_obj->new_rotation.pitch = 90;
 	new_obj->new_rotation.yaw = 0;
 	new_obj->new_rotation.roll = 0;
-	new_obj->new_offset.x = 800;
+	new_obj->new_offset.x = 200;
 	new_obj->new_offset.y = 550;
 	new_obj->new_offset.z = 1;
 	close(new_obj->fd);

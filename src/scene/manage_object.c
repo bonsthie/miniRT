@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 15:43:19 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/04 13:29:03 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/14 17:10:02 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,5 @@ void	add_object(t_scene *scene, void *object, t_file_type file_type)
 	}
 	while (scene->object->next)
 		scene->object = scene->object->next;
-	printf("bbbb\n");
 	scene->object->next = new_obj;
 }

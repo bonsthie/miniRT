@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 23:14:48 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/05 00:06:41 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/11 16:43:29 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define RT_MESH_OBJ_H
 
 # include "libft.h"
-# include <stddef.h>
 # include <rt_driver.h>
+# include <stddef.h>
 
 typedef struct s_texture
 {
@@ -71,8 +71,8 @@ typedef struct s_size_mesh
 
 typedef struct s_mesh
 {
-	union vec			*vertex;
-	union vec			*normal;
+	union vec		*vertex;
+	union vec		*normal;
 	t_texture_coord	*texture_coord;
 	t_face			*face;
 	t_size_mesh		size_mesh;
@@ -94,6 +94,18 @@ typedef struct s_object_mesh
 	union vec		center;
 }					t_object_mesh;
 
-void update_size_obj(t_object_mesh *object);
+enum				e_setting_update_size_obj
+{
+	ROT_YAW = 1u,
+	ROT_PITCH = 1u << 1,
+	ROT_ROLL = 1u << 2,
+	ALL_ROTATION = (1u << 3) - 1,
+	ROT_CENTER_OBJ = 1u << 3,
+	TRANSLATE = 1u << 4,
+	SCALE = 1u << 5,
+	ALL = (1u << 6) - 1 - ROT_CENTER_OBJ
+};
+
+void				update_size_obj(t_object_mesh *object, uint8_t setting);
 
 #endif

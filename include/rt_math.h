@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 22:09:47 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/04 17:04:31 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/11 16:17:50 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,8 @@ typedef struct s_position_matrix
 
 typedef struct s_rotation_metrics
 {
-	double	cos_pitch;
-	double	sin_pitch;
-	double	cos_yaw;
-	double	sin_yaw;
+	double	cos;
+	double	sin;
 }			t_rotation_metrics;
 
 void		matrix_multiplication4x4(t_v4f result[4], t_v4f a[4],

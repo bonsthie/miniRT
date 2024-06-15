@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:59:40 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/07 21:42:29 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/10 13:48:06 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,6 @@ typedef struct s_mlx
 int						init_mlx_data(t_mlx *mlx);
 void					free_mlx_data(void);
 void					hook(t_mlx *mlx);
+int						rt_error_signal(void);
 
 #endif

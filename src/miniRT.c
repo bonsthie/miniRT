@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 18:58:46 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/08 18:46:44 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/14 17:50:51 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include <rt_scene_elements.h>
 #include <stdio.h>
 #include <string.h>
-#include <pthread.h>
 
 t_screen	*screen;
 
@@ -29,7 +28,7 @@ int	loop(t_scene *scene, t_img *img, t_screen *screen)
 		obj = scene->object->object;
 		print_obj_to_image(obj, img);
 		obj->new_rotation.yaw = 1;
-		update_size_obj(obj);
+		update_size_obj(obj, ALL);
 	}
 	rt_print_img_screen(img, screen, 0, 0);
 	return (0);
@@ -70,7 +69,10 @@ void	open_file_dialog(void *data)
 	if (!is_valid_format(filename))
 		rt_error_window(screen, "file Format not supported\n");
 	else
+	{
 		add_object(scene, parse_obj(filename, NULL), OBJECT_OBJ);
+		update_size_obj(scene->object->object, ALL);
+	}
 }
 
 void	non(void *non)
@@ -93,7 +95,10 @@ int	main(int ac, char **av)
 		if (!is_valid_format(av[1]))
 			rt_error_window(screen, "file Format not supported\n");
 		else
+		{
 			add_object(&scene, parse_obj(av[1], NULL), OBJECT_OBJ);
+			update_size_obj(scene.object->object, ALL | ROT_CENTER_OBJ);
+		}
 	}
 	rt_add_text_button_top(screen, "file", &scene, open_file_dialog);
 	rt_add_text_button_top(screen, "yoo", NULL, non);

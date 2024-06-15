@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:32:56 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/03 20:56:34 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/14 13:36:25 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ static size_t	count_face(char *str)
 void parse_face(t_face *face, char **str, int i)
 {
 
+	/* yoooo remove it  strtol illegal type shit */
 	face->point[i].vertex = strtol(*str, str, 10) - 1;
 	if (**str != '/')
 		return ;
