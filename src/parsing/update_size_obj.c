@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 22:04:37 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/15 22:03:18 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/17 21:59:42 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,72 @@ void create_transformation_matrix(t_v4f *transformation, t_object_mesh *object, 
 	}
 }
 
+#include <math.h>
+double omega(t_vec3 coo)
+{
+	double r;
+
+	r = sqrt(pow(coo.x, 2) + pow(coo.y, 2) + pow(coo.z, 2));
+	return (acos(coo.z/r));
+}
+double phi(t_vec3 coo)
+{
+	int	sign;
+	double pyth;
+
+	pyth = sqrt(pow(coo.x, 2) + pow(coo.y, 2));
+	sign = coo.y > 0;
+	return (sign*acos(coo.x/pyth));
+}
+
+t_v4f	tests(t_v4f vertex)
+{
+	static int lambda = 0;
+	union vec cam;
+	union vec x; //nimporte quel Matrice de rotaion qui agit sur vecteur -Cam
+	union vec xa;
+	union vec minus_x;
+	union vec new_vertex;
+	union vec circular_pos;
+
+	// lambda += 1;
+	lambda = lambda % 360;
+
+	//aplication d'une rotation que sur l axe X, changame en changant le point x
+	cam.vec3 = (t_vec3){-100, 0, 0, 0};
+	x.vec3 = (t_vec3){
+		cos(M_PI*lambda/180)*100, 
+		sin(M_PI*lambda/180)*100,
+		0,
+		0
+	};
+	xa.v4f = vertex - x.v4f;
+	minus_x.v4f = (t_v4f){0,0,0,0} - x.v4f;
+
+	double alpha = omega(xa.vec3)-omega(minus_x.vec3);
+	double beta = phi(xa.vec3)-phi(minus_x.vec3);
+	double normexa = sqrt(
+		pow(xa.vec3.x, 2) + pow(xa.vec3.y, 2) + pow(xa.vec3.z, 2)
+	);
+
+	circular_pos.vec3 = (t_vec3){
+		cos(beta)*cos(alpha)*normexa,
+		sin(beta)*cos(alpha)*normexa,
+		sin(alpha)*normexa,
+		0
+	};
+
+	new_vertex.v4f = cam.v4f + circular_pos.v4f;
+
+	printf("from:%f %f %f %f\n", 
+		new_vertex.vec3.x, new_vertex.vec3.y,
+		new_vertex.vec3.z, new_vertex.vec3.w);
+	printf("to:%f %f %f %f\n", 
+		vertex[0], vertex[1],
+		vertex[2], vertex[3]);
+	return (new_vertex.v4f);
+}
+
 void	update_size_obj(t_object_mesh *object, uint8_t settings)
 {
 	t_v4f	transforamtion[4];
@@ -157,6 +223,7 @@ void	update_size_obj(t_object_mesh *object, uint8_t settings)
 	{
 		matrix_multiplication1x4(transforamtion, object->mesh.vertex[i].v4f,
 			&object->mesh.vertex[i].v4f);
+		object->mesh.vertex[i].v4f = tests(object->mesh.vertex[i].v4f);
 	}
 	reset_transformation(object);
 }
