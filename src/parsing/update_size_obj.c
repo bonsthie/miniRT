@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 22:04:37 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/18 11:32:59 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/18 12:36:34 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <rt_math.h>
 #include <rt_mesh_obj.h>
 #include <stdbool.h>
+#include <sys/cdefs.h>
 
 void	transformation_matrix_rotation_pitch(t_v4f *transformation,
 		t_object_mesh *object)
@@ -128,10 +129,10 @@ void create_transformation_matrix(t_v4f *transformation, t_object_mesh *object, 
 
     // if (settings & ROT_YAW)
     //     transformation_matrix_rotation_yaw(transformation, object);
-    if (settings & ROT_PITCH)
-        transformation_matrix_rotation_pitch(transformation, object);
-    if (settings & ROT_ROLL)
-        transformation_matrix_rotation_roll(transformation, object);
+    // if (settings & ROT_PITCH)
+    //     transformation_matrix_rotation_pitch(transformation, object);
+    // if (settings & ROT_ROLL)
+    //     transformation_matrix_rotation_roll(transformation, object);
     if (settings & SCALE)
         transformation_matrix_scale(transformation, object);
     if (~settings & ROT_CENTER_OBJ)
@@ -143,78 +144,64 @@ void create_transformation_matrix(t_v4f *transformation, t_object_mesh *object, 
 }
 
 #include <math.h>
-#include <stdio.h>
-double omega(t_vec3 coo)
+__always_inline
+float pythagore(float x, float y, float z)
 {
-	double r;
-
-	r = sqrt(pow(coo.x, 2) + pow(coo.y, 2) + pow(coo.z, 2));
-	return (acos(coo.z/r));
+	return (sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2)));
 }
-double phi(t_vec3 coo)
+float omega(t_vec3 coo)
+{
+	return (-acos(coo.z/pythagore(coo.x, coo.y, coo.z)));
+}
+float phi(t_vec3 coo)
 {
 	int	sign;
-	double pyth;
 
-	pyth = sqrt(pow(coo.x, 2) + pow(coo.y, 2));
 	sign = -1;
 	if (coo.y >= 0)
 		sign = 1;
-	return (sign*acos(coo.x/pyth));
+	return (sign*acos(coo.x/pythagore(coo.x, coo.y, 0)));
 }
 
-t_v4f	tests(t_v4f vertex)
+void	find_false_camera(t_v4f *result, t_v4f cam, t_rotation rotation)
 {
-	static int lambda = 1;
-	union vec cam;
-	union vec x; //nimporte quel Matrice de rotaion qui agit sur vecteur -Cam
-	union vec xa;
-	union vec minus_x;
-	union vec new_vertex;
-	union vec circular_pos;
+	//just yaw rotation for now
+	t_v4f				matrix_yaw[4];
+	t_rotation_metrics	metrics;
 
-	// lambda += 1;
-	lambda = lambda % 360;
+	metrics.cos = cos(M_PI*rotation.yaw/180);
+	metrics.sin = sin(M_PI*rotation.yaw/180);
+	matrix_yaw[0] = (t_v4f){metrics.cos, 0, metrics.sin, 0};
+	matrix_yaw[1] = (t_v4f){0, 1, 0, 0};
+	matrix_yaw[2] = (t_v4f){-metrics.sin, 0, metrics.cos, 0};
+	matrix_yaw[3] = (t_v4f){0, 0, 0, 1};
+	matrix_multiplication1x4(matrix_yaw, cam, result);
+}
+void	rotate_center(t_v4f cam, t_v4f vertex, t_v4f *result)
+{
+	union vec	cam_obj;
+	union vec	zero_cam;
+	float		alpha;
+	float		beta;
+	float		normexa;
 
-	//aplication d'une rotation que sur l axe X, changame en changant le point x
-	cam.vec3 = (t_vec3){-100, 0, 0, 0};
-	x.vec3 = (t_vec3){
-		cos(M_PI*lambda/180)*-100, 
-		sin(M_PI*lambda/180)*-100,
-		0,
-		0
-	};
-	xa.v4f = vertex - x.v4f;
-	minus_x.v4f = (t_v4f){0,0,0,0} - x.v4f;
-
-	double alpha = -omega(xa.vec3)+omega(minus_x.vec3);
-	double beta = phi(xa.vec3)-phi(minus_x.vec3);
-	double normexa = sqrt(
-		pow(xa.vec3.x, 2) + pow(xa.vec3.y, 2) + pow(xa.vec3.z, 2)
-	);
-
-	circular_pos.vec3 = (t_vec3){
-		cos(beta)*cos(alpha)*normexa,
+	cam_obj.v4f = vertex - cam;
+	zero_cam.v4f = 0 - cam;
+	alpha = omega(cam_obj.vec3) - omega(zero_cam.vec3);
+	beta = phi(cam_obj.vec3) - phi(zero_cam.vec3);
+	normexa = pythagore(cam_obj.vec3.x, cam_obj.vec3.y, cam_obj.vec3.z);
+	*result = (t_v4f){
+		cos(beta)*cos(alpha)*normexa - 100,
 		sin(beta)*cos(alpha)*normexa,
 		sin(alpha)*normexa,
-		vertex[3]
+		vertex[3] //je suis pas sur pour le W
 	};
-
-	new_vertex.v4f = cam.v4f + circular_pos.v4f;
-
-	// printf("alpha beta %f %f %f\n", alpha, beta, lambda/180*M_PI);
-	// printf("from:%f %f %f %f\n", 
-	// 	vertex[0], vertex[1],
-	// 	vertex[2], vertex[3]);
-	// printf("to:%f %f %f %f\n\n", 
-	// 	new_vertex.vec3.x, new_vertex.vec3.y,
-	// 	new_vertex.vec3.z, new_vertex.vec3.w);
-	return (new_vertex.v4f);
 }
 
 void	update_size_obj(t_object_mesh *object, uint8_t settings)
 {
 	t_v4f	transforamtion[4];
+	t_v4f	false_camera_pos;
 
 	transforamtion[0] = (t_v4f){1, 0, 0, 0};
 	transforamtion[1] = (t_v4f){0, 1, 0, 0};
@@ -222,12 +209,15 @@ void	update_size_obj(t_object_mesh *object, uint8_t settings)
 	transforamtion[3] = (t_v4f){0, 0, 0, 1};
 	find_center(object);
 	create_transformation_matrix(transforamtion, object, settings);
-// #pragma omp parallel for
+	find_false_camera(&false_camera_pos, (t_v4f){-100, 0, 0, 0}, 
+		(t_rotation){0., 1., 0.});
+	#pragma omp parallel for
 	for (size_t i = 0; i < object->mesh.size_mesh.vertex; i++)
 	{
 		matrix_multiplication1x4(transforamtion, object->mesh.vertex[i].v4f,
 			&object->mesh.vertex[i].v4f);
-		// object->mesh.vertex[i].v4f = tests(object->mesh.vertex[i].v4f);
+		rotate_center(false_camera_pos, object->mesh.vertex[i].v4f,
+			&object->mesh.vertex[i].v4f);
 	}
 	reset_transformation(object);
 }
