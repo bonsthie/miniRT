@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 22:04:37 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/15 22:08:52 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/18 13:41:36 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <rt_math.h>
 #include <rt_mesh_obj.h>
 #include <stdbool.h>
+#include <sys/cdefs.h>
 
 void	transformation_matrix_rotation_pitch(t_v4f *transformation,
 		t_object_mesh *object)
@@ -126,12 +127,12 @@ t_v4f get_screen_center(void)
 void create_transformation_matrix(t_v4f *transformation, t_object_mesh *object, uint8_t settings)
 {
 
-    if (settings & ROT_YAW)
-        transformation_matrix_rotation_yaw(transformation, object);
-    if (settings & ROT_PITCH)
-        transformation_matrix_rotation_pitch(transformation, object);
-    if (settings & ROT_ROLL)
-        transformation_matrix_rotation_roll(transformation, object);
+    // if (settings & ROT_YAW)
+    //     transformation_matrix_rotation_yaw(transformation, object);
+    // if (settings & ROT_PITCH)
+    //     transformation_matrix_rotation_pitch(transformation, object);
+    // if (settings & ROT_ROLL)
+    //     transformation_matrix_rotation_roll(transformation, object);
     if (settings & SCALE)
         transformation_matrix_scale(transformation, object);
     if (~settings & ROT_CENTER_OBJ)
@@ -142,9 +143,65 @@ void create_transformation_matrix(t_v4f *transformation, t_object_mesh *object, 
 	}
 }
 
+#include <math.h>
+__always_inline
+float pythagore(float x, float y, float z)
+{
+	return (sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2)));
+}
+float omega(t_vec3 coo)
+{
+	return (-acos(coo.z/pythagore(coo.x, coo.y, coo.z)));
+}
+float phi(t_vec3 coo)
+{
+	int	sign;
+
+	sign = -1;
+	if (coo.y >= 0)
+		sign = 1;
+	return (sign*acos(coo.x/pythagore(coo.x, coo.y, 0)));
+}
+
+void	find_false_camera(t_v4f *result, t_v4f cam, t_rotation rotation)
+{
+	//just yaw rotation for now
+	t_v4f				matrix_yaw[4];
+	t_rotation_metrics	metrics;
+
+	metrics.cos = cos(M_PI*rotation.yaw/180);
+	metrics.sin = sin(M_PI*rotation.yaw/180);
+	matrix_yaw[0] = (t_v4f){metrics.cos, 0, metrics.sin, 0};
+	matrix_yaw[1] = (t_v4f){0, 1, 0, 0};
+	matrix_yaw[2] = (t_v4f){-metrics.sin, 0, metrics.cos, 0};
+	matrix_yaw[3] = (t_v4f){0, 0, 0, 1};
+	matrix_multiplication1x4(matrix_yaw, cam, result);
+}
+void	rotate_center(t_v4f cam, t_v4f vertex, t_v4f *result)
+{
+	union vec	cam_obj;
+	union vec	zero_cam;
+	float		alpha;
+	float		beta;
+	float		normexa;
+
+	cam_obj.v4f = vertex - cam;
+	zero_cam.v4f = 0 - cam;
+	alpha = omega(cam_obj.vec3) - omega(zero_cam.vec3);
+	beta = phi(cam_obj.vec3) - phi(zero_cam.vec3);
+	normexa = pythagore(cam_obj.vec3.x, cam_obj.vec3.y, cam_obj.vec3.z);
+	*result = (t_v4f){
+		cos(beta)*cos(alpha)*normexa - 100,
+		sin(beta)*cos(alpha)*normexa,
+		sin(alpha)*normexa,
+		vertex[3] //je suis pas sur pour le W
+	};
+}
+
 void	update_size_obj(t_object_mesh *object, uint8_t settings)
 {
 	t_v4f	transforamtion[4];
+	t_v4f	false_camera_pos;
 
 	transforamtion[0] = (t_v4f){1, 0, 0, 0};
 	transforamtion[1] = (t_v4f){0, 1, 0, 0};
@@ -152,10 +209,14 @@ void	update_size_obj(t_object_mesh *object, uint8_t settings)
 	transforamtion[3] = (t_v4f){0, 0, 0, 1};
 	find_center(object);
 	create_transformation_matrix(transforamtion, object, settings);
-#pragma omp parallel for
+	find_false_camera(&false_camera_pos, (t_v4f){-100, 0, 0, 0}, 
+		(t_rotation){0., 1., 0.});
+	#pragma omp parallel for
 	for (size_t i = 0; i < object->mesh.size_mesh.vertex; i++)
 	{
 		matrix_multiplication1x4(transforamtion, object->mesh.vertex[i].v4f,
+			&object->mesh.vertex[i].v4f);
+		rotate_center(false_camera_pos, object->mesh.vertex[i].v4f,
 			&object->mesh.vertex[i].v4f);
 	}
 	reset_transformation(object);
