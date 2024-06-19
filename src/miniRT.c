@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 18:58:46 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/14 17:50:51 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:04:49 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	loop(t_scene *scene, t_img *img, t_screen *screen)
 		obj = scene->object->object;
 		print_obj_to_image(obj, img);
 		obj->new_rotation.yaw = 1;
-		update_size_obj(obj, ALL);
+		update_size_obj(obj, ALL | CENTER);
 	}
 	rt_print_img_screen(img, screen, 0, 0);
 	return (0);
