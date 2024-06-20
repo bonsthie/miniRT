@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_line.c                                       :+:      :+:    :+:   */
+/*   rt_print_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 11:31:21 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/05 12:19:06 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/20 22:06:57 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include <stdlib.h>
-#include "_rasterizer.h"
+#include "_rt_rasterizer.h"
 #include "../_rt_mlx.h"
 
 static inline void	update_position(t_line_param *x, t_line_param *y, int *err)

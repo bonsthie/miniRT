@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hook_window.c                                      :+:      :+:    :+:   */
+/*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/22 15:09:22 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/20 21:41:59 by babonnet         ###   ########.fr       */
+/*   Created: 2024/06/20 22:08:36 by babonnet          #+#    #+#             */
+/*   Updated: 2024/06/20 23:06:28 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx.h"
-#include <stdlib.h>
+#include "rt_driver.h"
+#include "miniRT.h"
+#include "_hook.h"
 
-int	window_hook(int event, void *param)
+void hook_creation(t_screen *screen, struct s_hook_data *data)
 {
-	if (event == 0)
-		mlx_loop_end(param);
-	return (0);
+	rt_on_event(screen, RT_KEYUP, keyup_hook, data);
+	rt_on_event(screen, RT_MOUSEDOWN, mousedown_hook, data);
 }

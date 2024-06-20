@@ -57,6 +57,7 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+.nfs*
 
 # neovim stuff
 .cache

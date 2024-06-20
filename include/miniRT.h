@@ -6,13 +6,14 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 18:05:42 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/20 15:02:44 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/20 23:02:22 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
+# include "rt_driver.h"
 # include <stdint.h>
 
 union			u_color
@@ -25,6 +26,13 @@ union			u_color
 		uint8_t	red;
 		uint8_t	alpha;
 	} components;
+};
+
+struct			s_hook_data
+{
+	t_img		*img;
+	t_screen	*screen;
+	t_scene		*scene;
 };
 
 // Enum to distinguish between different file types supported by the engine.

@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_mouse_clic.c                                    :+:      :+:    :+:   */
+/*   mouseup_hook.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/20 14:32:31 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/20 16:16:31 by yroussea         ###   ########.fr       */
+/*   Created: 2024/06/20 22:13:03 by babonnet          #+#    #+#             */
+/*   Updated: 2024/06/20 23:43:53 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
-#include "_hook.h"
-#include "mlx.h"
-#include "rt_driver.h"
-#include "rt_mesh_obj.h"
+#include <rt_driver.h>
+#include <rt_mesh_obj.h>
+#include "../_hook.h"
+#include "miniRT.h"
 
 t_rotation	during_right_clic(bool up, void *data)
 {
@@ -27,18 +27,30 @@ t_rotation	during_right_clic(bool up, void *data)
 	if (up)
 	{
 		active = 1 - active;
-		mlx_mouse_get_pos(screen->mlx, &pos.x, &pos.y);
+		rt_mouse_get_pos(screen, &pos.x, &pos.y);
 		if (active)
-			mlx_mouse_hide();
+			rt_mouse_hide();
 		else
-			mlx_mouse_show();
+			rt_mouse_show();
 		return ((t_rotation){0, 0, 0});
 	}
 	if (!active)
 		return ((t_rotation){0, 0, 0});
-	mlx_mouse_get_pos(screen->mlx, &pos.z, &pos.w);
+	rt_mouse_get_pos(screen, &pos.z, &pos.w);
 	rot = (t_rotation){(float)(pos.w - pos.y)/RT_HEIGHT*360,
 		(float)(pos.x - pos.z)/RT_WIDTH*360, 0};
-	mlx_mouse_move(screen->mlx, screen->win, pos.x, pos.y);
+	rt_mouse_move(screen, pos.x, pos.y);
 	return (rot);
+}
+
+int mouseup_hook(int key, void *data)
+{
+	struct s_hook_data *hdata;
+
+	hdata = data;
+	if (key == MOUSE_MIDDLE)
+	{
+		during_right_clic(1, hdata->screen);
+	}
+	return (0);
 }

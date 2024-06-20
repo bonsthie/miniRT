@@ -5,22 +5,23 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/22 15:10:56 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/20 23:11:00 by babonnet         ###   ########.fr       */
+/*   Created: 2024/06/20 22:18:10 by babonnet          #+#    #+#             */
+/*   Updated: 2024/06/20 23:06:20 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef _HOOK_H
 #define _HOOK_H
 
-#include "../../_rt_mlx.h"
 #include "rt_mesh_obj.h"
 #include <stdbool.h>
 
-int	rt_window_hook(int event, void *param);
-int rt_mousedown_hook(int key, void *data);
-int rt_mouseup_hook(int key, void *data);
-int rt_keyup_hook(int key, void *data);
+void hook_creation(t_screen *screen, struct s_hook_data *data);
+
+int keyup_hook(int key, void *data);
+int mouseup_hook(int key, void *data);
+int mousedown_hook(int key, void *data);
+
 t_rotation	during_right_clic(bool up, void *data);
 
 enum e_keycode

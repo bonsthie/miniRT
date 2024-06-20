@@ -50,14 +50,9 @@ void mousedown_hook_scene(int key, t_mlx *mlx)
 	{
 		change_obj_color(mlx->scene->object, mlx->img->obj_id[mlx->screen->mouse_y][mlx->screen->mouse_x]);
 	}
-
-	if (key == MOUSE_MIDDLE)
-	{
-		during_right_clic(1, mlx->screen);
-	}
 }
 
-int mousedown_hook(int key, void *data)
+int rt_mousedown_hook(int key, void *data)
 {
 	t_mlx *mlx;
 	t_screen *screen;

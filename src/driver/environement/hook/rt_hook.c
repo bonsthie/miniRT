@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hook.c                                             :+:      :+:    :+:   */
+/*   rt_hook.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 15:05:05 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/20 21:36:48 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/20 23:10:42 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void rt_on_event(t_screen *screen, rt_event_type type, int f(int key, void *data
 
 void	hook(t_mlx *mlx)
 {
-	mlx_on_event(mlx->screen->mlx, mlx->screen->win, MLX_WINDOW_EVENT, window_hook, mlx->screen->mlx);
-	mlx_on_event(mlx->screen->mlx, mlx->screen->win, MLX_KEYDOWN, keyup_hook, mlx->screen);
-	mlx_on_event(mlx->screen->mlx, mlx->screen->win, MLX_MOUSEDOWN, mousedown_hook, mlx);
-	mlx_on_event(mlx->screen->mlx, mlx->screen->win, MLX_MOUSEUP, mouseup_hook, mlx->screen);
+	mlx_on_event(mlx->screen->mlx, mlx->screen->win, MLX_WINDOW_EVENT, rt_window_hook, mlx->screen->mlx);
+	mlx_on_event(mlx->screen->mlx, mlx->screen->win, MLX_KEYDOWN, rt_keyup_hook, mlx->screen);
+	mlx_on_event(mlx->screen->mlx, mlx->screen->win, MLX_MOUSEDOWN, rt_mousedown_hook, mlx);
+	mlx_on_event(mlx->screen->mlx, mlx->screen->win, MLX_MOUSEUP, rt_mouseup_hook, mlx->screen);
 	/* mlx_on_event(mlx->connection, mlx->window, MLX_MOUSEWHEEL, mousewheel_hook, NULL); */
 }

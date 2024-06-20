@@ -6,13 +6,13 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 16:56:18 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/20 14:37:03 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/20 22:06:49 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rt_driver.h>
 #include <rt_mesh_obj.h>
-#include "_rasterizer.h"
+#include "_rt_rasterizer.h"
 
 void	display_quad_mesh(t_rt_render_info info[4], t_img *img, unsigned int color)
 {

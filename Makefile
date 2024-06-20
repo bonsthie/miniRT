@@ -55,7 +55,7 @@ $(NAME_BONUS): $(LIBS_BINARYS) $(OBJ_BONUS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(@D)
-	@echo "$(YELLOW)Compiling $(notdir $<)...$(NC)"
+	@echo "$(YELLOW)Compiling $<...$(NC)"
 	@$(CC) $(CFLAGS) -I$(HSRCS) $(LIB_DIR) -c $< -o $@
 
 $(OBJ_DIR_BONUS)/%.o: $(SRC_DIR_BONUS)/%.c

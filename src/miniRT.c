@@ -9,8 +9,9 @@
 /*   Updated: 2024/06/19 16:04:49 by yroussea         ###   ########.fr       */
 /* ************************************************************************** */
 
+#include "hook/_hook.h"
+#include "miniRT.h"
 #include "object.h"
-#include "driver/environement/hook/_hook.h"
 #include <rt_driver.h>
 #include <rt_mesh_obj.h>
 #include <rt_scene_elements.h>
@@ -19,12 +20,15 @@
 
 t_screen	*screen;
 
-int test(int key, void *data)
+bool	init_hooks(t_scene *scene, t_img *img, t_screen *screen)
 {
-	(void)key;
-	(void)data;
-	printf("yooo\n");
-	return (0);
+	static struct s_hook_data	data;
+
+	data.scene = scene;
+	data.screen = screen;
+	data.img = img;
+	hook_creation(screen, &data);
+	return (false);
 }
 
 int	loop(t_scene *scene, t_img *img, t_screen *screen)
@@ -32,14 +36,17 @@ int	loop(t_scene *scene, t_img *img, t_screen *screen)
 	t_object_mesh	*obj;
 	t_rotation		rot;
 	t_object		*tmp;
+	static bool		init_hooks_bool = true;
 
+	if (init_hooks_bool == true)
+		init_hooks_bool = init_hooks(scene, img, screen);
 	rot = during_right_clic(0, screen);
 	tmp = scene->object;
 	while (tmp)
 	{
 		obj = tmp->object;
 		print_obj_to_image(obj, img, tmp->id);
-		//obj->new_rotation.yaw = 1;
+		// obj->new_rotation.yaw = 1;
 		update_size_obj(obj, ALL);
 		tmp = tmp->next;
 	}
@@ -48,9 +55,9 @@ int	loop(t_scene *scene, t_img *img, t_screen *screen)
 	return (0);
 }
 
-int is_valid_format(char *file)
+int	is_valid_format(char *file)
 {
-	size_t size_file;
+	size_t	size_file;
 
 	size_file = ft_strlen(file);
 	return (!ft_strncmp((file + size_file - 4), ".obj", 4));
@@ -95,10 +102,9 @@ void	non(void *non)
 	printf("click on button omg\n");
 }
 
-
 int	main(int ac, char **av)
 {
-	t_scene		scene;
+	t_scene	scene;
 
 	scene.object = NULL;
 	scene.object = NULL;
@@ -120,7 +126,6 @@ int	main(int ac, char **av)
 	rt_add_text_button_top(screen, "comment", NULL, non);
 	rt_add_text_button_top(screen, "ca", NULL, non);
 	rt_add_text_button_top(screen, "va", NULL, non);
-	rt_on_event(screen, RT_KEYUP, test, NULL);
 	rt_loop(&scene, screen, loop);
 	rt_destroy(screen);
 	return (ac);

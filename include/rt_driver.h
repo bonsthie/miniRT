@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:18:38 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/20 21:36:38 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/20 22:41:06 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -288,5 +288,13 @@ typedef enum
 } rt_event_type;
 
 void rt_on_event(t_screen *screen, rt_event_type type, int f(int key, void *data), void *data);
+
+int	rt_mouse_get_pos(t_screen *screen, int *x, int *y);
+
+int	rt_mouse_hide(void);
+
+int	rt_mouse_show(void);
+
+int rt_mouse_move(t_screen *screen, int x, int y);
 
 #endif /* RT_DRIVER_H */

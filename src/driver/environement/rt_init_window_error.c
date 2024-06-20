@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 13:47:23 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/10 13:49:29 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/20 23:12:33 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	error_handler(int sig, siginfo_t *si, void *unused)
 		shared_message = (char *)si->si_value.sival_ptr;
 		mlx = mlx_init();
 		win = mlx_new_window(mlx, 450, 180, "Error");
-		mlx_on_event(mlx, win, MLX_WINDOW_EVENT, window_hook, mlx);
+		mlx_on_event(mlx, win, MLX_WINDOW_EVENT, rt_window_hook, mlx);
 		img = print_error(mlx, win, shared_message);
 		mlx_on_event(mlx, win, MLX_MOUSEDOWN, _button_click, mlx);
 		mlx_loop(mlx);

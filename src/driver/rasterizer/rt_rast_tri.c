@@ -6,13 +6,13 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:29:06 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/20 14:38:58 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/20 22:07:03 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include <rt_driver.h>
-#include "_rasterizer.h"
+#include "_rt_rasterizer.h"
 #include "../_rt_mlx.h"
 
 #define FIXED_ORDER 8
