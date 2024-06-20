@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 22:04:37 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/19 17:03:03 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/20 12:49:35 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,6 +199,7 @@ void	rotate_center(t_v4f *tr, t_v4f *vertex)
 	*vertex = tmp + get_screen_center();
 }
 
+#include <stdio.h>
 void	update_size_obj(t_object_mesh *object, uint8_t settings)
 {
 	t_v4f	transforamtion[4];
