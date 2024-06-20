@@ -6,10 +6,11 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 15:43:19 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/14 17:10:02 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/20 12:07:49 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "rt_mesh_obj.h"
 #include <miniRT.h>
 #include <rt_scene_elements.h>
 #include <stdio.h>
@@ -17,6 +18,7 @@
 void	add_object(t_scene *scene, void *object, t_file_type file_type)
 {
 	t_object	*new_obj;
+	t_object	*old_obj;
 
 	new_obj = malloc(sizeof(t_object));
 	if (!new_obj)
@@ -30,9 +32,14 @@ void	add_object(t_scene *scene, void *object, t_file_type file_type)
 	if (!scene->object)
 	{
 		scene->object = new_obj;
+		new_obj->id = 1;
 		return ;
 	}
-	while (scene->object->next)
-		scene->object = scene->object->next;
-	scene->object->next = new_obj;
+	old_obj = scene->object;
+	while (old_obj->next)
+		old_obj = old_obj->next;
+	old_obj->next = new_obj;
+	new_obj->id = old_obj->id + 1;
+
+
 }

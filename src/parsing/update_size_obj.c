@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 22:04:37 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/18 13:41:36 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:16:41 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,14 +127,15 @@ t_v4f get_screen_center(void)
 void create_transformation_matrix(t_v4f *transformation, t_object_mesh *object, uint8_t settings)
 {
 
-    // if (settings & ROT_YAW)
-    //     transformation_matrix_rotation_yaw(transformation, object);
-    // if (settings & ROT_PITCH)
-    //     transformation_matrix_rotation_pitch(transformation, object);
-    // if (settings & ROT_ROLL)
-    //     transformation_matrix_rotation_roll(transformation, object);
+     if (settings & ROT_YAW)
+         transformation_matrix_rotation_yaw(transformation, object);
+     if (settings & ROT_PITCH)
+         transformation_matrix_rotation_pitch(transformation, object);
+     if (settings & ROT_ROLL)
+         transformation_matrix_rotation_roll(transformation, object);
     if (settings & SCALE)
         transformation_matrix_scale(transformation, object);
+
     if (~settings & ROT_CENTER_OBJ)
     {
         transformation[0][3] -= object->center.vec3.x;
@@ -177,10 +178,11 @@ void	find_false_camera(t_v4f *result, t_v4f cam, t_rotation rotation)
 	matrix_yaw[3] = (t_v4f){0, 0, 0, 1};
 	matrix_multiplication1x4(matrix_yaw, cam, result);
 }
+
 void	rotate_center(t_v4f cam, t_v4f vertex, t_v4f *result)
 {
-	union vec	cam_obj;
-	union vec	zero_cam;
+	union u_vec	cam_obj;
+	union u_vec	zero_cam;
 	float		alpha;
 	float		beta;
 	float		normexa;
@@ -194,7 +196,7 @@ void	rotate_center(t_v4f cam, t_v4f vertex, t_v4f *result)
 		cos(beta)*cos(alpha)*normexa - 100,
 		sin(beta)*cos(alpha)*normexa,
 		sin(alpha)*normexa,
-		vertex[3] //je suis pas sur pour le W
+		1
 	};
 }
 
@@ -216,8 +218,8 @@ void	update_size_obj(t_object_mesh *object, uint8_t settings)
 	{
 		matrix_multiplication1x4(transforamtion, object->mesh.vertex[i].v4f,
 			&object->mesh.vertex[i].v4f);
-		rotate_center(false_camera_pos, object->mesh.vertex[i].v4f,
-			&object->mesh.vertex[i].v4f);
+		/* rotate_center(false_camera_pos, object->mesh.vertex[i].v4f, */
+		/* 	&object->mesh.vertex[i].v4f); */
 	}
 	reset_transformation(object);
 }

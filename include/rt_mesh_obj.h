@@ -6,15 +6,16 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 23:14:48 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/11 16:43:29 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/20 12:02:55 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RT_MESH_OBJ_H
 # define RT_MESH_OBJ_H
 
-# include "libft.h"
 # include <rt_driver.h>
+# include <libft.h>
+# include <miniRT.h>
 # include <stddef.h>
 
 typedef struct s_texture
@@ -71,27 +72,38 @@ typedef struct s_size_mesh
 
 typedef struct s_mesh
 {
-	union vec		*vertex;
-	union vec		*normal;
+	union u_vec		*vertex;
+	union u_vec		*normal;
 	t_texture_coord	*texture_coord;
 	t_face			*face;
 	t_size_mesh		size_mesh;
 }					t_mesh;
 
-typedef struct s_object_mesh
+struct s_object_metadata
 {
 	char			*file_name;
 	t_list			*file;
 	int				fd;
+};
+
+typedef struct s_object_mesh
+{
+	struct s_object_metadata metadata;
+
 	t_mesh			mesh;
 	t_texture		texture;
+	union u_color	color;
+
 	t_rotation		rotation;
 	t_rotation		new_rotation;
+
 	t_offset		offset;
 	t_offset		new_offset;
+
 	float			scale;
 	float			new_scale;
-	union vec		center;
+
+	union u_vec		center;
 }					t_object_mesh;
 
 enum				e_setting_update_size_obj
