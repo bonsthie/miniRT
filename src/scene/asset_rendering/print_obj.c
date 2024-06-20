@@ -6,13 +6,14 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 21:32:24 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/11 16:14:23 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/20 15:03:25 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rt_mesh_obj.h>
 #include <rt_driver.h>
 #include <math.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <time.h>
 
@@ -64,38 +65,38 @@ t_v4f	is_visible(int size, t_point *point, t_mesh mesh)
 	return (n);
 }
 
-void	print_face(t_face face, t_mesh mesh, t_img *img)
+void	print_face(t_face face, t_mesh mesh, t_img *img, int id)
 {
 	t_v4f	normal;
 	t_v4f	light_dir;
+	union u_color color;
 	t_rt_render_info info[4];
 
 	normal = is_visible(face.count, face.point, mesh);
 	if (normal[2] <= 0.0f)
 		return ;
 
-
 	light_dir = normalize((t_v4f){0.0f, 0.0f, 1.0f});
 	t_v4f dot = normal * light_dir;
 	float intensity = fmax(0.0f, dot[0] + dot[1] + dot[2]);
-	unsigned int red = (unsigned int)(240 * intensity);
-	unsigned int green = (unsigned int)(168 * intensity);
-	unsigned int blue = (unsigned int)(53 * intensity);
 
-	unsigned int color = 0xFF000000 | (red << 16) | (green << 8) | blue;
+	color.components.alpha = 0xFF;
+	color.components.red = (uint8_t)face.color.components.red * intensity;
+	color.components.green = (uint8_t)face.color.components.green * intensity;
+	color.components.blue = (uint8_t)face.color.components.blue * intensity;
 
 	info[0].vector = mesh.vertex[face.point[0].vertex].vec3;
 	info[1].vector = mesh.vertex[face.point[1].vertex].vec3;
 	info[2].vector = mesh.vertex[face.point[2].vertex].vec3;
 
 	if (face.count == 3)
-		display_triangle_rast(info, img, color);
+		display_triangle_rast(info, img, color.value, id);
 	info[3].vector = mesh.vertex[face.point[3].vertex].vec3;
 	if (face.count == 4)
-		display_quad_rast(info, img, color);
+		display_quad_rast(info, img, color.value, id);
 }
 
-void	print_obj_to_image(t_object_mesh *object, t_img *img)
+void	print_obj_to_image(t_object_mesh *object, t_img *img, int id)
 {
 	long	seconds;
 	long	ns;
@@ -106,7 +107,7 @@ void	print_obj_to_image(t_object_mesh *object, t_img *img)
 	#pragma omp parallel for
 	for (size_t i = 0 ;i < object->mesh.size_mesh.face; i++)
 	{
-		print_face(object->mesh.face[i], object->mesh, img);
+		print_face(object->mesh.face[i], object->mesh, img, id);
 	}
 	clock_gettime(CLOCK_MONOTONIC, &end);
 	seconds = end.tv_sec - start.tv_sec;

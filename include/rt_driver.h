@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:18:38 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/19 16:14:46 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/20 14:38:09 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ int		rt_loop(t_scene *scene, t_screen *screen,
  * @param color		Color to use for the triangle
  */
 void	display_triangle_rast(t_rt_render_info info[3], t_img *img,
-						unsigned int color) __attribute__((nonnull(1, 2)));
+						unsigned int color, int id) __attribute__((nonnull(1, 2)));
 
 /**
  * @brief Rasterize and display a quadrilateral on the image
@@ -157,7 +157,7 @@ void	display_triangle_rast(t_rt_render_info info[3], t_img *img,
  * @param color		Color to use for the quadrilateral
  */
 void	display_quad_rast(t_rt_render_info info[4], t_img *img,
-						unsigned int color) __attribute__((nonnull(1, 2)));
+						unsigned int color, int id) __attribute__((nonnull(1, 2)));
 
 /**
  * @brief Print a triangle mesh on the image

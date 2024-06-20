@@ -9,7 +9,7 @@
 /*   Updated: 2024/06/19 16:04:49 by yroussea         ###   ########.fr       */
 /* ************************************************************************** */
 
-#include "scene/object.h"
+#include "object.h"
 #include <rt_driver.h>
 #include <rt_mesh_obj.h>
 #include <rt_scene_elements.h>
@@ -25,10 +25,9 @@ int	loop(t_scene *scene, t_img *img, t_screen *screen)
 	if (scene->object)
 	{
 		obj = scene->object->object;
-		print_obj_to_image(obj, img);
-		//obj->new_rotation.yaw = 1;
-		update_size_obj(obj, ALL);
-		update_scene(obj);
+		print_obj_to_image(obj, img, scene->object->id);
+		obj->new_rotation.yaw = 1;
+		update_size_obj(obj, ALL | ROT_CENTER_OBJ);
 	}
 	rt_print_img_screen(img, screen, 0, 0);
 	return (0);

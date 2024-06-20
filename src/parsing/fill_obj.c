@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:32:56 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/14 13:36:25 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/20 14:53:04 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,7 @@ int	fill_face(t_face *face, size_t size, t_list **file_ll)
 				i++;
 			}
 		}
+		face->color.value = 0xFFFFFFFF;
 		face++;
 		*file_ll = (*file_ll)->next;
 		if (*file_ll)

@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 22:04:37 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/20 13:29:03 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/20 14:31:49 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void create_transformation_matrix(t_v4f *transformation, t_object_mesh *object, 
 		rotate_roll(object->new_rotation, transformation);
 	if (settings & SCALE)
 		transformation_matrix_scale(transformation, object);
-	if (~settings & ROT_CENTER_OBJ)
+	if (settings & ROT_CENTER_OBJ)
 	{
 		transformation[0][3] -= object->center.vec3.x;
 		transformation[1][3] -= object->center.vec3.y;

@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:29:06 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/10 16:17:23 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/20 14:38:58 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void do_mask(int mask, int by, int bx, t_tri triangle, t_img *img, unsigned int 
 				{
 					img->zbuffer[y][x] = triangle.vertex1.position.z;
 					img->color[y][x] = color;
+					img->obj_id[y][x] = triangle.id;
 				}
 			}
 			mask >>= 1;

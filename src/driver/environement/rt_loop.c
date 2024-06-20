@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 18:14:03 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/06 14:27:54 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:19:07 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void update_img(t_img *img)
 		{
 			img->zbuffer[y][x] = INT_MAX;
 			img->color[y][x] = RT_BACKGROUND_COLOR;
+			img->obj_id[y][x] = 0;
 			x++;
 		}
 		y++;

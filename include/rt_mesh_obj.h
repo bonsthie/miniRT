@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 23:14:48 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/20 13:28:12 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:13:50 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_face
 {
 	t_point			*point;
 	size_t			count;
+	union u_color	color;
 }					t_face;
 
 typedef struct s_texture_coord
@@ -92,7 +93,6 @@ typedef struct s_object_mesh
 
 	t_mesh			mesh;
 	t_texture		texture;
-	union u_color	color;
 
 	t_rotation		rotation;
 	t_rotation		new_rotation;
