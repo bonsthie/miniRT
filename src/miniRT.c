@@ -27,7 +27,8 @@ int	loop(t_scene *scene, t_img *img, t_screen *screen)
 		obj = scene->object->object;
 		print_obj_to_image(obj, img);
 		//obj->new_rotation.yaw = 1;
-		update_size_obj(obj, ALL | CENTER);
+		update_size_obj(obj, ALL);
+		update_scene(obj);
 	}
 	rt_print_img_screen(img, screen, 0, 0);
 	return (0);

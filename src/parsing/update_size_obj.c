@@ -6,70 +6,15 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 22:04:37 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/20 13:01:06 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/20 13:29:03 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <math.h>
 #include <rt_driver.h>
 #include <rt_math.h>
 #include <rt_mesh_obj.h>
 #include <stdbool.h>
 #include <sys/cdefs.h>
-
-void	transformation_matrix_rotation_pitch(t_v4f *transformation,
-		t_object_mesh *object)
-{
-	t_v4f				matrix_pitch[4];
-	t_rotation_metrics	metrics;
-	t_rotation			rotation;
-
-	rotation = object->new_rotation;
-	rotation.pitch *= (M_PI / 180.0);
-	metrics.cos = cos(rotation.pitch);
-	metrics.sin = sin(rotation.pitch);
-	matrix_pitch[0] = (t_v4f){1, 0, 0, 0};
-	matrix_pitch[1] = (t_v4f){0, metrics.cos, -metrics.sin, 0};
-	matrix_pitch[2] = (t_v4f){0, metrics.sin, metrics.cos, 0};
-	matrix_pitch[3] = (t_v4f){0, 0, 0, 1};
-	matrix_multiplication4x4(transformation, transformation, matrix_pitch);
-}
-
-void	transformation_matrix_rotation_roll(t_v4f *transformation,
-		t_object_mesh *object)
-{
-	t_v4f				matrix_roll[4];
-	t_rotation			rotation;
-	t_rotation_metrics	metrics;
-
-	rotation = object->new_rotation;
-	rotation.roll *= (M_PI / 180.0);
-	metrics.cos = cos(rotation.roll);
-	metrics.sin = sin(rotation.roll);
-	matrix_roll[0] = (t_v4f){metrics.cos, -metrics.sin, 0, 0};
-	matrix_roll[1] = (t_v4f){metrics.sin, metrics.cos, 0, 0};
-	matrix_roll[2] = (t_v4f){0, 0, 1, 0};
-	matrix_roll[3] = (t_v4f){0, 0, 0, 1};
-	matrix_multiplication4x4(transformation, transformation, matrix_roll);
-}
-
-void	transformation_matrix_rotation_yaw(t_v4f *transformation,
-		t_object_mesh *object)
-{
-	t_v4f				matrix_yaw[4];
-	t_rotation			rotation;
-	t_rotation_metrics	metrics;
-
-	rotation = object->new_rotation;
-	rotation.yaw *= (M_PI / 180.0);
-	metrics.cos = cos(rotation.yaw);
-	metrics.sin = sin(rotation.yaw);
-	matrix_yaw[0] = (t_v4f){metrics.cos, 0, metrics.sin, 0};
-	matrix_yaw[1] = (t_v4f){0, 1, 0, 0};
-	matrix_yaw[2] = (t_v4f){-metrics.sin, 0, metrics.cos, 0};
-	matrix_yaw[3] = (t_v4f){0, 0, 0, 1};
-	matrix_multiplication4x4(transformation, transformation, matrix_yaw);
-}
 
 void	transformation_matrix_scale(t_v4f *transformation,
 		t_object_mesh *object)
@@ -118,133 +63,40 @@ void	find_center(t_object_mesh *object)
 	object->center.v4f -= *(t_v4f *)&object->offset.x;
 }
 
-t_v4f get_screen_center(void)
-{
-    return ((t_v4f){RT_WIDTH / 2.0f, RT_HEIGHT / 2.0f, 100.0f, 1.0f});
-}
-
-
 void create_transformation_matrix(t_v4f *transformation, t_object_mesh *object, uint8_t settings)
 {
 
-     if (settings & ROT_YAW)
-         transformation_matrix_rotation_yaw(transformation, object);
-     if (settings & ROT_PITCH)
-         transformation_matrix_rotation_pitch(transformation, object);
-     if (settings & ROT_ROLL)
-         transformation_matrix_rotation_roll(transformation, object);
-    if (settings & SCALE)
-        transformation_matrix_scale(transformation, object);
-
-    if (~settings & ROT_CENTER_OBJ)
-    {
-        transformation[0][3] -= object->center.vec3.x;
-        transformation[1][3] -= object->center.vec3.y;
-        transformation[2][3] -= object->center.vec3.z;
+	if (settings & ROT_YAW)
+		rotate_yaw(object->new_rotation, transformation);
+	if (settings & ROT_PITCH)
+		rotate_pitch(object->new_rotation, transformation);
+	if (settings & ROT_ROLL)
+		rotate_roll(object->new_rotation, transformation);
+	if (settings & SCALE)
+		transformation_matrix_scale(transformation, object);
+	if (~settings & ROT_CENTER_OBJ)
+	{
+		transformation[0][3] -= object->center.vec3.x;
+		transformation[1][3] -= object->center.vec3.y;
+		transformation[2][3] -= object->center.vec3.z;
 	}
 }
 
-__always_inline
-// float pythagore(float x, float y, float z)
-// {
-// 	return (sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2)));
-// }
-// float omega(t_vec3 coo)
-// {
-// 	return (-acos(coo.z/pythagore(coo.x, coo.y, coo.z)));
-// }
-// float phi(t_vec3 coo)
-// {
-// 	int	sign;
-//
-// 	sign = -1;
-// 	if (coo.y >= 0)
-// 		sign = 1;
-// 	return (sign*acos(coo.x/pythagore(coo.x, coo.y, 0)));
-// }
-void	center_yaw(t_rotation rotate, t_v4f *tr)
-{
-	t_v4f				matrix_yaw[4];
-	t_rotation_metrics	metrics;
-
-	metrics.cos = cos(M_PI*rotate.yaw/180);
-	metrics.sin = sin(M_PI*rotate.yaw/180);
-	matrix_yaw[0] = (t_v4f){metrics.cos, 0, metrics.sin, 0};
-	matrix_yaw[1] = (t_v4f){0, 1, 0, 0};
-	matrix_yaw[2] = (t_v4f){-metrics.sin, 0, metrics.cos, 0};
-	matrix_yaw[3] = (t_v4f){0, 0, 0, 1};
-	matrix_multiplication4x4(tr, tr, matrix_yaw);
-}
-void	center_pitch(t_rotation rotate, t_v4f *tr)
-{
-	t_v4f				matrix_pitch[4];
-	t_rotation_metrics	metrics;
-
-	metrics.cos = cos(M_PI*rotate.pitch/180);
-	metrics.sin = sin(M_PI*rotate.pitch/180);
-	matrix_pitch[0] = (t_v4f){1, 0, 0, 0};
-	matrix_pitch[1] = (t_v4f){0, metrics.cos, -metrics.sin, 0};
-	matrix_pitch[2] = (t_v4f){0, metrics.sin, metrics.cos, 0};
-	matrix_pitch[3] = (t_v4f){0, 0, 0, 1};
-	matrix_multiplication4x4(tr, tr, matrix_pitch);
-}
-void	center_roll(t_rotation rotate, t_v4f *tr)
-{
-	t_v4f				matrix_roll[4];
-	t_rotation_metrics	metrics;
-
-	metrics.cos = cos(M_PI*rotate.roll/180);
-	metrics.sin = sin(M_PI*rotate.roll/180);
-	matrix_roll[0] = (t_v4f){metrics.cos, -metrics.sin, 0, 0};
-	matrix_roll[1] = (t_v4f){metrics.sin, metrics.cos, 0, 0};
-	matrix_roll[2] = (t_v4f){0, 0, 1, 0};
-	matrix_roll[3] = (t_v4f){0, 0, 0, 1};
-	matrix_multiplication4x4(tr, tr, matrix_roll);
-}
-
-void	create_rotation_tr_matrix(t_v4f *tr, t_rotation rotate, uint8_t settings)
-{
-	if (!(settings & CENTER))
-		return ;
-	center_yaw(rotate, tr);
-	center_pitch(rotate, tr);
-	center_roll(rotate, tr);
-}
-
-void	rotate_center(t_v4f *tr, t_v4f *vertex)
-{
-	t_v4f tmp = *vertex - get_screen_center();
-	matrix_multiplication1x4(tr, tmp, &tmp);
-	*vertex = tmp + get_screen_center();
-}
-
-#include <stdio.h>
 void	update_size_obj(t_object_mesh *object, uint8_t settings)
 {
 	t_v4f	transforamtion[4];
-	t_v4f	tr[4];
-	static t_rotation lambda = (t_rotation){0, 1, 0};
 
 	transforamtion[0] = (t_v4f){1, 0, 0, 0};
 	transforamtion[1] = (t_v4f){0, 1, 0, 0};
 	transforamtion[2] = (t_v4f){0, 0, 1, 0};
 	transforamtion[3] = (t_v4f){0, 0, 0, 1};
-	tr[0] = (t_v4f){1, 0, 0, 0};
-	tr[1] = (t_v4f){0, 1, 0, 0};
-	tr[2] = (t_v4f){0, 0, 1, 0};
-	tr[3] = (t_v4f){0, 0, 0, 1};
 	find_center(object);
 	create_transformation_matrix(transforamtion, object, settings);
-	create_rotation_tr_matrix(tr, lambda, settings);
 	#pragma omp parallel for
 	for (size_t i = 0; i < object->mesh.size_mesh.vertex; i++)
 	{
 		matrix_multiplication1x4(transforamtion, object->mesh.vertex[i].v4f,
 			&object->mesh.vertex[i].v4f);
-		rotate_center(tr, &object->mesh.vertex[i].v4f);
 	}
-	if (settings & CENTER)
-		rotate_center(tr, (t_v4f *)&object->offset.x);
 	reset_transformation(object);
 }
-

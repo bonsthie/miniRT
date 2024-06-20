@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 23:14:48 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/20 12:59:03 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/20 13:28:12 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ enum				e_setting_update_size_obj
 	CENTER = 1u << 6
 };
 
+void				update_scene(t_object_mesh *object);
 void				update_size_obj(t_object_mesh *object, uint8_t setting);
 
 #endif
