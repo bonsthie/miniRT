@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 22:04:37 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/20 12:35:24 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/20 12:38:27 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,8 +217,6 @@ void	update_size_obj(t_object_mesh *object, uint8_t settings)
 	{
 		matrix_multiplication1x4(transforamtion, object->mesh.vertex[i].v4f,
 			&object->mesh.vertex[i].v4f);
-		/* rotate_center(false_camera_pos, object->mesh.vertex[i].v4f, */
-		/* 	&object->mesh.vertex[i].v4f); */
 	}
 	reset_transformation(object);
 }
