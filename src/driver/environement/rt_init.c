@@ -39,5 +39,7 @@ t_screen	*rt_init(void)
 	screen->button_side = NULL;
 	screen->mouse_x = INT_MIN;
 	screen->mouse_y = INT_MIN;
+	ft_bzero(screen->hooks.hook_function, HOOK_COUNT * sizeof(t_hooks_function));
+	ft_bzero(screen->hooks.data, HOOK_COUNT * sizeof(void));
 	return (screen);
 }

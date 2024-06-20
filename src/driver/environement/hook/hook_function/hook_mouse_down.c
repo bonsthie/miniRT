@@ -1,5 +1,6 @@
 #include "../_hook.h"
 #include "rt_driver.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <object.h>
 #include <complex.h>
@@ -22,8 +23,6 @@ void mousedown_hook_top_bar(int key, t_screen *screen)
 {
 	if (key == MOUSE_LEFT)
 		however_to_click(screen, screen->button_top);
-	/* rt_print_button(screen); */
-
 }
 
 void mousedown_hook_side_bar(int key, t_mlx *mlx)
@@ -64,14 +63,15 @@ int mousedown_hook(int key, void *data)
 	t_screen *screen;
 
 	mlx = data;
-	screen = data;
+	screen = mlx->screen;
 	if (screen->mouse_y <= RT_UI_TOP_BAR)
 		mousedown_hook_top_bar(key, screen);
 	else if (screen->mouse_x >= RT_WIDTH + RT_UI_SIDE_BAR)
 		mousedown_hook_side_bar(key, mlx);
 	else
 		mousedown_hook_scene(key, mlx);
-		
+	if (screen->hooks.hook_function[RT_MOUSEDOWN])
+		screen->hooks.hook_function[RT_MOUSEDOWN](key, screen->hooks.data[RT_MOUSEDOWN]);		
 	return (0);
 
 }

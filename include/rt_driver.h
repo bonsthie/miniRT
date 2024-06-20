@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:18:38 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/20 18:30:01 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/20 21:36:38 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,5 +274,19 @@ void	rt_print_button(t_screen *screen);
 /* void rt_remove_button(t_screen *screen, char *id); */
 
 void rt_error_window(t_screen *screen, const char *error_msg);
+
+#define HOOK_COUNT 6
+
+typedef enum
+{
+	RT_KEYDOWN = 0,
+	RT_KEYUP = 1,
+	RT_MOUSEDOWN = 2,
+	RT_MOUSEUP = 3,
+	RT_MOUSEWHEEL = 4,
+	RT_WINDOW_EVENT = 5
+} rt_event_type;
+
+void rt_on_event(t_screen *screen, rt_event_type type, int f(int key, void *data), void *data);
 
 #endif /* RT_DRIVER_H */

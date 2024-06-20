@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 13:59:42 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/20 15:29:53 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/20 21:41:50 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ int mouseup_hook(int key, void *data)
 		during_right_clic(1, screen);
 	}
 	mouseup_hook_top_bar(key, screen);
-		
+	if (screen->hooks.hook_function[RT_MOUSEUP])
+		screen->hooks.hook_function[RT_MOUSEUP](key, screen->hooks.data[RT_MOUSEUP]);
 	return (0);
 
 }

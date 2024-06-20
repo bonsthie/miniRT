@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:59:40 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/10 13:48:06 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/20 21:34:52 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,14 @@
 typedef int				(*t_scene_func)(t_scene *scene, t_img *img,
 					t_screen *screen);
 
+typedef  int (*t_hooks_function)(int key, void *data);
+
+struct s_hooks
+{
+    t_hooks_function hook_function[HOOK_COUNT];
+    void *data[HOOK_COUNT];
+};
+
 typedef struct s_screen
 {
 	void				*mlx;
@@ -32,6 +40,8 @@ typedef struct s_screen
 	t_button			*button_side;
 
 	int					error_pid;
+
+	struct s_hooks		hooks;
 }						t_screen;
 
 typedef struct s_img
@@ -40,6 +50,7 @@ typedef struct s_img
 	unsigned int		color[RT_HEIGHT][RT_WIDTH];
 	int					obj_id[RT_HEIGHT][RT_WIDTH];
 }						t_img;
+
 
 typedef struct s_mlx
 {

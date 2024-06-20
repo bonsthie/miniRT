@@ -19,6 +19,14 @@
 
 t_screen	*screen;
 
+int test(int key, void *data)
+{
+	(void)key;
+	(void)data;
+	printf("yooo\n");
+	return (0);
+}
+
 int	loop(t_scene *scene, t_img *img, t_screen *screen)
 {
 	t_object_mesh	*obj;
@@ -36,14 +44,6 @@ int	loop(t_scene *scene, t_img *img, t_screen *screen)
 		tmp = tmp->next;
 	}
 	update_scene(scene->object, rot);
-	// if (scene->object)
-	// {
-	// 	obj = scene->object->object;
-	// 	print_obj_to_image(obj, img);
-	// 	//obj->new_rotation.yaw = 1;
-	// 	update_size_obj(obj, ALL);
-	// 	update_scene(obj, rot);
-	// }
 	rt_print_img_screen(img, screen, 0, 0);
 	return (0);
 }
@@ -95,6 +95,7 @@ void	non(void *non)
 	printf("click on button omg\n");
 }
 
+
 int	main(int ac, char **av)
 {
 	t_scene		scene;
@@ -119,8 +120,8 @@ int	main(int ac, char **av)
 	rt_add_text_button_top(screen, "comment", NULL, non);
 	rt_add_text_button_top(screen, "ca", NULL, non);
 	rt_add_text_button_top(screen, "va", NULL, non);
-	(void)av;
-	(void)ac;
+	rt_on_event(screen, RT_KEYUP, test, NULL);
 	rt_loop(&scene, screen, loop);
 	rt_destroy(screen);
+	return (ac);
 }
