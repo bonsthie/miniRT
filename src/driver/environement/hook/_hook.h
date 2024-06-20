@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 15:10:56 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/10 13:58:39 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/20 15:22:30 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 #define _HOOK_H
 
 #include "../../_rt_mlx.h"
+#include "rt_mesh_obj.h"
+#include <stdbool.h>
 
 int	window_hook(int event, void *param);
 int mousedown_hook(int key, void *data);
 int mouseup_hook(int key, void *data);
 int keyup_hook(int key, void *data);
+t_rotation	during_right_clic(bool up, void *data);
 
 enum e_keycode
 {

@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:18:38 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/19 16:14:46 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/20 15:04:22 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,18 @@ union					u_vec
 	t_v4f				v4f;
 	t_vec3				vec3;
 };
+
+/**
+ * @struct s_int_vec4
+ * @brief Structure to hold a 4D vector with alignment
+ */
+typedef struct s_int_vec4
+{
+	int					x;
+	int					y;
+	int					z;
+	int					w;
+} __attribute__((aligned(16))) t_int_vec4;
 
 typedef void			*t_image;
 

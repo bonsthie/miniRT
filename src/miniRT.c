@@ -9,6 +9,7 @@
 /*   Updated: 2024/06/19 16:04:49 by yroussea         ###   ########.fr       */
 /* ************************************************************************** */
 
+#include "driver/environement/hook/_hook.h"
 #include "scene/object.h"
 #include <rt_driver.h>
 #include <rt_mesh_obj.h>
@@ -21,15 +22,28 @@ t_screen	*screen;
 int	loop(t_scene *scene, t_img *img, t_screen *screen)
 {
 	t_object_mesh	*obj;
+	t_rotation		rot;
+	t_object		*tmp;
 
-	if (scene->object)
+	rot = during_right_clic(0, screen);
+	tmp = scene->object;
+	while (tmp)
 	{
-		obj = scene->object->object;
+		obj = tmp->object;
 		print_obj_to_image(obj, img);
 		//obj->new_rotation.yaw = 1;
 		update_size_obj(obj, ALL);
-		update_scene(obj);
+		tmp = tmp->next;
 	}
+	update_scene(scene->object, rot);
+	// if (scene->object)
+	// {
+	// 	obj = scene->object->object;
+	// 	print_obj_to_image(obj, img);
+	// 	//obj->new_rotation.yaw = 1;
+	// 	update_size_obj(obj, ALL);
+	// 	update_scene(obj, rot);
+	// }
 	rt_print_img_screen(img, screen, 0, 0);
 	return (0);
 }

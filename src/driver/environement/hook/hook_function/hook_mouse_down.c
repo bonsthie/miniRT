@@ -1,5 +1,6 @@
 #include "../_hook.h"
 #include "rt_driver.h"
+#include <complex.h>
 
 void however_to_click(t_screen *screen, t_button *button)
 {
@@ -28,6 +29,10 @@ int mousedown_hook(int key, void *data)
 	t_screen *screen;
 
 	screen = data;
+	if (key == MOUSE_MIDDLE)
+	{
+		during_right_clic(1, screen);
+	}
 	if (screen->mouse_y <= RT_UI_TOP_BAR)
 		mousedown_hook_top_bar(key, screen);
 		
