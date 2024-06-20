@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 23:14:48 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/20 12:02:55 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/20 12:34:12 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,8 @@ enum				e_setting_update_size_obj
 	ROT_CENTER_OBJ = 1u << 3,
 	TRANSLATE = 1u << 4,
 	SCALE = 1u << 5,
-	ALL = (1u << 6) - 1 - ROT_CENTER_OBJ
+	ALL = (1u << 6) - 1 - ROT_CENTER_OBJ,
+	CENTER = 1u << 6
 };
 
 void				update_size_obj(t_object_mesh *object, uint8_t setting);
