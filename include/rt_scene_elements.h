@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 22:17:28 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/20 12:02:47 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/20 16:16:27 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 #include "miniRT.h"
 # include <rt_mesh_obj.h>
-# include <stddef.h>
 
 typedef struct s_object
 {
@@ -58,5 +57,7 @@ typedef struct s_scene
 	t_camera		*cam;
 
 }					t_scene;
+
+void				update_scene(t_object *object, t_rotation lambda);
 
 #endif

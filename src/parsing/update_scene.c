@@ -6,13 +6,14 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:14:19 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/20 13:39:29 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/20 16:15:21 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_driver.h"
 #include "rt_mesh_obj.h"
 #include <rt_math.h>
+#include <rt_scene_elements.h>
 
 t_v4f get_screen_center(void)
 {
@@ -52,9 +53,8 @@ void	update_single_object(t_object_mesh *object, t_v4f *tr)
 	test_center(tr, &object->offset);
 }
 
-void	update_scene(t_object_mesh *object)
+void	update_scene(t_object *object, t_rotation lambda)
 {
-	static t_rotation	lambda = (t_rotation){0, 1, 0};
 	t_v4f				tr[4];
 
 	tr[0] = (t_v4f){1, 0, 0, 0};
@@ -62,5 +62,9 @@ void	update_scene(t_object_mesh *object)
 	tr[2] = (t_v4f){0, 0, 1, 0};
 	tr[3] = (t_v4f){0, 0, 0, 1};
 	create_rotation_tr_matrix(tr, lambda);
-	update_single_object(object, tr);
+	while (object)
+	{
+		update_single_object(object->object, tr);
+		object = object->next;
+	}
 }

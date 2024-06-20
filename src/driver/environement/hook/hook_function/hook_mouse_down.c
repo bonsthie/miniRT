@@ -2,6 +2,7 @@
 #include "rt_driver.h"
 #include <stdlib.h>
 #include <object.h>
+#include <complex.h>
 
 void however_to_click(t_screen *screen, t_button *button)
 {
@@ -50,6 +51,11 @@ void mousedown_hook_scene(int key, t_mlx *mlx)
 	{
 		change_obj_color(mlx->scene->object, mlx->img->obj_id[mlx->screen->mouse_y][mlx->screen->mouse_x]);
 	}
+
+	if (key == MOUSE_MIDDLE)
+	{
+		during_right_clic(1, mlx->screen);
+	}
 }
 
 int mousedown_hook(int key, void *data)
@@ -58,7 +64,7 @@ int mousedown_hook(int key, void *data)
 	t_screen *screen;
 
 	mlx = data;
-	screen = mlx->screen;
+	screen = data;
 	if (screen->mouse_y <= RT_UI_TOP_BAR)
 		mousedown_hook_top_bar(key, screen);
 	else if (screen->mouse_x >= RT_WIDTH + RT_UI_SIDE_BAR)
