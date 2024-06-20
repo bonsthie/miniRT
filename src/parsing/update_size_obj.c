@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 22:04:37 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/20 12:53:48 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/20 13:01:06 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,79 +145,106 @@ void create_transformation_matrix(t_v4f *transformation, t_object_mesh *object, 
 }
 
 __always_inline
-float pythagore(float x, float y, float z)
+// float pythagore(float x, float y, float z)
+// {
+// 	return (sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2)));
+// }
+// float omega(t_vec3 coo)
+// {
+// 	return (-acos(coo.z/pythagore(coo.x, coo.y, coo.z)));
+// }
+// float phi(t_vec3 coo)
+// {
+// 	int	sign;
+//
+// 	sign = -1;
+// 	if (coo.y >= 0)
+// 		sign = 1;
+// 	return (sign*acos(coo.x/pythagore(coo.x, coo.y, 0)));
+// }
+void	center_yaw(t_rotation rotate, t_v4f *tr)
 {
-	return (sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2)));
-}
-float omega(t_vec3 coo)
-{
-	return (-acos(coo.z/pythagore(coo.x, coo.y, coo.z)));
-}
-float phi(t_vec3 coo)
-{
-	int	sign;
-
-	sign = -1;
-	if (coo.y >= 0)
-		sign = 1;
-	return (sign*acos(coo.x/pythagore(coo.x, coo.y, 0)));
-}
-
-void	find_false_camera(t_v4f *result, t_v4f cam, t_rotation rotation)
-{
-	//just yaw rotation for now
 	t_v4f				matrix_yaw[4];
 	t_rotation_metrics	metrics;
 
-	metrics.cos = cos(M_PI*rotation.yaw/180);
-	metrics.sin = sin(M_PI*rotation.yaw/180);
+	metrics.cos = cos(M_PI*rotate.yaw/180);
+	metrics.sin = sin(M_PI*rotate.yaw/180);
 	matrix_yaw[0] = (t_v4f){metrics.cos, 0, metrics.sin, 0};
 	matrix_yaw[1] = (t_v4f){0, 1, 0, 0};
 	matrix_yaw[2] = (t_v4f){-metrics.sin, 0, metrics.cos, 0};
 	matrix_yaw[3] = (t_v4f){0, 0, 0, 1};
-	matrix_multiplication1x4(matrix_yaw, cam, result);
+	matrix_multiplication4x4(tr, tr, matrix_yaw);
+}
+void	center_pitch(t_rotation rotate, t_v4f *tr)
+{
+	t_v4f				matrix_pitch[4];
+	t_rotation_metrics	metrics;
+
+	metrics.cos = cos(M_PI*rotate.pitch/180);
+	metrics.sin = sin(M_PI*rotate.pitch/180);
+	matrix_pitch[0] = (t_v4f){1, 0, 0, 0};
+	matrix_pitch[1] = (t_v4f){0, metrics.cos, -metrics.sin, 0};
+	matrix_pitch[2] = (t_v4f){0, metrics.sin, metrics.cos, 0};
+	matrix_pitch[3] = (t_v4f){0, 0, 0, 1};
+	matrix_multiplication4x4(tr, tr, matrix_pitch);
+}
+void	center_roll(t_rotation rotate, t_v4f *tr)
+{
+	t_v4f				matrix_roll[4];
+	t_rotation_metrics	metrics;
+
+	metrics.cos = cos(M_PI*rotate.roll/180);
+	metrics.sin = sin(M_PI*rotate.roll/180);
+	matrix_roll[0] = (t_v4f){metrics.cos, -metrics.sin, 0, 0};
+	matrix_roll[1] = (t_v4f){metrics.sin, metrics.cos, 0, 0};
+	matrix_roll[2] = (t_v4f){0, 0, 1, 0};
+	matrix_roll[3] = (t_v4f){0, 0, 0, 1};
+	matrix_multiplication4x4(tr, tr, matrix_roll);
 }
 
-void	rotate_center(t_v4f cam, t_v4f vertex, t_v4f *result)
+void	create_rotation_tr_matrix(t_v4f *tr, t_rotation rotate, uint8_t settings)
 {
-	union u_vec	cam_obj;
-	union u_vec	zero_cam;
-	float		alpha;
-	float		beta;
-	float		normexa;
+	if (!(settings & CENTER))
+		return ;
+	center_yaw(rotate, tr);
+	center_pitch(rotate, tr);
+	center_roll(rotate, tr);
+}
 
-	cam_obj.v4f = vertex - cam;
-	zero_cam.v4f = 0 - cam;
-	alpha = omega(cam_obj.vec3) - omega(zero_cam.vec3);
-	beta = phi(cam_obj.vec3) - phi(zero_cam.vec3);
-	normexa = pythagore(cam_obj.vec3.x, cam_obj.vec3.y, cam_obj.vec3.z);
-	*result = (t_v4f){
-		cos(beta)*cos(alpha)*normexa - 100,
-		sin(beta)*cos(alpha)*normexa,
-		sin(alpha)*normexa,
-		1
-	};
+void	rotate_center(t_v4f *tr, t_v4f *vertex)
+{
+	t_v4f tmp = *vertex - get_screen_center();
+	matrix_multiplication1x4(tr, tmp, &tmp);
+	*vertex = tmp + get_screen_center();
 }
 
 #include <stdio.h>
 void	update_size_obj(t_object_mesh *object, uint8_t settings)
 {
 	t_v4f	transforamtion[4];
-	t_v4f	false_camera_pos;
+	t_v4f	tr[4];
+	static t_rotation lambda = (t_rotation){0, 1, 0};
 
 	transforamtion[0] = (t_v4f){1, 0, 0, 0};
 	transforamtion[1] = (t_v4f){0, 1, 0, 0};
 	transforamtion[2] = (t_v4f){0, 0, 1, 0};
 	transforamtion[3] = (t_v4f){0, 0, 0, 1};
+	tr[0] = (t_v4f){1, 0, 0, 0};
+	tr[1] = (t_v4f){0, 1, 0, 0};
+	tr[2] = (t_v4f){0, 0, 1, 0};
+	tr[3] = (t_v4f){0, 0, 0, 1};
 	find_center(object);
 	create_transformation_matrix(transforamtion, object, settings);
-	find_false_camera(&false_camera_pos, (t_v4f){-100, 0, 0, 0}, 
-		(t_rotation){0., 1., 0.});
+	create_rotation_tr_matrix(tr, lambda, settings);
 	#pragma omp parallel for
 	for (size_t i = 0; i < object->mesh.size_mesh.vertex; i++)
 	{
 		matrix_multiplication1x4(transforamtion, object->mesh.vertex[i].v4f,
 			&object->mesh.vertex[i].v4f);
+		rotate_center(tr, &object->mesh.vertex[i].v4f);
 	}
+	if (settings & CENTER)
+		rotate_center(tr, (t_v4f *)&object->offset.x);
 	reset_transformation(object);
 }
+
