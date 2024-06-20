@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 22:17:28 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/04 17:06:38 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/20 12:02:47 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 typedef struct s_object
 {
 	t_file_type		file_type;
+	int				id;
 	void			*object;
 	struct s_object	*next;
 }					t_object;

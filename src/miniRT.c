@@ -6,8 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 18:58:46 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/20 12:42:54 by yroussea         ###   ########.fr       */
-/*                                                                            */
+/*   Updated: 2024/06/19 16:04:49 by yroussea         ###   ########.fr       */
 /* ************************************************************************** */
 
 #include "scene/object.h"

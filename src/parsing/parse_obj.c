@@ -44,11 +44,11 @@ void	fill_obj(int fd, t_object_mesh *object)
 		mesh->size_mesh.vertex, mesh->size_mesh.normal, mesh->size_mesh.texture,
 		mesh->size_mesh.face);
 	ft_bzero(&mesh->size_mesh, sizeof(t_size_mesh));
-	object->file = parse_line_by_line(fd, &mesh->size_mesh);
-	if (!object->file)
-		exit_message(1, "Error : [malloc failed in the file parsing]\n");
-	fill_mesh(mesh, &object->file_name, object->file);
-	ft_lstclear(&object->file, free);
+	object->metadata.file = parse_line_by_line(fd, &mesh->size_mesh);
+	if (!object->metadata.file)
+		exit_message(1, "Error : [malloc failed in the metadata.file parsing]\n");
+	fill_mesh(mesh, &object->metadata.file_name, object->metadata.file);
+	ft_lstclear(&object->metadata.file, free);
 }
 
 void	fill_obj_texture(t_texture *texture, const char *texture_file)
@@ -64,13 +64,14 @@ t_object_mesh	*parse_obj(const char *name, const char *texture)
 	new_obj = ft_calloc(1, sizeof(t_object_mesh));
 	if (!new_obj)
 		exit_message(1, "Error : [malloc fild in the creation of a new object]\n");
-	new_obj->fd = open(name, O_RDONLY);
-	if (new_obj->fd < 0)
+	new_obj->metadata.fd = open(name, O_RDONLY);
+	if (new_obj->metadata.fd < 0)
 	{
-		exit_message(1, "Error : [cannot open the .obj file]\n");
+		exit_message(1, "Error : [cannot open the .obj metadata.file]\n");
 	}
-	fill_obj(new_obj->fd, new_obj);
+	fill_obj(new_obj->metadata.fd, new_obj);
 	fill_obj_texture(&new_obj->texture, texture);
+<<<<<<< HEAD
 	new_obj ->new_scale = 30;
 	new_obj->new_rotation.pitch = 90;
 	new_obj->new_rotation.yaw = 0;
@@ -79,6 +80,16 @@ t_object_mesh	*parse_obj(const char *name, const char *texture)
 	new_obj->new_offset.y = RT_HEIGHT / 2;
 	new_obj->new_offset.z = 100;
 	close(new_obj->fd);
+=======
+	new_obj->new_scale = 3;
+	new_obj->new_rotation.pitch = 90;
+	new_obj->new_rotation.yaw = 0;
+	new_obj->new_rotation.roll = 0;
+	new_obj->new_offset.x = 500;
+	new_obj->new_offset.y = 550;
+	new_obj->new_offset.z = 1;
+	close(new_obj->metadata.fd);
+>>>>>>> refs/remotes/origin/blender_0.2
 	return (new_obj);
 }
 

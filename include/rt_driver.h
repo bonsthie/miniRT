@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:18:38 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/11 19:15:29 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:14:46 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ typedef struct s_vec3
  * @union vec
  * @brief Union to hold either a 4D vector of floats or a 3D vector
  */
-union					vec
+union					u_vec
 {
 	t_v4f				v4f;
 	t_vec3				vec3;
