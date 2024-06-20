@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 22:04:37 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/19 16:16:41 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/20 12:35:24 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,6 @@ void create_transformation_matrix(t_v4f *transformation, t_object_mesh *object, 
 	}
 }
 
-#include <math.h>
 __always_inline
 float pythagore(float x, float y, float z)
 {
