@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 22:13:03 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/20 23:50:51 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/21 16:59:25 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int mouseup_hook(int key, void *data)
 	hdata = data;
 	if (key == MOUSE_MIDDLE)
 	{
-		during_right_clic(false, hdata->screen);
+		during_right_clic(true, hdata->screen);
 	}
 	return (0);
 }

@@ -31,8 +31,9 @@ bool	init_hooks(t_scene *scene, t_img *img, t_screen *screen)
 	return (false);
 }
 
-int	loop(t_scene *scene, t_img *img, t_screen *screen)
+int	loop(void *data, t_img *img, t_screen *screen)
 {
+	t_scene *scene = data;
 	t_object_mesh	*obj;
 	t_rotation		rot;
 	t_object		*tmp;

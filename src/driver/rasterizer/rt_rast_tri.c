@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:29:06 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/21 15:24:19 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/21 17:52:35 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include "_rt_rasterizer.h"
 #include <math.h>
 #include <rt_driver.h>
-
-#define FIXED_ORDER 8
 
 #if defined(__AVX2__)
 # include <immintrin.h>

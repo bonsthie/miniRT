@@ -48,7 +48,8 @@ void mousedown_hook_scene(int key, t_mlx *mlx)
 {
 	if (key == MOUSE_LEFT)
 	{
-		change_obj_color(mlx->scene->object, mlx->img->obj_id[mlx->screen->mouse_y][mlx->screen->mouse_x]);
+		(void)mlx;
+		/* change_obj_color(mlx->scene->object, mlx->img->obj_id[mlx->screen->mouse_y][mlx->screen->mouse_x]); */
 	}
 }
 

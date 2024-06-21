@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 22:13:03 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/21 10:40:59 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/21 16:42:11 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,10 @@
 #include "miniRT.h"
 #include "rt_driver.h"
 #include <rt_scene_elements.h>
-#include <stdio.h>
 
 void	move_cam(t_scene *data, t_v4f move)
 {
 	data->cam->coord += move;
-	// printf("%f\n", data->cam->coord[0]);
 }
 
 

@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:18:38 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/21 15:39:37 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/21 19:11:39 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@
 #  define RT_ERROR_WINDOW 1
 # endif
 
-typedef struct s_scene	t_scene;
 typedef struct s_screen	t_screen;
 
 // Aligned vector types for optimal hardware utilization by use of AVX.
@@ -147,9 +146,9 @@ void					rt_print_ui_screen(t_screen *screen)
  *
  * @return (int)	Status of the loop execution
  */
-int						rt_loop(t_scene *scene,
+int						rt_loop(void *data,
 							t_screen *screen,
-							int loop(t_scene *scene,
+							int loop(void *data,
 								t_img *img,
 								t_screen *screen)
 						__attribute__((nonnull(1, 2, 3))));
@@ -313,5 +312,7 @@ int						rt_mouse_hide(void);
 int						rt_mouse_show(void);
 
 int						rt_mouse_move(t_screen *screen, int x, int y);
+
+void rt_set_image_color(t_img *img, unsigned int color);
 
 #endif /* RT_DRIVER_H */

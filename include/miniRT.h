@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 18:05:42 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/21 15:40:58 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/21 19:09:35 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include "rt_driver.h"
 # include <stdint.h>
+
+typedef struct s_scene t_scene;
 
 union			u_color
 {

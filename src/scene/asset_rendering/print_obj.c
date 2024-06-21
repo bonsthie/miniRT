@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 21:32:24 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/21 15:24:19 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/21 18:22:07 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,11 @@ t_v4f	is_visible(int size, t_point *point, t_mesh mesh)
 	t_v4f	ab;
 	t_v4f	ca;
 	t_v4f	n;
-	t_v4f	a;
-	t_v4f	b;
-	t_v4f	c;
 
 	if (size < 3)
 		return ((t_v4f){0});
-	a = mesh.vertex[point[0].vertex].v4f;
-	b = mesh.vertex[point[1].vertex].v4f;
-	c = mesh.vertex[point[2].vertex].v4f;
-	ab = b - a;
-	ca = c - a;
+	ab = mesh.vertex[point[1].vertex].v4f - mesh.vertex[point[0].vertex].v4f;
+	ca = mesh.vertex[point[2].vertex].v4f - mesh.vertex[point[0].vertex].v4f;
 	n = cross_product(ab, ca);
 	n = normalize(n) * (t_v4f){0, 0, -1, 1};
 	return (n);

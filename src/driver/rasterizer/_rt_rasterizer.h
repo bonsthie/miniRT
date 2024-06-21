@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _rasterizer.h                                      :+:      :+:    :+:   */
+/*   _rt_rasterizer.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 19:33:52 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/20 14:37:45 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/21 17:54:47 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include <miniRT.h>
 # include <rt_driver.h>
+
+#define FIXED_ORDER 24
 
 typedef struct s_line_param
 {

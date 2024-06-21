@@ -6,13 +6,14 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 13:47:23 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/20 23:12:33 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/21 19:17:39 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <signal.h>
 #include <mlx.h>
 #include <rt_driver.h>
+#include <stdio.h>
 #include "hook/_hook.h"
 
 

@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:59:40 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/20 21:34:52 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/21 19:13:45 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <rt_scene_elements.h>
 # include "_rt_button.h"
 
-typedef int				(*t_scene_func)(t_scene *scene, t_img *img,
+typedef int				(*t_scene_func)(void *data, t_img *img,
 					t_screen *screen);
 
 typedef  int (*t_hooks_function)(int key, void *data);
@@ -46,9 +46,9 @@ typedef struct s_screen
 
 typedef struct s_img
 {
-	int					zbuffer[RT_HEIGHT][RT_WIDTH];
+	short				zbuffer[RT_HEIGHT][RT_WIDTH];
 	unsigned int		color[RT_HEIGHT][RT_WIDTH];
-	int					obj_id[RT_HEIGHT][RT_WIDTH];
+	short				obj_id[RT_HEIGHT][RT_WIDTH];
 }						t_img;
 
 
@@ -59,7 +59,7 @@ typedef struct s_mlx
 
 	t_scene_func		scene_function;
 
-	t_scene				*scene;
+	void				*data;
 	t_img				*img;
 	t_screen			*screen;
 }						t_mlx;
