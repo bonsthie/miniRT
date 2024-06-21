@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:18:38 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/20 22:41:06 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/21 15:39:37 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct s_scene	t_scene;
 typedef struct s_screen	t_screen;
 
 // Aligned vector types for optimal hardware utilization by use of AVX.
-typedef float	__attribute__((aligned(16), vector_size(16))) t_v4f;
+typedef float	__attribute__((aligned(16),	vector_size(16)))	t_v4f;
 
 /**
  * @struct s_vec3
@@ -120,21 +120,23 @@ typedef struct s_rt_render_info
  *
  * @return (t_screen*) Pointer to the initialized screen structure
  */
-t_screen	*rt_init(void);
+t_screen				*rt_init(void);
 
 /**
  * @brief Destroy ray tracing structure
  *
  * @param screen Pointer to the screen structure to be destroyed
  */
-void	rt_destroy(t_screen *screen) __attribute__((nonnull(1)));
+void					rt_destroy(t_screen *screen)
+	__attribute__((nonnull(1)));
 
 /**
  * @brief Print the UI screen
  *
  * @param screen Pointer to the screen structure
  */
-void	rt_print_ui_screen(t_screen *screen) __attribute__((nonnull(1)));
+void					rt_print_ui_screen(t_screen *screen) 
+	__attribute__((nonnull(1)));
 
 /**
  * @brief Main loop function for ray tracing
@@ -145,58 +147,69 @@ void	rt_print_ui_screen(t_screen *screen) __attribute__((nonnull(1)));
  *
  * @return (int)	Status of the loop execution
  */
-int		rt_loop(t_scene *scene, t_screen *screen, 
-			int loop(t_scene *scene, t_img *img, t_screen *screen)
-			__attribute__((nonnull(1, 2, 3))));
+int						rt_loop(t_scene *scene,
+							t_screen *screen,
+							int loop(t_scene *scene,
+								t_img *img,
+								t_screen *screen)
+						__attribute__((nonnull(1, 2, 3))));
 
 /**
  * DISPLAY ACTION
- */
-
-/**
  * @brief Rasterize and display a triangle on the image
- * @param info		Array of 3 rendering information structs for the triangle vertices
+ * @param info		Array of 3 rendering information structs for the 
+ *					triangle vertices
  * @param img		Image structure where the triangle will be displayed
  * @param color		Color to use for the triangle
  */
-void	display_triangle_rast(t_rt_render_info info[3], t_img *img,
-						unsigned int color, int id) __attribute__((nonnull(1, 2)));
+void					rt_display_triangle_rast(t_rt_render_info info[3],
+							t_img *img,
+							unsigned int color,
+							int id)
+						__attribute__((nonnull(1, 2)));
 
 /**
  * @brief Rasterize and display a quadrilateral on the image
- * @param info		Array of 4 rendering information structs for the quadrilateral vertices
+ * @param info		Array of 4 rendering information structs for
+ *					the quadrilateral vertices
  * @param img		Image structure where the quadrilateral will be displayed
  * @param color		Color to use for the quadrilateral
  */
-void	display_quad_rast(t_rt_render_info info[4], t_img *img,
-						unsigned int color, int id) __attribute__((nonnull(1, 2)));
+void					rt_display_quad_rast(t_rt_render_info info[4],
+							t_img *img, unsigned int color,
+							int id) __attribute__((nonnull(1, 2)));
 
 /**
  * @brief Print a triangle mesh on the image
- * @param info		Array of 3 rendering information structs for the triangle vertices
+
+			* @param info		Array of 3 rendering information structs for the triangle vertices
  * @param img		Image structure where the triangle will be displayed
  * @param color		Color to use for the triangle
  */
-void	display_triangle_mesh(t_rt_render_info info[3], t_img *img,
-						unsigned int color)__attribute__((nonnull(1, 2))); 
+void					rt_display_triangle_mesh(t_rt_render_info info[3],
+							t_img *img,
+							unsigned int color) __attribute__((nonnull(1, 2)));
 
 /**
  * @brief Print a quadrilateral mesh on the image
- * @param info		Array of 4 rendering information structs for the quadrilateral vertices
+
+			* @param info		Array of 4 rendering information structs for the quadrilateral vertices
  * @param img		Image structure where the quadrilateral will be displayed
  * @param color		Color to use for the quadrilateral
  */
-void	display_quad_mesh(t_rt_render_info info[4], t_img *img,
-					unsigned int color) __attribute__((nonnull(1, 2)));
+void					rt_display_quad_mesh(t_rt_render_info info[4],
+							t_img *img,
+							unsigned int color) __attribute__((nonnull(1, 2)));
 
 /**
  * @brief Print a line on the image
- * @param info		Array of 2 rendering information structs for the line endpoints
+
+			* @param info		Array of 2 rendering information structs for the line endpoints
  * @param img		Image structure where the line will be displayed
  * @param color		Color to use for the line
  */
-void	display_line(t_rt_render_info info[2], t_img *img,
-				unsigned int color)__attribute__((nonnull(1, 2))); 
+void					rt_display_line(t_rt_render_info info[2], t_img *img,
+							unsigned int color) __attribute__((nonnull(1, 2)));
 
 /**
  * @brief Print the image on the screen
@@ -206,8 +219,9 @@ void	display_line(t_rt_render_info info[2], t_img *img,
  * @param x		X coordinate on the screen
  * @param y		Y coordinate on the screen
  */
-void	rt_print_img_screen(t_img *img, t_screen *screen,
-			unsigned int x, unsigned int y) __attribute__((nonnull(1, 2)));
+void					rt_print_img_screen(t_img *img, t_screen *screen,
+							unsigned int x,
+							unsigned int y) __attribute__((nonnull(1, 2)));
 
 /**
  * BUTTON ACTION
@@ -235,23 +249,24 @@ enum					e_button_style
  */
 typedef struct s_button_setting
 {
-	uint8_t				style : 3; ///< Button style (IMAGE, TEXT, SLIDER)
-	uint8_t 			id : 5;
+	uint8_t style : 3; ///< Button style (IMAGE, TEXT, SLIDER)
+	uint8_t id : 5;
 
 	void				*data;
 	void				(*f)(void *);
 
 	char				*text;
-	void				*image; // not implemented for now 
-	int					slider_in_value;  // not implemented for now
-	int 				slider_out_value; // not implemented for now
+	void *image;          // not implemented for now
+	int slider_in_value;  // not implemented for now
+	int slider_out_value; // not implemented for now
 
 }						t_button_setting;
 
-void	rt_update_ui(t_screen *screen);
+void					rt_update_ui(t_screen *screen);
 
-void	rt_add_text_button_top(t_screen *screen, char *text, void *data,
-		void f(void *)) __attribute__((nonnull(1, 2, 4)));
+void					rt_add_text_button_top(t_screen *screen, char *text,
+							void *data,
+							void f(void *)) __attribute__((nonnull(1, 2, 4)));
 /* void rt_add_icon_png_top(t_screen *screen, void *icon, char *id); */
 /* void rt_add_text_button_side(t_screen *screen, char *text, char *id); */
 /* void rt_add_icon_png_side(t_screen *screen, void *icon, char *id); */
@@ -270,12 +285,13 @@ void	rt_add_text_button_top(t_screen *screen, char *text, void *data,
 /* void rt_add_after_separator_button_top(t_screen *screen, char *id,
 	char *after_id); */
 
-void	rt_print_button(t_screen *screen);
+void					rt_print_button(t_screen *screen);
 /* void rt_remove_button(t_screen *screen, char *id); */
 
-void rt_error_window(t_screen *screen, const char *error_msg);
+void					rt_error_window(t_screen *screen,
+							const char *error_msg);
 
-#define HOOK_COUNT 6
+# define HOOK_COUNT 6
 
 typedef enum
 {
@@ -285,16 +301,17 @@ typedef enum
 	RT_MOUSEUP = 3,
 	RT_MOUSEWHEEL = 4,
 	RT_WINDOW_EVENT = 5
-} rt_event_type;
+}						rt_event_type;
 
-void rt_on_event(t_screen *screen, rt_event_type type, int f(int key, void *data), void *data);
+void					rt_on_event(t_screen *screen, rt_event_type type,
+							int f(int key, void *data), void *data);
 
-int	rt_mouse_get_pos(t_screen *screen, int *x, int *y);
+int						rt_mouse_get_pos(t_screen *screen, int *x, int *y);
 
-int	rt_mouse_hide(void);
+int						rt_mouse_hide(void);
 
-int	rt_mouse_show(void);
+int						rt_mouse_show(void);
 
-int rt_mouse_move(t_screen *screen, int x, int y);
+int						rt_mouse_move(t_screen *screen, int x, int y);
 
 #endif /* RT_DRIVER_H */

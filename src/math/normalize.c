@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mousedown_hook.c                                   :+:      :+:    :+:   */
+/*   normalize.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/20 22:13:03 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/21 00:14:01 by babonnet         ###   ########.fr       */
+/*   Created: 2024/06/21 14:49:42 by babonnet          #+#    #+#             */
+/*   Updated: 2024/06/21 15:24:19 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../_hook.h"
-#include "miniRT.h"
+#include "rt_driver.h"
+#include "rt_math.h"
 
-int mousedown_hook(int key, void *data)
+t_v4f	normalize(t_v4f n)
 {
-	struct s_hook_data *hdata;
+	float	mag;
+	t_v4f	vmag;
 
-	hdata = data;
-	if (key == MOUSE_MIDDLE)
-	{
-		during_right_clic(true, hdata->screen);
-	}
-	return (0);
+	mag = magnitude(n);
+	vmag = (t_v4f){mag, mag, mag, 1};
+	return (n / vmag);
 }

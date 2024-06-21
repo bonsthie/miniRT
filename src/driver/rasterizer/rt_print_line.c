@@ -6,14 +6,14 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 11:31:21 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/20 22:06:57 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/21 15:24:19 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../_rt_mlx.h"
+#include "_rt_rasterizer.h"
 #include <math.h>
 #include <stdlib.h>
-#include "_rt_rasterizer.h"
-#include "../_rt_mlx.h"
 
 static inline void	update_position(t_line_param *x, t_line_param *y, int *err)
 {
@@ -42,28 +42,6 @@ static inline int	init_s(int x, int y)
 	return (s);
 }
 
-float	calculate_distance(t_vec3 *center, t_vec3 *point)
-{
-			return sqrt(pow(point->z - center->z, 2));
-}
-
-// Function to calculate and return an RGBA color as an unsigned int
-unsigned int	rast_get_color(t_vec3 *center, t_vec3 *point)
-{
-	float			distance;
-	unsigned int	color;
-
-	distance = calculate_distance(center, point);
-	unsigned char r, g, b, a = 255; // Alpha is fully opaque
-	// Calculate gradient: Red to Blue
-	float ratio = distance / 960;        // Normalize the distance
-	r = (unsigned char)(255 * (1 - ratio)); // Red decreases
-	g = 0;                                  // Green is always 0
-	b = (unsigned char)(255 * ratio);       // Blue increases
-	// Pack RGBA into an unsigned int
-	color = (a << 24) | (r << 16) | (g << 8) | b;
-	return (color);
-}
 void	plot_line(t_vec3 v1, t_vec3 v2, t_img *img, unsigned int color)
 {
 	t_line_param	x;
@@ -92,4 +70,10 @@ void	plot_line(t_vec3 v1, t_vec3 v2, t_img *img, unsigned int color)
 			break ;
 		update_position(&x, &y, &err);
 	}
+}
+
+void	rt_display_line(t_rt_render_info info[2], t_img *img,
+		unsigned int color)
+{
+	plot_line(info[0].vector, info[1].vector, img, color);
 }

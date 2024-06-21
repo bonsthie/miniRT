@@ -6,43 +6,16 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 21:32:24 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/20 15:03:25 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/21 15:24:19 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <rt_mesh_obj.h>
-#include <rt_driver.h>
 #include <math.h>
+#include <rt_driver.h>
+#include <rt_math.h>
+#include <rt_mesh_obj.h>
 #include <stdint.h>
-#include <stdio.h>
 #include <time.h>
-
-t_v4f	cross_product(t_v4f a, t_v4f b)
-{
-	t_v4f	result;
-
-	result = (t_v4f){a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0]
-		* b[1] - a[1] * b[0], 1.0f};
-	return (result);
-}
-
-float	magnitude(t_v4f v)
-{
-	t_v4f	v_mul;
-
-	v_mul = v * v;
-	return (sqrt(v_mul[0] + v_mul[1] + v_mul[2]));
-}
-
-t_v4f	normalize(t_v4f n)
-{
-	float	mag;
-	t_v4f	vmag;
-
-	mag = magnitude(n);
-	vmag = (t_v4f){mag, mag, mag, 1};
-	return (n / vmag);
-}
 
 t_v4f	is_visible(int size, t_point *point, t_mesh mesh)
 {
@@ -67,33 +40,31 @@ t_v4f	is_visible(int size, t_point *point, t_mesh mesh)
 
 void	print_face(t_face face, t_mesh mesh, t_img *img, int id)
 {
-	t_v4f	normal;
-	t_v4f	light_dir;
-	union u_color color;
-	t_rt_render_info info[4];
+	t_v4f				normal;
+	t_v4f				light_dir;
+	union u_color		color;
+	t_rt_render_info	info[4];
+	t_v4f				dot;
+	float				intensity;
 
 	normal = is_visible(face.count, face.point, mesh);
 	if (normal[2] <= 0.0f)
 		return ;
-
 	light_dir = normalize((t_v4f){0.0f, 0.0f, 1.0f});
-	t_v4f dot = normal * light_dir;
-	float intensity = fmax(0.0f, dot[0] + dot[1] + dot[2]);
-
+	dot = normal * light_dir;
+	intensity = fmax(0.0f, dot[0] + dot[1] + dot[2]);
 	color.components.alpha = 0xFF;
 	color.components.red = (uint8_t)face.color.components.red * intensity;
 	color.components.green = (uint8_t)face.color.components.green * intensity;
 	color.components.blue = (uint8_t)face.color.components.blue * intensity;
-
 	info[0].vector = mesh.vertex[face.point[0].vertex].vec3;
 	info[1].vector = mesh.vertex[face.point[1].vertex].vec3;
 	info[2].vector = mesh.vertex[face.point[2].vertex].vec3;
-
 	if (face.count == 3)
-		display_triangle_rast(info, img, color.value, id);
+		rt_display_triangle_rast(info, img, color.value, id);
 	info[3].vector = mesh.vertex[face.point[3].vertex].vec3;
 	if (face.count == 4)
-		display_quad_rast(info, img, color.value, id);
+		rt_display_quad_rast(info, img, color.value, id);
 }
 
 void	print_obj_to_image(t_object_mesh *object, t_img *img, int id)
@@ -104,8 +75,8 @@ void	print_obj_to_image(t_object_mesh *object, t_img *img, int id)
 
 	struct timespec start, end;
 	clock_gettime(CLOCK_MONOTONIC, &start);
-	#pragma omp parallel for
-	for (size_t i = 0 ;i < object->mesh.size_mesh.face; i++)
+#pragma omp parallel for
+	for (size_t i = 0; i < object->mesh.size_mesh.face; i++)
 	{
 		print_face(object->mesh.face[i], object->mesh, img, id);
 	}

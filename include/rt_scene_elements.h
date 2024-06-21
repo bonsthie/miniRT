@@ -6,14 +6,14 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 22:17:28 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/20 16:16:27 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/21 15:29:02 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCENE_ELEMENTS_H
-# define SCENE_ELEMENTS_H
+#ifndef RT_SCENE_ELEMENTS_H
+# define RT_SCENE_ELEMENTS_H
 
-#include "miniRT.h"
+# include "miniRT.h"
 # include <rt_mesh_obj.h>
 
 typedef struct s_object

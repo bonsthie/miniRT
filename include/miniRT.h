@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 18:05:42 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/20 23:02:22 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/21 15:25:44 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 union			u_color
 {
 	int			value;
-	struct
+	struct		s_color_components
 	{
 		uint8_t	blue;
 		uint8_t	green;

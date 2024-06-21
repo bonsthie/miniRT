@@ -50,6 +50,7 @@ int	loop(t_scene *scene, t_img *img, t_screen *screen)
 		update_size_obj(obj, ALL);
 		tmp = tmp->next;
 	}
+	(void)rot;
 	update_scene(scene->object, rot);
 	rt_print_img_screen(img, screen, 0, 0);
 	return (0);

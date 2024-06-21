@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 22:13:03 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/20 23:43:53 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/20 23:50:51 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@
 
 t_rotation	during_right_clic(bool up, void *data)
 {
-	static bool			active = 0;
+	static bool			active = false;
 	static t_int_vec4	pos;
 	t_screen			*screen;
 	t_rotation			rot;
 
 	screen = data;
-	if (up)
+	if (up == true)
 	{
 		active = 1 - active;
 		rt_mouse_get_pos(screen, &pos.x, &pos.y);
@@ -50,7 +50,7 @@ int mouseup_hook(int key, void *data)
 	hdata = data;
 	if (key == MOUSE_MIDDLE)
 	{
-		during_right_clic(1, hdata->screen);
+		during_right_clic(false, hdata->screen);
 	}
 	return (0);
 }

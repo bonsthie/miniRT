@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mousedown_hook.c                                   :+:      :+:    :+:   */
+/*   magnitude.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/20 22:13:03 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/21 00:14:01 by babonnet         ###   ########.fr       */
+/*   Created: 2024/06/21 14:50:09 by babonnet          #+#    #+#             */
+/*   Updated: 2024/06/21 15:24:19 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../_hook.h"
-#include "miniRT.h"
+#include "rt_driver.h"
+#include <math.h>
 
-int mousedown_hook(int key, void *data)
+float	magnitude(t_v4f v)
 {
-	struct s_hook_data *hdata;
+	t_v4f	v_mul;
 
-	hdata = data;
-	if (key == MOUSE_MIDDLE)
-	{
-		during_right_clic(true, hdata->screen);
-	}
-	return (0);
+	v_mul = v * v;
+	return (sqrt(v_mul[0] + v_mul[1] + v_mul[2]));
 }
