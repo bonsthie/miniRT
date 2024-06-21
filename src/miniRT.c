@@ -50,8 +50,7 @@ int	loop(t_scene *scene, t_img *img, t_screen *screen)
 		update_size_obj(obj, ALL);
 		tmp = tmp->next;
 	}
-	(void)rot;
-	update_scene(scene->object, rot);
+	update_scene(scene->object, rot, scene->cam);
 	rt_print_img_screen(img, screen, 0, 0);
 	return (0);
 }
@@ -93,7 +92,7 @@ void	open_file_dialog(void *data)
 	else
 	{
 		add_object(scene, parse_obj(filename, NULL), OBJECT_OBJ);
-		update_size_obj(scene->object->object, ALL);
+		update_size_obj(scene->object->object, ALL | CENTER);
 	}
 }
 
@@ -105,10 +104,12 @@ void	non(void *non)
 
 int	main(int ac, char **av)
 {
-	t_scene	scene;
+	t_scene		scene;
+	t_camera	cam;
 
 	scene.object = NULL;
-	scene.object = NULL;
+	scene.cam = &cam;
+	cam.coord = (t_v4f){RT_WIDTH / 2, RT_HEIGHT / 2, -100, 0};
 	screen = rt_init();
 	if (!screen)
 		return (1);
@@ -119,7 +120,7 @@ int	main(int ac, char **av)
 		else
 		{
 			add_object(&scene, parse_obj(av[1], NULL), OBJECT_OBJ);
-			update_size_obj(scene.object->object, ALL | ROT_CENTER_OBJ);
+			update_size_obj(scene.object->object, ALL | ROT_CENTER_OBJ | CENTER);
 		}
 	}
 	rt_add_text_button_top(screen, "file", &scene, open_file_dialog);

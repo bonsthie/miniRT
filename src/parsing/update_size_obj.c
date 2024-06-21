@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 22:04:37 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/20 14:31:49 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/21 08:54:20 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ void	update_size_obj(t_object_mesh *object, uint8_t settings)
 {
 	t_v4f	transforamtion[4];
 
+	if (settings & CENTER)
+		object->offset = (t_offset){RT_WIDTH / 2, RT_HEIGHT / 2, 100};
 	transforamtion[0] = (t_v4f){1, 0, 0, 0};
 	transforamtion[1] = (t_v4f){0, 1, 0, 0};
 	transforamtion[2] = (t_v4f){0, 0, 1, 0};
