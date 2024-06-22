@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 22:13:03 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/21 16:42:11 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/22 15:00:45 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 void	move_cam(t_scene *data, t_v4f move)
 {
-	data->cam->coord += move;
+	data->cam.coord += move;
 }
 
 

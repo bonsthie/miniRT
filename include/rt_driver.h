@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:18:38 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/21 19:11:39 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/22 18:36:01 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,19 @@ typedef struct s_int_vec4
 	int					w;
 } __attribute__((aligned(16))) t_int_vec4;
 
+union			u_color
+{
+	int			value;
+	struct		s_color_components
+	{
+		uint8_t	blue;
+		uint8_t	green;
+		uint8_t	red;
+		uint8_t	alpha;
+	} components;
+};
+
+
 typedef void			*t_image;
 
 /**
@@ -108,10 +121,13 @@ typedef struct s_img	t_img;
  * @struct s_rt_render_info
  * @brief Structure to hold additional rendering information for objects
  */
+
 typedef struct s_rt_render_info
 {
-	t_vec3				vector;
-	t_vec3				normal;
+	union u_vec				vertex[4];
+	union u_vec				normal[4];
+	union u_color			color;
+	uint8_t					count;
 }						t_rt_render_info;
 
 /**
@@ -161,9 +177,8 @@ int						rt_loop(void *data,
  * @param img		Image structure where the triangle will be displayed
  * @param color		Color to use for the triangle
  */
-void					rt_display_triangle_rast(t_rt_render_info info[3],
+void					rt_display_triangle_rast(t_rt_render_info *info,
 							t_img *img,
-							unsigned int color,
 							int id)
 						__attribute__((nonnull(1, 2)));
 
@@ -174,8 +189,8 @@ void					rt_display_triangle_rast(t_rt_render_info info[3],
  * @param img		Image structure where the quadrilateral will be displayed
  * @param color		Color to use for the quadrilateral
  */
-void					rt_display_quad_rast(t_rt_render_info info[4],
-							t_img *img, unsigned int color,
+void					rt_display_quad_rast(t_rt_render_info *info,
+							t_img *img,
 							int id) __attribute__((nonnull(1, 2)));
 
 /**
@@ -185,7 +200,7 @@ void					rt_display_quad_rast(t_rt_render_info info[4],
  * @param img		Image structure where the triangle will be displayed
  * @param color		Color to use for the triangle
  */
-void					rt_display_triangle_mesh(t_rt_render_info info[3],
+void					rt_display_triangle_mesh(t_rt_render_info *info,
 							t_img *img,
 							unsigned int color) __attribute__((nonnull(1, 2)));
 
@@ -196,7 +211,7 @@ void					rt_display_triangle_mesh(t_rt_render_info info[3],
  * @param img		Image structure where the quadrilateral will be displayed
  * @param color		Color to use for the quadrilateral
  */
-void					rt_display_quad_mesh(t_rt_render_info info[4],
+void					rt_display_quad_mesh(t_rt_render_info *info,
 							t_img *img,
 							unsigned int color) __attribute__((nonnull(1, 2)));
 
@@ -207,7 +222,7 @@ void					rt_display_quad_mesh(t_rt_render_info info[4],
  * @param img		Image structure where the line will be displayed
  * @param color		Color to use for the line
  */
-void					rt_display_line(t_rt_render_info info[2], t_img *img,
+void					rt_display_line(t_rt_render_info *info, t_img *img,
 							unsigned int color) __attribute__((nonnull(1, 2)));
 
 /**

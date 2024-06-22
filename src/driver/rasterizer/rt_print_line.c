@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 11:31:21 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/21 15:24:19 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/22 18:35:39 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ void	plot_line(t_vec3 v1, t_vec3 v2, t_img *img, unsigned int color)
 	}
 }
 
-void	rt_display_line(t_rt_render_info info[2], t_img *img,
+void	rt_display_line(t_rt_render_info *info, t_img *img,
 		unsigned int color)
 {
-	plot_line(info[0].vector, info[1].vector, img, color);
+	plot_line(info->vertex[0].vec3, info->vertex[1].vec3, img, color);
 }

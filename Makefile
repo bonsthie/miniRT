@@ -43,6 +43,7 @@ LIBS_BINARYS += $(foreach lib,$(LIBRARIES), $($(lib)_BINARY))
 ADDITIONAL_FLAGS = -lm -lrt
 
 ################################ MAKEFILE RULES #####################################
+
 all: $(NAME)
 
 $(NAME): $(LIBS_BINARYS) $(OBJ)
@@ -55,8 +56,9 @@ $(NAME_BONUS): $(LIBS_BINARYS) $(OBJ_BONUS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(@D)
-	@echo "$(YELLOW)Compiling $<...$(NC)"
+	@echo "[$(YELLOW)$(CC)$(NC)] Compiling $<...$(NC)"
 	@$(CC) $(CFLAGS) -I$(HSRCS) $(LIB_DIR) -c $< -o $@
+	@echo "[$(YELLOW)$(CC)$(NC)] $(GREEN)compiled 	$(NC)$@"
 
 $(OBJ_DIR_BONUS)/%.o: $(SRC_DIR_BONUS)/%.c
 	@mkdir -p $(@D)
@@ -83,7 +85,7 @@ lclean:
 	@echo "$(RED)Cleaning libraries obj...$(NC)"
 	@$(foreach lib,$(LIBRARIES),$(MAKE) -C $($(lib)_DIR) clean > /dev/null;)
 
-fclean: clean
+fclean: clean lclean
 	@echo "$(RED)Cleaning executable $(NAME)...$(NC)"
 	@if [ -f $(NAME) ]; then \
 		echo "$(RED)Cleaning executable $(NAME)...$(NC)"; \
@@ -94,8 +96,6 @@ fclean: clean
 		rm -f $(NAME_BONUS); \
 		fi
 	@echo "$(RED)Cleaning libraries...$(NC)"
-	@$(foreach lib,$(LIBRARIES),$(MAKE) -C $($(lib)_DIR) fclean > /dev/null;)
-
 
 debug: CFLAGS += -g 
 debug: clean $(NAME)
@@ -107,6 +107,7 @@ re: fclean all
 .PHONY: all clean fclean lclean re help
 
 ##################################### COLORS ########################################
+
 RED = \033[0;31m
 GREEN = \033[0;32m
 YELLOW = \033[1;33m

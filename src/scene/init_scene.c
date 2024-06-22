@@ -1,38 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniRT.h                                           :+:      :+:    :+:   */
+/*   init_scene.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/03 18:05:42 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/22 18:20:59 by babonnet         ###   ########.fr       */
+/*   Created: 2024/06/22 15:07:19 by babonnet          #+#    #+#             */
+/*   Updated: 2024/06/22 18:38:30 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#include "rt_driver.h"
+#include "rt_scene_elements.h"
 
-# include "rt_driver.h"
-# include <stdint.h>
-
-typedef struct s_scene t_scene;
-
-struct			s_hook_data
+int init_asset(t_asset *asset)
 {
-	t_img		*img;
-	t_screen	*screen;
-	t_scene		*scene;
-};
+	rt_set_image_color(asset->gizmo_img, 0);
+	return(0);
+}
 
-// Enum to distinguish between different file types supported by the engine.
-typedef enum e_file_type
+int scene_init(t_scene *scene)
 {
-	OBJECT_OBJ = 0,
-	OBJECT_SPHERE,
-	OBJECT_CUBE,
-	OBJECT_PLANE,
-	OBJECT_CYLINDER,
-}				t_file_type;
-
-#endif
+	scene->object = NULL;
+	scene->cam.coord = (t_v4f){(float)RT_WIDTH / 2, (float)RT_HEIGHT / 2, -100, 0};
+	return (0);
+}

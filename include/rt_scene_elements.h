@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 22:17:28 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/21 19:23:28 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/22 15:10:54 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ typedef struct s_camera
 	t_v4f			coord;
 	t_rotation		rotation;
 	int				fov;
-	struct s_camera	*next;
 }					t_camera;
 
 // may be add angle of the light
@@ -45,9 +44,9 @@ typedef struct s_light
 
 typedef struct s_asset
 {
-	t_object_mesh	gizmo_translate;
-	t_object_mesh	gizmo_rotate;
-	t_object_mesh	gizmo_scale;
+	t_object_mesh	*gizmo_translate;
+	t_object_mesh	*gizmo_rotate;
+	t_object_mesh	*gizmo_scale;
 	t_img			*gizmo_img;
 }					t_asset;
 
@@ -63,7 +62,7 @@ typedef struct s_scene
 {
 	t_object		*object;
 	t_light			*light;
-	t_camera		*cam;
+	t_camera		cam;
 
 	t_asset			asset;
 
@@ -71,5 +70,5 @@ typedef struct s_scene
 
 void				update_scene(t_object *object, t_rotation lambda,
 						t_camera *cam);
-
+int scene_init(t_scene *scene);
 #endif

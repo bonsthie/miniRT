@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 23:14:48 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/21 15:28:34 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/22 18:09:01 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct s_point
 typedef struct s_face
 {
 	t_point						*point;
-	size_t						count;
+	uint8_t						count;
 	union u_color				color;
 }								t_face;
 

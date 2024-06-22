@@ -33,12 +33,13 @@ bool	init_hooks(t_scene *scene, t_img *img, t_screen *screen)
 
 int	loop(void *data, t_img *img, t_screen *screen)
 {
-	t_scene *scene = data;
+	t_scene			*scene;
 	t_object_mesh	*obj;
 	t_rotation		rot;
 	t_object		*tmp;
 	static bool		init_hooks_bool = true;
 
+	scene = data;
 	if (init_hooks_bool == true)
 		init_hooks_bool = init_hooks(scene, img, screen);
 	rot = during_right_clic(0, screen);
@@ -48,10 +49,10 @@ int	loop(void *data, t_img *img, t_screen *screen)
 		obj = tmp->object;
 		print_obj_to_image(obj, img, tmp->id);
 		// obj->new_rotation.yaw = 1;
-		update_size_obj(obj, ALL);
+		// update_size_obj(obj, ALL);
 		tmp = tmp->next;
 	}
-	update_scene(scene->object, rot, scene->cam);
+	update_scene(scene->object, rot, &(scene->cam));
 	rt_print_img_screen(img, screen, 0, 0);
 	return (0);
 }
@@ -105,15 +106,18 @@ void	non(void *non)
 
 int	main(int ac, char **av)
 {
-	t_scene		scene;
-	t_camera	cam;
+	t_scene	scene;
 
-	scene.object = NULL;
-	scene.cam = &cam;
-	cam.coord = (t_v4f){RT_WIDTH / 2, RT_HEIGHT / 2, -100, 0};
-	screen = rt_init();
+	screen = rt_init(); // can't have any alloc before they will be leaks in the fork of the error handler
 	if (!screen)
 		return (1);
+	if (scene_init(&scene))
+	{
+		rt_destroy(screen);
+		return (1);
+	}
+
+	// test function need to be replace with a function that load obj or rt scene
 	if (av[1])
 	{
 		if (!is_valid_format(av[1]))
@@ -121,14 +125,21 @@ int	main(int ac, char **av)
 		else
 		{
 			add_object(&scene, parse_obj(av[1], NULL), OBJECT_OBJ);
-			update_size_obj(scene.object->object, ALL | ROT_CENTER_OBJ | CENTER);
+			update_size_obj(scene.object->object,
+				ALL | ROT_CENTER_OBJ | CENTER);
 		}
 	}
+
+
+	// test button need to be rm
 	rt_add_text_button_top(screen, "file", &scene, open_file_dialog);
 	rt_add_text_button_top(screen, "yoo", NULL, non);
 	rt_add_text_button_top(screen, "comment", NULL, non);
 	rt_add_text_button_top(screen, "ca", NULL, non);
 	rt_add_text_button_top(screen, "va", NULL, non);
+
+
+
 	rt_loop(&scene, screen, loop);
 	rt_destroy(screen);
 	return (ac);
