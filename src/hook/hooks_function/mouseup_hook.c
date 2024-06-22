@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 22:13:03 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/21 16:59:25 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/22 18:14:28 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,32 +15,66 @@
 #include <rt_mesh_obj.h>
 #include "../_hook.h"
 #include "miniRT.h"
+#include "rt_scene_elements.h"
 
-t_rotation	during_right_clic(bool up, void *data)
+void	during_right_clic(bool up, struct s_hook_data *hdata)
 {
 	static bool			active = false;
 	static t_int_vec4	pos;
-	t_screen			*screen;
-	t_rotation			rot;
+	t_camera			*cam;
 
-	screen = data;
+	if (hdata->scene->cam->move_usage & (ZOOM | MOVING))
+		return ;
 	if (up == true)
 	{
 		active = 1 - active;
-		rt_mouse_get_pos(screen, &pos.x, &pos.y);
+		hdata->scene->cam->move_usage = 1u << (active * 2);
+		rt_mouse_get_pos(hdata->screen, &pos.x, &pos.y);
 		if (active)
 			rt_mouse_hide();
 		else
 			rt_mouse_show();
-		return ((t_rotation){0, 0, 0});
+		return ;
 	}
 	if (!active)
-		return ((t_rotation){0, 0, 0});
-	rt_mouse_get_pos(screen, &pos.z, &pos.w);
-	rot = (t_rotation){(float)(pos.w - pos.y)/RT_HEIGHT*360,
-		(float)(pos.x - pos.z)/RT_WIDTH*360, 0};
-	rt_mouse_move(screen, pos.x, pos.y);
-	return (rot);
+		return ;
+	cam = hdata->scene->cam;
+	rt_mouse_get_pos(hdata->screen, &pos.z, &pos.w);
+	rt_mouse_move(hdata->screen, pos.x, pos.y);
+	cam->rotation = (t_rotation){
+		cam->rotation.pitch + (float)(pos.w - pos.y)/RT_HEIGHT*360,
+		cam->rotation.yaw + (float)(pos.x - pos.z)/RT_WIDTH*360,
+		cam->rotation.roll + 0};
+}
+
+void	during_left_clic(bool up, struct s_hook_data *hdata)
+{
+	static bool			active = false;
+	static t_int_vec4	pos;
+	t_camera			*cam;
+
+	if (hdata->scene->cam->move_usage & (ZOOM | ROTATE))
+		return ;
+	if (up == true)
+	{
+		active = 1 - active;
+		hdata->scene->cam->move_usage = 1u << (active * 3);
+		rt_mouse_get_pos(hdata->screen, &pos.x, &pos.y);
+		if (active)
+			rt_mouse_hide();
+		else
+			rt_mouse_show();
+		return ;
+	}
+	if (!active)
+		return ;
+	cam = hdata->scene->cam;
+	rt_mouse_get_pos(hdata->screen, &pos.z, &pos.w);
+	rt_mouse_move(hdata->screen, pos.x, pos.y);
+	cam->coord_translation += (t_v4f){
+		(float)(pos.z - pos.x)/10,
+		(float)(pos.w - pos.y)/10,
+		0, 0};
 }
 
 int mouseup_hook(int key, void *data)
@@ -50,7 +84,11 @@ int mouseup_hook(int key, void *data)
 	hdata = data;
 	if (key == MOUSE_MIDDLE)
 	{
-		during_right_clic(true, hdata->screen);
+		during_right_clic(true, hdata);
+	}
+	if (key == MOUSE_LEFT)
+	{
+		during_left_clic(true, hdata);
 	}
 	return (0);
 }

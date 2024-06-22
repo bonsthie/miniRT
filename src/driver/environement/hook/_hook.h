@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 15:10:56 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/20 23:11:00 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/22 17:49:48 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	rt_window_hook(int event, void *param);
 int rt_mousedown_hook(int key, void *data);
 int rt_mouseup_hook(int key, void *data);
 int rt_keyup_hook(int key, void *data);
-t_rotation	during_right_clic(bool up, void *data);
+int rt_mousewheel_hook(int key, void *data);
 
 enum e_keycode
 {

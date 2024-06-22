@@ -75,9 +75,9 @@ t_object_mesh	*parse_obj(const char *name, const char *texture)
 	new_obj->new_rotation.pitch = 90;
 	new_obj->new_rotation.yaw = 0;
 	new_obj->new_rotation.roll = 0;
-	new_obj->new_offset.x = ((float)RT_WIDTH / 2) - RT_UI_SIDE_BAR;
-	new_obj->new_offset.y = ((float)RT_HEIGHT / 2) - RT_UI_TOP_BAR;
-	new_obj->new_offset.z = 100;
+	new_obj->new_offset.x = 0;
+	new_obj->new_offset.y = 0;
+	new_obj->new_offset.z = 0;
 	close(new_obj->metadata.fd);
 	return (new_obj);
 }
