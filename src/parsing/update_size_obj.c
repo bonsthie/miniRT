@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 22:04:37 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/21 08:54:20 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/22 15:10:29 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ void	find_center(t_object_mesh *object)
 	size = object->mesh.size_mesh.vertex;
 	while (i < size)
 	{
-		object->center.v4f += object->mesh.vertex[i].v4f;
+		object->center.v4f += object->mesh.vertex_init[i];
 		i++;
 	}
 	object->center.v4f /= (t_v4f){size, size, size, 1};
-	object->center.v4f -= *(t_v4f *)&object->offset.x;
+	// object->center.v4f -= *(t_v4f *)&object->offset.x;
 }
 
 void create_transformation_matrix(t_v4f *transformation, t_object_mesh *object, uint8_t settings)
@@ -74,20 +74,30 @@ void create_transformation_matrix(t_v4f *transformation, t_object_mesh *object, 
 		rotate_roll(object->new_rotation, transformation);
 	if (settings & SCALE)
 		transformation_matrix_scale(transformation, object);
-	if (settings & ROT_CENTER_OBJ)
-	{
-		transformation[0][3] -= object->center.vec3.x;
-		transformation[1][3] -= object->center.vec3.y;
-		transformation[2][3] -= object->center.vec3.z;
-	}
+	// if (settings & ROT_CENTER_OBJ)
+	// {
+	// 	transformation[0][3] -= object->center.vec3.x;
+	// 	transformation[1][3] -= object->center.vec3.y;
+	// 	transformation[2][3] -= object->center.vec3.z;
+	// }
+	transformation[0][3] = object->new_offset.x;
+	transformation[1][3] = object->new_offset.y;
+	transformation[2][3] = object->new_offset.z;
+}
+
+__always_inline
+void	rotate(t_v4f *tr, t_v4f *result, t_v4f center)
+{
+	t_v4f tmp = *result - center;
+	tmp[3] = 1;
+	matrix_multiplication1x4(tr, tmp, &tmp);
+	*result = tmp + center;
 }
 
 void	update_size_obj(t_object_mesh *object, uint8_t settings)
 {
 	t_v4f	transforamtion[4];
 
-	if (settings & CENTER)
-		object->offset = (t_offset){RT_WIDTH / 2, RT_HEIGHT / 2, 100};
 	transforamtion[0] = (t_v4f){1, 0, 0, 0};
 	transforamtion[1] = (t_v4f){0, 1, 0, 0};
 	transforamtion[2] = (t_v4f){0, 0, 1, 0};
@@ -96,9 +106,10 @@ void	update_size_obj(t_object_mesh *object, uint8_t settings)
 	create_transformation_matrix(transforamtion, object, settings);
 	#pragma omp parallel for
 	for (size_t i = 0; i < object->mesh.size_mesh.vertex; i++)
-	{
-		matrix_multiplication1x4(transforamtion, object->mesh.vertex[i].v4f,
-			&object->mesh.vertex[i].v4f);
-	}
+		rotate(transforamtion, &object->mesh.vertex_init[i], object->center.v4f);
+	if (settings & CENTER)
+		for (size_t i = 0; i < object->mesh.size_mesh.vertex; i++)
+			object->mesh.vertex_init[i] += (t_v4f){(float)RT_WIDTH / 2,
+				(float)RT_HEIGHT / 2, 100, 0} - object->center.v4f ;
 	reset_transformation(object);
 }

@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 22:17:28 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/22 15:10:54 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/22 20:07:31 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "miniRT.h"
 # include "rt_driver.h"
 # include <rt_mesh_obj.h>
+#include <stdint.h>
 
 typedef struct s_object
 {
@@ -25,9 +26,20 @@ typedef struct s_object
 	struct s_object	*next;
 }					t_object;
 
+typedef enum s_cam_movement
+{
+	NO_MOVE = 1u,
+	ZOOM = 1u << 1,
+	ROTATE = 1u << 2,
+	MOVING = 1u << 3,
+}			t_cam_movement;
+
 typedef struct s_camera
 {
-	t_v4f			coord;
+	t_cam_movement	move_usage;
+	t_v4f			coord_axes;
+	t_v4f			coord_translation;
+	float			zoom;
 	t_rotation		rotation;
 	int				fov;
 }					t_camera;
@@ -68,7 +80,7 @@ typedef struct s_scene
 
 }					t_scene;
 
-void				update_scene(t_object *object, t_rotation lambda,
-						t_camera *cam);
+void	update_scene(t_object *object, t_camera *cam);
 int scene_init(t_scene *scene);
+
 #endif

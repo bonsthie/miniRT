@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hook.c                                             :+:      :+:    :+:   */
+/*   mousewheel_hook.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/20 22:08:36 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/22 17:53:10 by yroussea         ###   ########.fr       */
+/*   Created: 2024/06/20 22:13:03 by babonnet          #+#    #+#             */
+/*   Updated: 2024/06/22 17:55:05 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt_driver.h"
-#include "miniRT.h"
-#include "_hook.h"
+#include "../_hook.h"
+#include <stdio.h>
 
-void hook_creation(t_screen *screen, struct s_hook_data *data)
+int mousewheel_hook(int key, void *data)
 {
-	rt_on_event(screen, RT_KEYUP, keyup_hook, data);
-	rt_on_event(screen, RT_MOUSEDOWN, mousedown_hook, data);
-	rt_on_event(screen, RT_MOUSEWHEEL, mousewheel_hook, data);
-	rt_on_event(screen, RT_MOUSEUP, mouseup_hook, data);
+	struct s_hook_data *hdata;
+
+	printf("%d\n", key);
+	hdata = data;
+	(void)hdata;
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 22:18:10 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/20 23:06:20 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/22 17:49:16 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ void hook_creation(t_screen *screen, struct s_hook_data *data);
 int keyup_hook(int key, void *data);
 int mouseup_hook(int key, void *data);
 int mousedown_hook(int key, void *data);
+int mousewheel_hook(int key, void *data);
 
-t_rotation	during_right_clic(bool up, void *data);
+void	during_right_clic(bool up, struct s_hook_data *data);
+void	during_left_clic(bool up, struct s_hook_data *hdata);
 
 enum e_keycode
 {
