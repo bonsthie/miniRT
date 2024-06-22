@@ -1,30 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_hook_key_up.c                                   :+:      :+:    :+:   */
+/*   rt_get_id_under_cursor.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/07 21:22:31 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/22 22:43:59 by babonnet         ###   ########.fr       */
+/*   Created: 2024/06/22 22:07:23 by babonnet          #+#    #+#             */
+/*   Updated: 2024/06/22 22:07:45 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
-#include "../_hook.h"
-#include "rt_driver.h"
+#include "../_rt_mlx.h"
 
-
-int rt_keyup_hook(int key, void *data)
+short rt_id_obj_under_curssor(t_screen *screen, t_img *img)
 {
-	t_screen *screen;
-
-	screen = data;
-	if (key == L_KEY)
-	{
-		rt_error_window(screen, "Luke jtm bb inferieur a trois");
-	}
-	if (screen->hooks.hook_function[RT_KEYUP])
-		screen->hooks.hook_function[RT_KEYUP](key, screen->hooks.data[RT_KEYUP]);
-	return (0);
+	return (img->obj_id[screen->mouse_y][screen->mouse_x]);
 }

@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:59:40 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/21 19:13:45 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/22 23:33:52 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,6 @@ typedef struct s_screen
 
 	struct s_hooks		hooks;
 }						t_screen;
-
-typedef struct s_img
-{
-	short				zbuffer[RT_HEIGHT][RT_WIDTH];
-	unsigned int		color[RT_HEIGHT][RT_WIDTH];
-	short				obj_id[RT_HEIGHT][RT_WIDTH];
-}						t_img;
 
 
 typedef struct s_mlx

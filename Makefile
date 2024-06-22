@@ -58,7 +58,6 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(@D)
 	@echo "[$(YELLOW)$(CC)$(NC)] Compiling $<...$(NC)"
 	@$(CC) $(CFLAGS) -I$(HSRCS) $(LIB_DIR) -c $< -o $@
-	@echo "[$(YELLOW)$(CC)$(NC)] $(GREEN)compiled 	$(NC)$@"
 
 $(OBJ_DIR_BONUS)/%.o: $(SRC_DIR_BONUS)/%.c
 	@mkdir -p $(@D)

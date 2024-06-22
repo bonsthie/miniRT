@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 22:13:03 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/22 20:10:48 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/22 23:04:47 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "miniRT.h"
 #include "rt_scene_elements.h"
 
-void	during_right_clic(bool up, struct s_hook_data *hdata)
+void	move_scene_during_right_clic(bool up, struct s_hook_data *hdata)
 {
 	static bool			active = false;
 	static t_int_vec4	pos;
@@ -30,10 +30,6 @@ void	during_right_clic(bool up, struct s_hook_data *hdata)
 		active = 1 - active;
 		hdata->scene->cam.move_usage = 1u << (active * 2);
 		rt_mouse_get_pos(hdata->screen, &pos.x, &pos.y);
-		if (active)
-			rt_mouse_hide();
-		else
-			rt_mouse_show();
 		return ;
 	}
 	if (!active)
@@ -47,7 +43,7 @@ void	during_right_clic(bool up, struct s_hook_data *hdata)
 		cam->rotation.roll + 0};
 }
 
-void	during_left_clic(bool up, struct s_hook_data *hdata)
+void	move_scene_during_left_clic(bool up, struct s_hook_data *hdata)
 {
 	static bool			active = false;
 	static t_int_vec4	pos;
@@ -60,10 +56,6 @@ void	during_left_clic(bool up, struct s_hook_data *hdata)
 		active = 1 - active;
 		hdata->scene->cam.move_usage = 1u << (active * 3);
 		rt_mouse_get_pos(hdata->screen, &pos.x, &pos.y);
-		if (active)
-			rt_mouse_hide();
-		else
-			rt_mouse_show();
 		return ;
 	}
 	if (!active)
@@ -80,15 +72,21 @@ void	during_left_clic(bool up, struct s_hook_data *hdata)
 int mouseup_hook(int key, void *data)
 {
 	struct s_hook_data *hdata;
+	t_status			*status;
 
 	hdata = data;
+	status = &hdata->scene->status;
 	if (key == MOUSE_MIDDLE)
 	{
-		during_right_clic(true, hdata);
+		status->mouse_right_press = false;
+		move_scene_during_right_clic(true, hdata);
+		rt_mouse_show();
 	}
 	if (key == MOUSE_LEFT)
 	{
-		during_left_clic(true, hdata);
+		status->mouse_left_press = false;
+		move_scene_during_left_clic(true, hdata);
+		rt_mouse_show();
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:18:38 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/22 18:36:01 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/22 23:34:02 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@
 #  define RT_ERROR_WINDOW 1
 # endif
 
-typedef struct s_screen	t_screen;
+typedef struct s_screen t_screen;
+
 
 // Aligned vector types for optimal hardware utilization by use of AVX.
 typedef float	__attribute__((aligned(16),	vector_size(16)))	t_v4f;
@@ -115,7 +116,12 @@ typedef void			*t_image;
  * @brief Structure to hold image data, including z-buffer, color data,
 	and object IDs
  */
-typedef struct s_img	t_img;
+typedef struct s_img
+{
+	short				zbuffer[RT_HEIGHT][RT_WIDTH];
+	unsigned int		color[RT_HEIGHT][RT_WIDTH];
+	short				obj_id[RT_HEIGHT][RT_WIDTH];
+}						t_img;
 
 /**
  * @struct s_rt_render_info
@@ -329,5 +335,7 @@ int						rt_mouse_show(void);
 int						rt_mouse_move(t_screen *screen, int x, int y);
 
 void rt_set_image_color(t_img *img, unsigned int color);
+
+short rt_id_obj_under_curssor(t_screen *screen, t_img *img);
 
 #endif /* RT_DRIVER_H */

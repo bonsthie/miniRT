@@ -33,21 +33,24 @@ bool	init_hooks(t_scene *scene, t_img *img, t_screen *screen)
 
 int	loop(void *data, t_img *img, t_screen *screen)
 {
-	static struct s_hook_data	hdata;
+	static bool		init_hooks_bool = true;
 	t_scene			*scene;
 	t_object_mesh	*obj;
 	t_object		*tmp;
-	static bool		init_hooks_bool = true;
+	static struct s_hook_data	hdata;
 
 	scene = data;
 	hdata.scene = scene;
 	hdata.screen = screen;
 	hdata.img = img;
 
+	(void)hdata;
 	if (init_hooks_bool == true)
 		init_hooks_bool = init_hooks(scene, img, screen);
-	during_right_clic(0, &hdata);
-	during_left_clic(0, &hdata);
+	if (scene->status.mouse_right_press)
+		move_scene_during_right_clic(0, &hdata);
+	if (scene->status.mouse_left_press)
+		move_scene_during_left_clic(0, &hdata);
 	tmp = scene->object;
 	while (tmp)
 	{
@@ -58,7 +61,7 @@ int	loop(void *data, t_img *img, t_screen *screen)
 
 		obj->new_offset = (t_offset){scene->cam.coord_axes[0],
 			scene->cam.coord_axes[1], scene->cam.coord_axes[2]};
-		update_size_obj(obj, ALL);
+		/* update_size_obj(obj, ALL); */
 		scene->cam.coord_axes = (t_v4f){0,0,0,0};
 
 		tmp = tmp->next;

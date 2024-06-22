@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 22:17:28 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/22 20:07:31 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/22 23:31:13 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "miniRT.h"
 # include "rt_driver.h"
 # include <rt_mesh_obj.h>
-#include <stdint.h>
+# include <stdbool.h>
 
 typedef struct s_object
 {
@@ -32,7 +32,7 @@ typedef enum s_cam_movement
 	ZOOM = 1u << 1,
 	ROTATE = 1u << 2,
 	MOVING = 1u << 3,
-}			t_cam_movement;
+}					t_cam_movement;
 
 typedef struct s_camera
 {
@@ -62,14 +62,24 @@ typedef struct s_asset
 	t_img			*gizmo_img;
 }					t_asset;
 
-/**
- * @Main structure of the project defining the components of a scene.
- * @object Pointer to the first object in the scene,
-	forming a linked list of all objects.
- * @light Pointer to the first light source in the scene,
-	forming a linked list of all lights.
- * @cam Pointer to the camera used to view the scene.
- */
+
+enum e_gizmo_selected
+{
+	GIZMO_NO,
+	GIZMO_TRANSLATE,
+	GIZMO_ROTATE,
+	GIZMO_SCALE,
+};
+
+typedef struct s_status
+{
+	short			object_selected_id;
+	bool			mouse_left_press;
+	bool			mouse_right_press;
+	uint8_t			gizmo_selected:3;
+	uint8_t			padding:2;
+}					t_status;
+
 typedef struct s_scene
 {
 	t_object		*object;
@@ -77,10 +87,10 @@ typedef struct s_scene
 	t_camera		cam;
 
 	t_asset			asset;
-
+	t_status		status;
 }					t_scene;
 
-void	update_scene(t_object *object, t_camera *cam);
-int scene_init(t_scene *scene);
+void				update_scene(t_object *object, t_camera *cam);
+int					scene_init(t_scene *scene);
 
 #endif

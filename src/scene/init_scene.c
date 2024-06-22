@@ -6,21 +6,34 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 15:07:19 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/22 20:12:55 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/22 23:42:30 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_driver.h"
+#include "object.h"
 #include "rt_scene_elements.h"
 
 int init_asset(t_asset *asset)
 {
+	asset->gizmo_img = malloc(sizeof(t_img));
+	if (!asset->gizmo_img)
+		return (1);
 	rt_set_image_color(asset->gizmo_img, 0);
+	asset->gizmo_translate = parse_obj("asset/translate_arrow.obj", NULL);
+	if (!asset->gizmo_translate)
+		return (1);
 	return(0);
 }
 
 int scene_init(t_scene *scene)
 {
+	if (init_asset(&scene->asset))
+	{
+		if (scene->asset.gizmo_img)
+			free(scene->asset.gizmo_img);
+		return (1);
+	}
 	scene->object = NULL;
 	scene->cam.coord_axes = (t_v4f){0, 0, 0, 0};
 	scene->cam.coord_translation = (t_v4f){0, 0, 0, 0};

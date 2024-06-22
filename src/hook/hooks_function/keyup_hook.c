@@ -6,14 +6,13 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 22:13:03 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/22 19:57:25 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/22 22:47:06 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../_hook.h"
 #include "miniRT.h"
 #include "rt_driver.h"
-#include "rt_mesh_obj.h"
 #include <rt_scene_elements.h>
 #include <sys/types.h>
 
@@ -30,19 +29,29 @@ static void	zoom(t_camera *cam, float new_scale)
 int keyup_hook(int key, void *data)
 {
 	struct s_hook_data *hdata;
+	t_status *status;
 
 	hdata = data;
-	if (key == 22)// S_KEY)
+	status = &hdata->scene->status;
+	if (key == T_KEY)
+		status->gizmo_selected = GIZMO_TRANSLATE;
+	else if (key == R_KEY)
+		status->gizmo_selected = GIZMO_ROTATE;
+	else if (key == S_KEY)
+		status->gizmo_selected = GIZMO_SCALE;
+	else if (key == DOWN_ARROW)
 		move_cam(hdata->scene, (t_v4f){0, -5, 0, 0});
-	if (key == 26)// Z_KEY)
+	else if (key == UP_ARROW)
 		move_cam(hdata->scene, (t_v4f){0, 5, 0, 0});
-	if (key == 7)// Q_KEY)
+	else if (key == L_ARROW)
 		move_cam(hdata->scene, (t_v4f){-5, 0, 0, 0});
-	if (key == 4)// D_KEY)
+	else if (key == R_ARROW)
 		move_cam(hdata->scene, (t_v4f){5, 0, 0, 0});
-	if (key == 20)// A_KEY)
+	else if (key == A_KEY)
 		zoom(&hdata->scene->cam, 1.2);
-	if (key == 8)// E_KEY)
+	else if (key == E_KEY)
 		zoom(&hdata->scene->cam, 1. / 1.2);
+	else if (key == ESCAPE)
+		status->object_selected_id = 0;
 	return (0);
 }
