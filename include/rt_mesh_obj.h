@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 23:14:48 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/22 19:53:36 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/06/28 12:38:30 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,5 +122,7 @@ enum							e_setting_update_size_obj
 
 void							update_size_obj(t_object_mesh *object,
 									uint8_t setting);
+
+void	find_center(t_object_mesh *object);
 
 #endif

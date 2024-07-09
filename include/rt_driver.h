@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:18:38 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/22 23:34:02 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/07/05 12:18:14 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -334,8 +334,12 @@ int						rt_mouse_show(void);
 
 int						rt_mouse_move(t_screen *screen, int x, int y);
 
-void rt_set_image_color(t_img *img, unsigned int color);
+void					rt_set_image_color(t_img *img, unsigned int color);
 
-short rt_id_obj_under_curssor(t_screen *screen, t_img *img);
+short					rt_id_obj_under_curssor(t_screen *screen, t_img *img);
+
+int						rt_put_pixel_img(t_img *img, int x, int y, int z, int color);
+
+int						rt_put_pixel_img_protected(t_img *img, int x, int y, int z, int color);
 
 #endif /* RT_DRIVER_H */

@@ -78,6 +78,7 @@ t_object_mesh	*parse_obj(const char *name, const char *texture)
 	new_obj->new_offset.x = 0;
 	new_obj->new_offset.y = 0;
 	new_obj->new_offset.z = 0;
+	find_center(new_obj);
 	close(new_obj->metadata.fd);
 	return (new_obj);
 }

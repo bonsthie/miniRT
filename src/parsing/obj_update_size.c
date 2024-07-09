@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   update_size_obj.c                                  :+:      :+:    :+:   */
+/*   obj_update_size.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 22:04:37 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/22 15:10:29 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/06/28 14:33:19 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,23 +44,6 @@ void	reset_transformation(t_object_mesh *object)
 	object->new_offset.x = 0;
 	object->new_offset.y = 0;
 	object->new_offset.z = 0;
-}
-
-void	find_center(t_object_mesh *object)
-{
-	size_t	i;
-	size_t	size;
-
-	i = 0;
-	object->center.v4f = (t_v4f){0, 0, 0, 0};
-	size = object->mesh.size_mesh.vertex;
-	while (i < size)
-	{
-		object->center.v4f += object->mesh.vertex_init[i];
-		i++;
-	}
-	object->center.v4f /= (t_v4f){size, size, size, 1};
-	// object->center.v4f -= *(t_v4f *)&object->offset.x;
 }
 
 void create_transformation_matrix(t_v4f *transformation, t_object_mesh *object, uint8_t settings)
@@ -102,11 +85,11 @@ void	update_size_obj(t_object_mesh *object, uint8_t settings)
 	transforamtion[1] = (t_v4f){0, 1, 0, 0};
 	transforamtion[2] = (t_v4f){0, 0, 1, 0};
 	transforamtion[3] = (t_v4f){0, 0, 0, 1};
-	find_center(object);
 	create_transformation_matrix(transforamtion, object, settings);
 	#pragma omp parallel for
 	for (size_t i = 0; i < object->mesh.size_mesh.vertex; i++)
 		rotate(transforamtion, &object->mesh.vertex_init[i], object->center.v4f);
+	matrix_multiplication1x4(transforamtion, object->center.v4f, &object->center.v4f);
 	if (settings & CENTER)
 		for (size_t i = 0; i < object->mesh.size_mesh.vertex; i++)
 			object->mesh.vertex_init[i] += (t_v4f){(float)RT_WIDTH / 2,

@@ -6,12 +6,12 @@
 #    By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/12 18:41:58 by babonnet          #+#    #+#              #
-#    Updated: 2024/03/28 22:32:27 by babonnet         ###   ########.fr        #
+#    Updated: 2024/07/06 18:06:37 by babonnet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC := $(shell find src -name '*.c')
+SRC := $(shell find src -name '*.c') 
+
 
 SRC_BONUS := $(shell find src_bonus -name '*.c')
-
 
