@@ -6,10 +6,11 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 21:32:24 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/22 18:41:47 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/07/09 19:38:43 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include <math.h>
 #include <rt_driver.h>
 #include <rt_math.h>
@@ -85,6 +86,12 @@ void	print_obj_to_image(t_object_mesh *object, t_img *img, int id)
 	for (size_t i = 0; i < object->mesh.size_mesh.face; i++)
 	{
 		print_face(extract_tri_info_from_face(object->mesh.face[i], object->mesh), img, id);
+	}
+	printf("test === %f   %f\n", object->center.vec3.x,object->center.vec3.y);
+	for (int i = 0; i < 10; i++) 
+	{
+		for  (int y = 0; y < 10; y++)
+			rt_put_pixel_img(img, object->center.vec3.x + i, object->center.vec3.y + y, SHORT_MIN, 0xFFFF0000);
 	}
 	clock_gettime(CLOCK_MONOTONIC, &end);
 	seconds = end.tv_sec - start.tv_sec;

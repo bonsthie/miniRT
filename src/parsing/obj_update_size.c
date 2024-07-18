@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 22:04:37 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/28 14:33:19 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/07/09 17:19:15 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,10 @@ void	update_size_obj(t_object_mesh *object, uint8_t settings)
 	transforamtion[2] = (t_v4f){0, 0, 1, 0};
 	transforamtion[3] = (t_v4f){0, 0, 0, 1};
 	create_transformation_matrix(transforamtion, object, settings);
+	matrix_multiplication1x4(transforamtion, object->center.v4f, &object->center.v4f);
 	#pragma omp parallel for
 	for (size_t i = 0; i < object->mesh.size_mesh.vertex; i++)
 		rotate(transforamtion, &object->mesh.vertex_init[i], object->center.v4f);
-	matrix_multiplication1x4(transforamtion, object->center.v4f, &object->center.v4f);
 	if (settings & CENTER)
 		for (size_t i = 0; i < object->mesh.size_mesh.vertex; i++)
 			object->mesh.vertex_init[i] += (t_v4f){(float)RT_WIDTH / 2,
