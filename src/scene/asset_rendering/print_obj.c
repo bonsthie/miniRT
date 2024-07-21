@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 21:32:24 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/21 18:25:06 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/21 19:28:16 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,11 @@ void	print_obj_to_image(t_object_mesh *object, t_img *img, int id)
 	{
 		for  (int y = 0; y < 10; y++)
 			rt_put_pixel_img(img, object->relative_center.vec3.x + i, object->relative_center.vec3.y + y, SHORT_MIN, 0xFFFF0000);
+	}
+	for (int i = 0; i < 10; i++) 
+	{
+		for  (int y = 0; y < 10; y++)
+			rt_put_pixel_img(img, object->relative_point.vec3.x + i, object->relative_point.vec3.y + y, SHORT_MIN, 0xFF00FF00);
 	}
 	clock_gettime(CLOCK_MONOTONIC, &end);
 	seconds = end.tv_sec - start.tv_sec;

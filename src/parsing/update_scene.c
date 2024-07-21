@@ -6,7 +6,7 @@
 /*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:14:19 by yroussea          #+#    #+#             */
-/*   Updated: 2024/07/21 18:24:32 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/21 19:27:48 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	rotate_center(t_v4f *tr, t_v4f vertex, t_v4f *result)
 	*result = tmp + get_screen_center();
 }
 
+#include <stdio.h>
 void	update_single_object(t_object_mesh *object, t_v4f *tr)
 {
 	find_center(object, &(object->mesh.vertex->v4f), &object->relative_center.v4f);
@@ -46,6 +47,7 @@ void	update_single_object(t_object_mesh *object, t_v4f *tr)
 	for (size_t i = 0; i < object->mesh.size_mesh.vertex; i++)
 		rotate_center(tr, object->mesh.vertex_init[i],
 			&object->mesh.vertex[i].v4f);
+	rotate_center(tr, object->saving_point.v4f, &object->relative_point.v4f);
 }
 
 void	update_scene(t_object *object, t_camera *cam)

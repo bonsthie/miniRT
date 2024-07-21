@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:14:27 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/21 17:55:15 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/21 19:27:56 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	loop(void *data, t_img *img, t_screen *screen)
 		obj = tmp->object;
 		print_obj_to_image(obj, img, tmp->id);
 
-		obj->new_rotation.yaw = 1;
+		// obj->new_rotation.yaw = 1;
 
 		obj->new_offset = (t_offset){scene->cam.coord_axes[0],
 			scene->cam.coord_axes[1], scene->cam.coord_axes[2]};
@@ -117,6 +117,7 @@ void	open_file_dialog(void *data)
 		add_object(scene, parse_obj(filename, NULL), OBJECT_OBJ);
 		save_vec(scene->object->object);
 		update_size_obj(scene->object->object, ALL | CENTER);
+		down_center(scene->object->object);
 	}
 }
 
@@ -149,6 +150,7 @@ int	main(int ac, char **av)
 			add_object(&scene, parse_obj(av[1], NULL), OBJECT_OBJ);
 			save_vec(scene.object->object);
 			update_size_obj(scene.object->object, ALL | CENTER);
+			down_center(scene.object->object);
 		}
 	}
 

@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 23:14:48 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/21 18:18:37 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/21 19:27:24 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,8 @@ typedef struct s_object_mesh
 
 	union u_vec					center;
 	union u_vec					relative_center;
+	union u_vec					saving_point;
+	union u_vec					relative_point;
 
 }								t_object_mesh;
 
@@ -126,5 +128,6 @@ void							update_size_obj(t_object_mesh *object,
 									uint8_t setting);
 
 void	find_center(t_object_mesh *object, t_v4f *vertex, t_v4f *center);
+void	down_center(t_object_mesh *object);
 
 #endif

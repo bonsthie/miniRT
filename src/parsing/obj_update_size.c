@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 22:04:37 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/21 18:21:21 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/21 19:18:10 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,13 @@ void	update_size_obj(t_object_mesh *object, uint8_t settings)
 	for (size_t i = 0; i < object->mesh.size_mesh.vertex; i++)
 		rotate(transforamtion, &object->mesh.vertex_init[i], object->center.v4f);
 	if (settings & CENTER)
+	{
 		for (size_t i = 0; i < object->mesh.size_mesh.vertex; i++)
 			object->mesh.vertex_init[i] += (t_v4f){(float)RT_WIDTH / 2,
 				(float)RT_HEIGHT / 2, 100, 0} - object->center.v4f ;
+		find_center(object, object->mesh.vertex_init, &object->center.v4f);
+	}
+	else
+		rotate(transforamtion, &object->saving_point.v4f, object->center.v4f);
 	reset_transformation(object);
 }
