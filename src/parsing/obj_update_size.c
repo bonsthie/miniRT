@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 22:04:37 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/09 17:19:15 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/07/21 18:21:21 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	rotate(t_v4f *tr, t_v4f *result, t_v4f center)
 	*result = tmp + center;
 }
 
+#include <stdio.h>
 void	update_size_obj(t_object_mesh *object, uint8_t settings)
 {
 	t_v4f	transforamtion[4];
@@ -85,8 +86,14 @@ void	update_size_obj(t_object_mesh *object, uint8_t settings)
 	transforamtion[1] = (t_v4f){0, 1, 0, 0};
 	transforamtion[2] = (t_v4f){0, 0, 1, 0};
 	transforamtion[3] = (t_v4f){0, 0, 0, 1};
+	find_center(object, object->mesh.vertex_init, &object->center.v4f);
+	// printf("%f %f %f\n",
+	// 	object->center.v4f[0],
+	// 	object->center.v4f[1],
+	// 	object->center.v4f[2]
+	// 	);
 	create_transformation_matrix(transforamtion, object, settings);
-	matrix_multiplication1x4(transforamtion, object->center.v4f, &object->center.v4f);
+	// matrix_multiplication1x4(transforamtion, object->center.v4f, &object->center.v4f);
 	#pragma omp parallel for
 	for (size_t i = 0; i < object->mesh.size_mesh.vertex; i++)
 		rotate(transforamtion, &object->mesh.vertex_init[i], object->center.v4f);

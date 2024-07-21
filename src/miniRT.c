@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:14:27 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/09 19:34:45 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/07/21 17:55:15 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	loop(void *data, t_img *img, t_screen *screen)
 
 		obj->new_offset = (t_offset){scene->cam.coord_axes[0],
 			scene->cam.coord_axes[1], scene->cam.coord_axes[2]};
-		/* update_size_obj(obj, ALL); */
+		update_size_obj(obj, ALL);
 		scene->cam.coord_axes = (t_v4f){0,0,0,0};
 
 		tmp = tmp->next;
