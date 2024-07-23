@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 22:17:28 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/22 23:31:13 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/07/21 20:21:30 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ typedef struct s_scene
 	t_status		status;
 }					t_scene;
 
-void				update_scene(t_object *object, t_camera *cam);
+void				update_scene(t_scene *scene);
 int					scene_init(t_scene *scene);
 
 #endif

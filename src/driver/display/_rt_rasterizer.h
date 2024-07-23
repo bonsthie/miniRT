@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 19:33:52 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/21 17:54:47 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/07/21 20:45:12 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <miniRT.h>
 # include <rt_driver.h>
 
-#define FIXED_ORDER 24
+#define FIXED_ORDER 8
 
 typedef struct s_line_param
 {

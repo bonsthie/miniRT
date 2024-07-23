@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_scene.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:14:19 by yroussea          #+#    #+#             */
-/*   Updated: 2024/07/21 19:27:48 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/21 20:25:06 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	rotate_center(t_v4f *tr, t_v4f vertex, t_v4f *result)
 	*result = tmp + get_screen_center();
 }
 
-#include <stdio.h>
 void	update_single_object(t_object_mesh *object, t_v4f *tr)
 {
 	find_center(object, &(object->mesh.vertex->v4f), &object->relative_center.v4f);
@@ -50,9 +49,14 @@ void	update_single_object(t_object_mesh *object, t_v4f *tr)
 	rotate_center(tr, object->saving_point.v4f, &object->relative_point.v4f);
 }
 
-void	update_scene(t_object *object, t_camera *cam)
+void	update_scene(t_scene *scene)
 {
-	t_v4f				tr[4];
+	t_v4f		tr[4];
+	t_object	*object;
+	t_camera	*cam;
+
+	object = scene->object;
+	cam = &scene->cam;
 	tr[0] = (t_v4f){cam->zoom/100, 0, 0, 0};
 	tr[1] = (t_v4f){0, cam->zoom/100, 0, 0};
 	tr[2] = (t_v4f){0, 0, cam->zoom/100, 0};
@@ -64,4 +68,5 @@ void	update_scene(t_object *object, t_camera *cam)
 		update_single_object(object->object, tr);
 		object = object->next;
 	}
+		update_single_object(scene->asset.gizmo_translate, tr);
 }

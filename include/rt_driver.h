@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:18:38 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/05 12:18:14 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/07/22 17:35:15 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,9 +253,9 @@ void					rt_print_img_screen(t_img *img, t_screen *screen,
  */
 enum					e_button_style
 {
-	IMAGE = 1 << 0,
-	TEXT = 1 << 1,
-	SLIDER = 1 << 2 // not implemented for now
+	IMAGE = 1u << 0,
+	TEXT = 1u << 1,
+	SLIDER = 1u << 2 // not implemented for now
 };
 
 # define RT_SIMPLE_BUTTON -1

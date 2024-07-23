@@ -31,8 +31,8 @@ t_screen	*rt_init(void)
 	screen->win = mlx_new_window(screen->mlx, RT_WIDTH, RT_HEIGHT, RT_WIN_NAME);
 	if (!screen->win)
 	{
-		free(screen);
 		mlx_destroy_display(screen->mlx);
+		free(screen);
 		return (NULL);
 	}
 	screen->button_top = NULL;

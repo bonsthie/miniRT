@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   obj_intern.h                                       :+:      :+:    :+:   */
+/*   get_obj_by_id.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/14 13:39:58 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/21 23:35:41 by babonnet         ###   ########.fr       */
+/*   Created: 2024/07/22 00:30:06 by babonnet          #+#    #+#             */
+/*   Updated: 2024/07/22 15:40:49 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef OBJ_INTERN_H
-# define OBJ_INTERN_H
+#include "rt_scene_elements.h"
+#include <stdio.h>
 
-# include "libft.h"
-# include <rt_mesh_obj.h>
-
-void	free_mesh(t_mesh *mesh);
-int		alloc_mesh(t_mesh *mesh);
-
-#endif
+t_object *get_obj_by_id(t_object *object, short id)
+{
+	while(object)
+	{
+		if (object->id == id)
+		{
+			printf("%d  %d\n", object->id, id);
+			return (object);
+		}
+		object = object->next;
+	}
+	return (NULL);
+}

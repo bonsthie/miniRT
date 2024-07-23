@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:32:56 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/22 17:58:38 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/07/21 23:50:02 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	fill_texture(t_texture_coord *texture_coord, size_t size,
 		total_size = 0;
 }
 
-static size_t	count_face(char *str)
+size_t	count_face(char *str)
 {
 	char	**strs;
 	size_t	i;
@@ -96,7 +96,7 @@ static size_t	count_face(char *str)
 		return (0);
 	strs = ft_split(str, ' ');
 	i = 0;
-	while (strs[i] && ft_isdigit(*strs[i]))
+	while (strs[i] && ft_isdigit(*strs[i]) && ft_strncmp(strs[i], "0x", 2))
 		i++;
 	free_strs(strs);
 	return (i);

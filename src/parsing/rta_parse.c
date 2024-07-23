@@ -2,10 +2,54 @@
 #include <rt_mesh_obj.h>
 #include "obj_intern.h"
 #include "parse.h"
+#include "rt_driver.h"
 #include <fcntl.h>
 #include <stdio.h>
+#include <stdlib.h>
 
-void	fill_mesh(t_mesh *mesh, char **file_name, t_list *file_ll)
+int	fill_face_rta(t_face *face, size_t size, t_list **file_ll)
+{
+	static size_t total_size = 0;
+	char	*str;
+	size_t	i;
+
+	str = (*file_ll)->content;
+	face += total_size;
+	while (total_size < size && *file_ll && !ft_strncmp(str, "f ", 2))
+	{
+		str++;
+		/* printf("%s", str); */
+		face->count = count_face(str);
+		if (!face->count)
+			face->point = NULL;
+		else
+		{
+			face->point = malloc(face->count * sizeof(t_point));
+			if (!face->point)
+			{
+				free(face->point);
+				return (1);
+			}
+			i = 0;
+			while (i < face->count)
+			{
+				parse_face(face, &str, i);
+				i++;
+			}
+		}
+		face->color.value = strtol(str, NULL, 0);
+		face++;
+		*file_ll = (*file_ll)->next;
+		if (*file_ll)
+			str = (*file_ll)->content;
+		total_size++;
+	}
+	if (total_size == size)
+		total_size = 0;
+	return (0);
+}
+
+void	fill_mesh_rta(t_mesh *mesh, char **file_name, t_list *file_ll)
 {
 	int	error;
 
@@ -27,7 +71,7 @@ void	fill_mesh(t_mesh *mesh, char **file_name, t_list *file_ll)
 			fill_texture(mesh->texture_coord, mesh->size_mesh.texture,
 				&file_ll);
 		else if (!ft_strncmp(file_ll->content, "f ", 2))
-			error = fill_face(mesh->face, mesh->size_mesh.face, &file_ll);
+			error = fill_face_rta(mesh->face, mesh->size_mesh.face, &file_ll);
 		else if (file_ll)
 			file_ll = file_ll->next;
 		if (error)
@@ -35,7 +79,7 @@ void	fill_mesh(t_mesh *mesh, char **file_name, t_list *file_ll)
 	}
 }
 
-void	fill_obj(int fd, t_object_mesh *object)
+void	fill_rta(int fd, t_object_mesh *object)
 {
 	t_mesh	*mesh;
 
@@ -47,29 +91,11 @@ void	fill_obj(int fd, t_object_mesh *object)
 	object->metadata.file = parse_line_by_line(fd, &mesh->size_mesh);
 	if (!object->metadata.file)
 		exit_message(1, "Error : [malloc failed in the metadata.file parsing]\n");
-	fill_mesh(mesh, &object->metadata.file_name, object->metadata.file);
+	fill_mesh_rta(mesh, &object->metadata.file_name, object->metadata.file);
 	ft_lstclear(&object->metadata.file, free);
 }
 
-void	fill_obj_texture(t_texture *texture, const char *texture_file)
-{
-	(void)texture;
-	(void)texture_file;
-}
-
-void	save_vec(t_object_mesh *object)
-{
-	size_t i;
-
-	i = 0;
-	while (i < object->mesh.size_mesh.vertex)
-	{
-		object->mesh.vertex_init[i] = object->mesh.vertex[i].v4f;
-		i++;
-	}
-}
-
-t_object_mesh	*parse_obj(const char *name, const char *texture)
+t_object_mesh	*parse_rta(const char *name, const char *texture)
 {
 	t_object_mesh	*new_obj;
 
@@ -81,10 +107,10 @@ t_object_mesh	*parse_obj(const char *name, const char *texture)
 	{
 		exit_message(1, "Error : [cannot open the .obj metadata.file]\n");
 	}
-	fill_obj(new_obj->metadata.fd, new_obj);
+	fill_rta(new_obj->metadata.fd, new_obj);
 	fill_obj_texture(&new_obj->texture, texture);
+	new_obj->new_scale = 3;
 	close(new_obj->metadata.fd);
-	new_obj ->new_scale = 10;
 	new_obj->new_rotation.pitch = 90;
 	new_obj->new_rotation.yaw = 0;
 	new_obj->new_rotation.roll = 0;
