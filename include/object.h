@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:16:34 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/22 00:31:55 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/07/23 13:15:34 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <miniRT.h>
 # include <rt_scene_elements.h>
 
+void			save_vec(t_object_mesh *object);
 void			add_object(t_scene *scene, void *object, t_file_type file_type);
 t_object_mesh	*parse_obj(const char *name, const char *texture);
 t_object_mesh	*parse_rta(const char *name, const char *texture);

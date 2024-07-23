@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:14:27 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/23 13:40:31 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/07/23 13:44:50 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,29 +50,27 @@ void loop_hooks(t_scene *scene, t_img *img, t_screen *screen)
 void print_scene_obj_img(t_object *object, t_img *img, t_scene *scene)
 {
 	t_object_mesh	*obj;
-	while (object)
-	{
-		obj = object->object;
+	obj = object->object;
 
-		/* // obj->new_rotation.yaw = 1; */
+	obj->new_rotation.yaw = 1;
+	obj->new_offset = (t_offset){scene->cam.coord_axes[0],
+		scene->cam.coord_axes[1], scene->cam.coord_axes[2]};
+	update_size_obj(obj, ALL);
+	print_obj_to_image(obj, img, object->id);
 
-		obj->new_offset = (t_offset){scene->cam.coord_axes[0],
-			scene->cam.coord_axes[1], scene->cam.coord_axes[2]};
-		update_size_obj(obj, ALL);
-		scene->cam.coord_axes = (t_v4f){0,0,0,0};
-		print_obj_to_image(obj, img, object->id);
-
-		object = object->next;
-	}
+	object = object->next;
 }
 
 void print_all_obj(t_object *object, t_img *img, t_scene *scene)
 {
 	while (object)
 	{
+
 		print_scene_obj_img(object, img, scene);
-		object = object->next;
+		scene->cam.coord_axes = (t_v4f){0,0,0,0};
+			object = object->next;
 	}
+	update_gizmo_position(scene);
 }
 
 int	loop(void *data, t_img *img, t_screen *screen)
@@ -152,9 +150,6 @@ void add_tea_pot(void *data)
 	scene = data;
 	t_object_mesh *obj = parse_obj("model/resources/teapot2.obj", NULL);
 	add_object(scene, obj, OBJECT_OBJ);
-	obj->new_offset.x = 0;
-	obj->new_offset.y = 0;
-	obj->new_offset.z = 0;
 	update_size_obj(scene->object->object, ALL | CENTER);
 	down_center(scene->object->object);
 }
