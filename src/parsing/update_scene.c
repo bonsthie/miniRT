@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:14:19 by yroussea          #+#    #+#             */
-/*   Updated: 2024/07/21 20:25:06 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/07/23 14:23:16 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,5 @@ void	update_scene(t_scene *scene)
 		update_single_object(object->object, tr);
 		object = object->next;
 	}
-		update_single_object(scene->asset.gizmo_translate, tr);
+	update_single_object(scene->asset.gizmo_translate, tr);
 }

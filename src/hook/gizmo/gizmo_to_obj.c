@@ -6,11 +6,12 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 20:54:22 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/23 12:07:10 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/07/23 14:27:03 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "object.h"
+#include "rt_mesh_obj.h"
 #include "rt_scene_elements.h"
 
 void translate_gizmo_to_obj(t_scene *scene, t_object_mesh *gizmo)
@@ -25,14 +26,15 @@ void translate_gizmo_to_obj(t_scene *scene, t_object_mesh *gizmo)
 		return ;
 	obj_mesh = object->object;
 
-	gizmo->new_offset.x = obj_mesh->relative_center.vec3.x - gizmo->relative_center.vec3.x;
-	gizmo->new_offset.y = obj_mesh->relative_center.vec3.y - gizmo->relative_center.vec3.y;
-	gizmo->new_offset.z = obj_mesh->relative_center.vec3.z - gizmo->relative_center.vec3.z;
+	gizmo->new_offset.x = obj_mesh->center.vec3.x - gizmo->center.vec3.x;
+	gizmo->new_offset.y = obj_mesh->center.vec3.y - gizmo->center.vec3.y;
+	gizmo->new_offset.z = obj_mesh->center.vec3.z - gizmo->center.vec3.z;
 	gizmo->new_rotation.yaw = obj_mesh->rotation.yaw - gizmo->rotation.yaw;
 	gizmo->new_rotation.pitch = obj_mesh->rotation.pitch - gizmo->rotation.pitch;
 	gizmo->new_rotation.roll = obj_mesh->rotation.roll - gizmo->rotation.roll;
 	/* if (gizmo->new_offset.x > 1) */
 	update_size_obj(gizmo, ALL);
+	find_center(gizmo, gizmo->mesh.vertex_init, &gizmo->center.v4f);
 }
 
 void update_gizmo_position(t_scene *scene)

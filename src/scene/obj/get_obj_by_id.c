@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 00:30:06 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/22 15:40:49 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/07/23 13:58:31 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_object *get_obj_by_id(t_object *object, short id)
 	{
 		if (object->id == id)
 		{
-			printf("%d  %d\n", object->id, id);
+			// printf("%d  %d\n", object->id, id);
 			return (object);
 		}
 		object = object->next;

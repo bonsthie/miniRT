@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 22:13:03 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/22 21:39:08 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/07/23 13:53:43 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int mousedown_hook(int key, void *data)
 		if (status->object_selected_id != id_selected && status->object_selected_id)
 		{
 			printf("fsffs\n");
-			update_gizmo_position(hdata->scene);
+			// update_gizmo_position(hdata->scene);
 			id_selected = status->object_selected_id;
 		}
 		printf("obj clicked %d\n", status->object_selected_id);
