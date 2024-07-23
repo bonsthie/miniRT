@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:59:40 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/22 23:33:52 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/07/23 13:09:52 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ typedef struct s_screen
 	t_button			*button_top;
 	t_button			*button_side;
 
-	int					error_pid;
-
 	struct s_hooks		hooks;
 }						t_screen;
 
@@ -60,6 +58,8 @@ typedef struct s_mlx
 int						init_mlx_data(t_mlx *mlx);
 void					free_mlx_data(void);
 void					hook(t_mlx *mlx);
+
 int						rt_error_signal(void);
+int						*rt_get_error_pid(void);
 
 #endif
