@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 11:37:27 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/10 18:46:03 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/07/23 13:14:35 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void rt_destroy(t_screen *screen)
 {
 	t_button *tmp;
 
-	kill(screen->error_pid, SIGTERM);
 	mlx_clear_window(screen->mlx, screen->win);
 	/* mlx_destroy_display(screen->mlx); */
 	while (screen->button_top)

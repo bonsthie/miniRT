@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:14:27 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/23 13:58:02 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/23 14:28:21 by yroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 #include <stdio.h>
 #include <string.h>
 
-t_screen	*screen;
 
 bool	init_hooks(t_scene *scene, t_img *img, t_screen *screen)
 {
@@ -109,7 +108,7 @@ void	open_file_dialog(void *data)
 	fp = popen("zenity --file-selection --title=\"Select a file\"", "r");
 	if (fp == NULL)
 	{
-		rt_error_window(screen, "Failed to run zenity command\n");
+		rt_error_window("Failed to run zenity command\n");
 		return ;
 	}
 	if (fgets(filename, sizeof(filename), fp) != NULL)
@@ -119,12 +118,12 @@ void	open_file_dialog(void *data)
 	}
 	else
 	{
-		rt_error_window(screen, "No file selected.\n");
+		rt_error_window("No file selected.\n");
 		return ;
 	}
 	pclose(fp);
 	if (!is_valid_format(filename))
-		rt_error_window(screen, "file Format not supported\n");
+		rt_error_window("file Format not supported\n");
 	else
 	{
 		t_object_mesh *obj = parse_obj(filename, NULL);
@@ -156,9 +155,10 @@ void add_tea_pot(void *data)
 
 int	main(int ac, char **av)
 {
+	t_screen	*screen;
 	t_scene	scene;
 
-	screen = rt_init(); // can't have any alloc before they will be leaks in the fork of the error handler
+	screen = rt_init();
 	if (!screen)
 		return (1);
 	if (scene_init(&scene))
@@ -171,7 +171,7 @@ int	main(int ac, char **av)
 	if (av[1])
 	{
 		if (!is_valid_format(av[1]))
-			rt_error_window(screen, "file Format not supported\n");
+			rt_error_window("file Format not supported\n");
 		else
 		{
 			add_object(&scene, parse_obj(av[1], NULL), OBJECT_OBJ);

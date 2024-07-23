@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 21:22:31 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/22 22:43:59 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/07/23 13:22:19 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int rt_keyup_hook(int key, void *data)
 	screen = data;
 	if (key == L_KEY)
 	{
-		rt_error_window(screen, "Luke jtm bb inferieur a trois");
+		rt_error_window("Luke jtm bb inferieur a trois");
 	}
 	if (screen->hooks.hook_function[RT_KEYUP])
 		screen->hooks.hook_function[RT_KEYUP](key, screen->hooks.data[RT_KEYUP]);

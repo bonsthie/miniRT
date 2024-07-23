@@ -1,25 +1,12 @@
 #include "../_rt_mlx.h"
 #include <libft.h>
 #include <mlx.h>
-#include <rt_driver.h>
-#include <stdio.h>
-
-
-int	init_error_process(void)
-{
-	return (rt_error_signal());
-}
 
 t_screen	*rt_init(void)
 {
 	t_screen	*screen;
-	int			pid;
 
-	pid = init_error_process();
-	if (!pid || pid == -1)
-		exit(0);
 	screen = malloc(sizeof(t_screen));
-	screen->error_pid = pid;
 	if (!screen)
 		return (NULL);
 	screen->mlx = mlx_init();

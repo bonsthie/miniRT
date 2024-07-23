@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:18:38 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/22 17:35:15 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/07/23 13:27:41 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -308,8 +308,7 @@ void					rt_add_text_button_top(t_screen *screen, char *text,
 void					rt_print_button(t_screen *screen);
 /* void rt_remove_button(t_screen *screen, char *id); */
 
-void					rt_error_window(t_screen *screen,
-							const char *error_msg);
+void					rt_error_window(const char *error_msg);
 
 # define HOOK_COUNT 6
 

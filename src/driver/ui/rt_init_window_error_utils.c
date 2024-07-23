@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_init_window_error.c                             :+:      :+:    :+:   */
+/*   rt_init_window_error_utils.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 13:47:23 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/28 14:22:23 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/07/23 13:26:37 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <signal.h>
-#include <unistd.h>
 #include <mlx.h>
-#include <rt_driver.h>
-#include <stdio.h>
-#include "hook/_hook.h"
+#include "../environement/hook/_hook.h"
 
 
 #if RT_ERROR_WINDOW

@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 17:13:18 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/09 18:42:57 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/07/23 13:27:24 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,22 @@
 
 #if RT_ERROR_WINDOW
 
-void rt_error_window(t_screen *screen, const char *error_msg)
+void rt_error_window(const char *error_msg)
 {
+	if (!error_msg)
+		return ;
 	union sigval sv;
 	sv.sival_ptr = (void *)error_msg;
-	sigqueue(screen->error_pid, SIGUSR1, sv);
+	sigqueue(*rt_get_error_pid(), SIGUSR1, sv);
 }
 
 #else
 
-void rt_error_window(t_screen *screen, const char *error_msg)
+void rt_error_window(const char *error_msg)
 {
-	ft_printf(error_msg);
-	(void)screen;
+	if (!error_msg)
+		return ;
+	ft_printf("%s\n", error_msg);
 }
 
 #endif
