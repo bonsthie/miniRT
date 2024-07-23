@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:14:27 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/23 13:48:37 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/07/23 15:12:55 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,9 @@ void print_all_obj(t_object *object, t_img *img, t_scene *scene)
 {
 	while (object)
 	{
-
 		print_scene_obj_img(object, img, scene);
 		scene->cam.coord_axes = (t_v4f){0,0,0,0};
-			object = object->next;
+		object = object->next;
 	}
 	update_gizmo_position(scene);
 }
