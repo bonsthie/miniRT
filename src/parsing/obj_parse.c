@@ -2,6 +2,7 @@
 #include <rt_mesh_obj.h>
 #include "obj_intern.h"
 #include "parse.h"
+#include "rt_driver.h"
 #include <fcntl.h>
 #include <stdio.h>
 
@@ -73,9 +74,10 @@ t_object_mesh	*parse_obj(const char *name, const char *texture)
 {
 	t_object_mesh	*new_obj;
 
+
 	new_obj = ft_calloc(1, sizeof(t_object_mesh));
 	if (!new_obj)
-		exit_message(1, "Error : [malloc fild in the creation of a new object]\n");
+		rt_error_window("Error : [malloc fild in the creation of a new object]\n");
 	new_obj->metadata.fd = open(name, O_RDONLY);
 	if (new_obj->metadata.fd < 0)
 	{
@@ -95,4 +97,19 @@ t_object_mesh	*parse_obj(const char *name, const char *texture)
 	save_vec(new_obj);
 	return (new_obj);
 }
+
+
+/* t_object_mesh	*parse_model(const char *name, const char *texture) */
+/* { */
+/* 	t_object_mesh	*new_obj; */
+/*  */
+/*  */
+/* 	new_obj = ft_calloc(1, sizeof(t_object_mesh)); */
+/* 	if (!new_obj) */
+/* 	{ */
+/* 		rt_error_window("Error : [malloc fild in the creation of a new object]\n"); */
+/*  */
+/* 	} */
+/*  */
+/* } */
 

@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:14:19 by yroussea          #+#    #+#             */
-/*   Updated: 2024/07/23 14:23:16 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/25 00:32:21 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	update_single_object(t_object_mesh *object, t_v4f *tr)
 	rotate_center(tr, object->saving_point.v4f, &object->relative_point.v4f);
 }
 
+#include <stdio.h>
+
 void	update_scene(t_scene *scene)
 {
 	t_v4f		tr[4];
@@ -69,4 +71,5 @@ void	update_scene(t_scene *scene)
 		object = object->next;
 	}
 	update_single_object(scene->asset.gizmo_translate, tr);
+	update_mouse_3d_pos(&scene->mouse_3d, tr);
 }

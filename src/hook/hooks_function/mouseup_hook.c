@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 22:13:03 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/22 23:04:47 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/07/26 18:42:05 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int mouseup_hook(int key, void *data)
 	}
 	if (key == MOUSE_LEFT)
 	{
+		status->gizmo_axe_selected = 0;
 		status->mouse_left_press = false;
 		move_scene_during_left_clic(true, hdata);
 		rt_mouse_show();

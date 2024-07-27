@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:14:27 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/23 15:12:55 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/07/27 17:11:13 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 #include <rt_scene_elements.h>
 #include <stdio.h>
 #include <string.h>
-
 
 bool	init_hooks(t_scene *scene, t_img *img, t_screen *screen)
 {
@@ -52,7 +51,7 @@ void print_scene_obj_img(t_object *object, t_img *img, t_scene *scene)
 	t_object_mesh	*obj;
 	obj = object->object;
 
-	obj->new_rotation.yaw = 1;
+	/* obj->new_rotation.yaw = 1; */
 	obj->new_offset = (t_offset){scene->cam.coord_axes[0],
 		scene->cam.coord_axes[1], scene->cam.coord_axes[2]};
 	update_size_obj(obj, ALL);
@@ -77,12 +76,18 @@ int	loop(void *data, t_img *img, t_screen *screen)
 	t_scene			*scene;
 
 	scene = data;
+	scene->prev_mouse_3d = scene->mouse_3d;
+	scene->mouse_3d = get_mouse_pos_3d(screen);
 	loop_hooks(scene, img, screen);
-	print_all_obj(scene->object, img, scene);
 	update_scene(scene);
+	print_all_obj(scene->object, img, scene);
 	rt_print_img_screen(img, screen, 0, 0);
-	if (scene->status.object_selected_id)
+
+	if (scene->status.object_selected_id && scene->status.gizmo_selected)
 	{
+		if (scene->status.gizmo_axe_selected)
+			gizmo_move_object(scene);
+			
 		rt_set_image_color(scene->asset.gizmo_img, 0);
 		print_obj_to_image(scene->asset.gizmo_translate, scene->asset.gizmo_img, 1);
 		rt_print_img_screen(scene->asset.gizmo_img, screen, 0, 0);
@@ -166,6 +171,7 @@ int	main(int ac, char **av)
 		rt_destroy(screen);
 		return (1);
 	}
+	scene.status.object_selected_id = 0;
 
 	// test function need to be replace with a function that load obj or rt scene
 	if (av[1])

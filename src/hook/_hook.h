@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 22:18:10 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/22 20:55:54 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/07/23 16:24:20 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	move_scene_during_right_clic(bool up, struct s_hook_data *data);
 void	move_scene_during_left_clic(bool up, struct s_hook_data *hdata);
 
 void update_gizmo_position(t_scene *scene);
+int	 gizmo_support(t_scene *scene, t_screen *screen);
 
 enum e_keycode
 {

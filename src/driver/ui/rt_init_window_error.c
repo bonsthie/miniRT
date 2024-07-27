@@ -6,12 +6,14 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 13:09:09 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/23 13:16:34 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/07/23 15:20:14 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../_rt_mlx.h"
 #include <signal.h>
+
+#if RT_ERROR_WINDOW
 
 int *rt_get_error_pid(void)
 {
@@ -25,6 +27,7 @@ int	init_error_process(void)
 	return (rt_error_signal());
 }
 
+
 void  __attribute__((constructor))rt_init_error_window(void)
 {
 	int *pid;
@@ -37,8 +40,6 @@ void  __attribute__((constructor))rt_init_error_window(void)
 		exit (1);
 	}
 }
-
-#if RT_ERROR_WINDOW
 
 void __attribute__((destructor()))rt_destroy_error_window(void)
 {

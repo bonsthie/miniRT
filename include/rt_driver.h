@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:18:38 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/23 13:27:41 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/07/26 17:49:49 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -340,5 +340,9 @@ short					rt_id_obj_under_curssor(t_screen *screen, t_img *img);
 int						rt_put_pixel_img(t_img *img, int x, int y, int z, int color);
 
 int						rt_put_pixel_img_protected(t_img *img, int x, int y, int z, int color);
+
+int						rt_get_color_under_cursor(t_screen *screen, t_img *img);
+
+int						rt_get_color_under_cursor_avrege(t_screen *screen, t_img *img, int size);
 
 #endif /* RT_DRIVER_H */

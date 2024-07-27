@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:16:34 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/23 13:15:34 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/07/25 00:51:41 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,7 @@ void			print_obj_to_image_color(t_object_mesh *object, t_img *img, int id, unsig
 void			update_color_object(t_object_mesh *object, int new_color);
 
 t_object *get_obj_by_id(t_object *object, short id);
+void create_transformation_matrix(t_v4f *transformation, t_object_mesh *object, uint8_t settings);
+void	rotate(t_v4f *tr, t_v4f *result, t_v4f center);
 
 #endif

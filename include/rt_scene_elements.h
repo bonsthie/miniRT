@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 22:17:28 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/21 20:21:30 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/07/26 18:36:40 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,22 @@ enum e_gizmo_selected
 	GIZMO_SCALE,
 };
 
+enum e_gimzo_axe_selected
+{
+	GIZMO_AXE_NONE,
+	GIZMO_AXE_X,
+	GIZMO_AXE_Y,
+	GIZMO_AXE_Z
+};
+
 typedef struct s_status
 {
 	short			object_selected_id;
-	bool			mouse_left_press;
-	bool			mouse_right_press;
+	uint8_t			mouse_left_press:1;
+	uint8_t			mouse_right_press:1;
 	uint8_t			gizmo_selected:3;
-	uint8_t			padding:2;
+	uint8_t			gizmo_axe_selected:2;
+	uint8_t			padding:1;
 }					t_status;
 
 typedef struct s_scene
@@ -88,9 +97,19 @@ typedef struct s_scene
 
 	t_asset			asset;
 	t_status		status;
+	
+	union u_vec		mouse_3d;
+	union u_vec		prev_mouse_3d;
 }					t_scene;
 
-void				update_scene(t_scene *scene);
 int					scene_init(t_scene *scene);
+
+void				update_scene(t_scene *scene);
+void				rotate_center(t_v4f *tr, t_v4f vertex, t_v4f *result);
+void				update_mouse_3d_pos(union u_vec *mouse_3d, t_v4f tr[4]);
+union u_vec			get_mouse_pos_3d(t_screen *screen);
+union u_vec			mouse_pose_relative_to_object(union u_vec mouse_3d, t_object *object);
+
+void gizmo_move_object(t_scene *scene);
 
 #endif

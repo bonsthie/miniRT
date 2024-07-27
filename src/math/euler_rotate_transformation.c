@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   euler_rotate_transformation.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yroussea <yroussea@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/20 13:23:17 by yroussea          #+#    #+#             */
-/*   Updated: 2024/06/21 00:13:50 by babonnet         ###   ########.fr       */
+/*   Created: 2024/06/20 13:23:17 by babonnet          #+#    #+#             */
+/*   Updated: 2024/07/25 00:22:42 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
