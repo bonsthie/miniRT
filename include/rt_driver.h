@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:18:38 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/26 17:49:49 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/07/28 16:42:38 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,9 +276,9 @@ typedef struct s_button_setting
 	void				(*f)(void *);
 
 	char				*text;
-	void *image;          // not implemented for now
-	int slider_in_value;  // not implemented for now
-	int slider_out_value; // not implemented for now
+	void				*image;          // not implemented for now
+	int					slider_in_value;  // not implemented for now
+	int 				slider_out_value; // not implemented for now
 
 }						t_button_setting;
 
