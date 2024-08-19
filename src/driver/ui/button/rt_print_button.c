@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_button.c                                     :+:      :+:    :+:   */
+/*   rt_print_button.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
+/*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 15:38:57 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/05 21:21:24 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/08/10 19:45:57 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../_rt_mlx.h"
+#include "__rt_button.h"
 #include "mlx.h"
 #include "rt_driver.h"
 #include <stdio.h>
@@ -26,7 +26,7 @@ void	print_button_top_txt(t_screen *screen, t_button *button_top,
 	sidepading = RT_UI_TOP_BAR * 0.1;
 	y = sidepading;
 	*pixel_padding += 4;
-	new_sidepading = *pixel_padding + ft_strlen(button_top->name) * 12 + RT_BUTTON_SIDE_PADDING;
+	new_sidepading = *pixel_padding + ft_strlen(button_top->settings.text) * 12 + RT_BUTTON_SIDE_PADDING;
 	while (y < RT_UI_TOP_BAR - sidepading)
 	{
 		x = *pixel_padding;
@@ -38,7 +38,7 @@ void	print_button_top_txt(t_screen *screen, t_button *button_top,
 		y++;
 	}
 	*pixel_padding += RT_BUTTON_SIDE_PADDING;
-	mlx_string_put(screen->mlx, screen->win, *pixel_padding + RT_BUTTON_SIDE_PADDING * 0.2, sidepading + RT_UI_TOP_BAR * 0.5, 0xFF000000, button_top->name);
+	mlx_string_put(screen->mlx, screen->win, *pixel_padding + RT_BUTTON_SIDE_PADDING * 0.2, sidepading + RT_UI_TOP_BAR * 0.5, 0xFF000000, button_top->settings.text);
 	*pixel_padding = new_sidepading;
 }
 
@@ -64,7 +64,7 @@ void	rt_print_button(t_screen *screen)
 		}
 		else
 			color = RT_BUTTON_COLOR;
-		if (button_top->type == TXT)
+		if (button_top->settings.style == TEXT)
 		{
 			print_button_top_txt(screen, button_top, &pixel_padding, color);
 		}

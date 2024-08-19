@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 00:29:52 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/28 16:37:44 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/08/18 14:12:03 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ union u_vec get_mouse_pos_3d(t_screen *screen)
 void update_mouse_3d_pos(union u_vec *mouse_3d, t_v4f tr[4])
 {
 	rotate_center(tr, mouse_3d->v4f, &mouse_3d->v4f);
-	printf("x = %f y = %f z = %f\n", mouse_3d->vec3.x, mouse_3d->vec3.y, mouse_3d->vec3.z);
 }
 
 union u_vec mouse_pose_relative_to_object(union u_vec mouse_3d, t_object *object)
@@ -46,6 +45,5 @@ union u_vec mouse_pose_relative_to_object(union u_vec mouse_3d, t_object *object
 	dummy.new_rotation = mesh->rotation;
 	create_transformation_matrix(transformation, &dummy, ALL);
 	rotate(transformation, &mouse_3d.v4f, mesh->center.v4f);
-	printf("\tx = %f y = %f z = %f\n", mouse_3d.vec3.x, mouse_3d.vec3.y, mouse_3d.vec3.z);
 	return (mouse_3d);
 }

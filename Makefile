@@ -84,7 +84,7 @@ lclean:
 	@echo "$(RED)Cleaning libraries obj...$(NC)"
 	@$(foreach lib,$(LIBRARIES),$(MAKE) -C $($(lib)_DIR) clean > /dev/null;)
 
-fclean: clean lclean
+fclean: clean
 	@echo "$(RED)Cleaning executable $(NAME)...$(NC)"
 	@if [ -f $(NAME) ]; then \
 		echo "$(RED)Cleaning executable $(NAME)...$(NC)"; \
@@ -95,6 +95,7 @@ fclean: clean lclean
 		rm -f $(NAME_BONUS); \
 		fi
 	@echo "$(RED)Cleaning libraries...$(NC)"
+	@$(foreach lib,$(LIBRARIES),$(MAKE) -C $($(lib)_DIR) fclean > /dev/null ;)
 
 debug: CFLAGS += -g 
 debug: clean $(NAME)

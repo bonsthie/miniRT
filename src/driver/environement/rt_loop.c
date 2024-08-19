@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_loop.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
+/*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 18:14:03 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/21 19:20:49 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/08/10 19:03:51 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void uptade_top_bar_status(t_button *button, int mouse_x)
 	count = 0;
 	while(button)
 	{
-		offset = count + ft_strlen(button->name) * 11 + RT_BUTTON_SIDE_PADDING + 2;
+		offset = count + ft_strlen(button->settings.text) * 11 + RT_BUTTON_SIDE_PADDING + 2;
 		
 		if (mouse_x > count && mouse_x <= offset && button->action != CLICK)
 			button->action = HOWEVER;

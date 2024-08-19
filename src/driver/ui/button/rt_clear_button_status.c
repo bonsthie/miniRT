@@ -1,4 +1,4 @@
-#include "../_rt_mlx.h"
+#include "__rt_button.h"
 #include "rt_driver.h"
 
 void	reset_however_button(t_screen *screen)

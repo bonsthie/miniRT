@@ -3,24 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   rt_hook_mouse_up.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
+/*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 13:59:42 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/20 23:10:01 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/08/18 14:29:22 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../_hook.h"
 #include "rt_driver.h"
+#include <stdio.h>
 
 void click_to_however(t_button *button)
 {
 	while (button)
 	{
-		if (button->action == CLICK)
+		if (button->action != SLEEP)
 		{
-			button->func(button->data);
-			button->action = SLEEP;
+			if (button->settings.id == (uint8_t)RT_SIMPLE_BUTTON )
+			{
+				printf("simple");
+				button->action = SLEEP;
+			}
+			else
+				button->action = CLICK;
+			button->settings.f(button->settings.data);
 			return ;
 		}
 		button = button->next;

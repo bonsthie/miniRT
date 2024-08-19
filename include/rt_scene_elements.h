@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 22:17:28 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/26 18:36:40 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/08/19 13:06:06 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,12 @@ enum e_gimzo_axe_selected
 	GIZMO_AXE_Z
 };
 
+enum e_viewport_selected
+{
+	VP_EDITOR,
+	VP_RAYTRACER
+};
+
 typedef struct s_status
 {
 	short			object_selected_id;
@@ -86,7 +92,7 @@ typedef struct s_status
 	uint8_t			mouse_right_press:1;
 	uint8_t			gizmo_selected:3;
 	uint8_t			gizmo_axe_selected:2;
-	uint8_t			padding:1;
+	uint8_t			viewport_status:1;
 }					t_status;
 
 typedef struct s_scene
@@ -111,5 +117,8 @@ union u_vec			get_mouse_pos_3d(t_screen *screen);
 union u_vec			mouse_pose_relative_to_object(union u_vec mouse_3d, t_object *object);
 
 void gizmo_move_object(t_scene *scene);
+
+void select_viewport_raytracer(void *data);
+void select_viewport_editor(void *data);
 
 #endif

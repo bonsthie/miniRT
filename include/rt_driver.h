@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_driver.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
+/*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:18:38 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/28 16:42:38 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/08/19 12:30:07 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,8 +253,8 @@ void					rt_print_img_screen(t_img *img, t_screen *screen,
  */
 enum					e_button_style
 {
-	IMAGE = 1u << 0,
 	TEXT = 1u << 1,
+	IMAGE = 1u << 0,
 	SLIDER = 1u << 2 // not implemented for now
 };
 
@@ -267,10 +267,12 @@ enum					e_button_style
 	* if you use RT_SIMPLE_BUTTON the the action will end when the button is unpress
  * @struct s_button_setting
  */
-typedef struct s_button_setting
+
+typedef struct s_button_setting // size 48 bytes | padding 39 bites
 {
-	uint8_t style : 3; ///< Button style (IMAGE, TEXT, SLIDER)
-	uint8_t id : 5;
+	uint8_t				style;
+	uint8_t 			id;
+	uint8_t				on_start:1;
 
 	void				*data;
 	void				(*f)(void *);
@@ -284,9 +286,7 @@ typedef struct s_button_setting
 
 void					rt_update_ui(t_screen *screen);
 
-void					rt_add_text_button_top(t_screen *screen, char *text,
-							void *data,
-							void f(void *)) __attribute__((nonnull(1, 2, 4)));
+void rt_add_text_button_top(t_screen *screen, t_button_setting settings);
 /* void rt_add_icon_png_top(t_screen *screen, void *icon, char *id); */
 /* void rt_add_text_button_side(t_screen *screen, char *text, char *id); */
 /* void rt_add_icon_png_side(t_screen *screen, void *icon, char *id); */

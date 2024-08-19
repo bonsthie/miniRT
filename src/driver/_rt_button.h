@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   _rt_button.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
+/*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:37:27 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/05 21:09:13 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/08/10 18:48:22 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,9 @@ enum e_button_action
 
 typedef struct s_button
 {
-	enum e_button_type	type;
-	enum e_button_action action;
-	char				*name;
-	void				*data;
-	t_button_func		*func;
-	struct s_button		*next;
+	struct s_button_setting	settings;
+	enum e_button_action	action;
+	struct s_button			*next;
 }						t_button;
 
 void	reset_however_button(t_screen *screen);

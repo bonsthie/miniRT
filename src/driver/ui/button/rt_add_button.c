@@ -1,18 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add_button.c                                       :+:      :+:    :+:   */
+/*   rt_add_button.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
+/*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 15:23:44 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/05 19:24:52 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/08/19 12:52:59 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "rt_driver.h"
-#include "../_rt_mlx.h"
+#include "__rt_button.h"
 
 t_button *button_last(t_button *button_top)
 {
@@ -27,20 +26,15 @@ t_button *button_last(t_button *button_top)
 	return (last);
 }
 
-void rt_add_text_button_top(t_screen *screen, char *text, void *data, void f(void *))
+void rt_add_text_button_top(t_screen *screen, t_button_setting settings)
 {
 	t_button *button_top;
 	t_button *new_button;
 
 	new_button = malloc(sizeof(t_button));
+	new_button->settings = settings;
 	if (!new_button)
 		return ;
-	new_button->data = data;
-	new_button->type = TXT;
-	new_button->func = f;
-	new_button->name = ft_strdup(text);
-	new_button->next = NULL;
-	new_button->action = SLEEP;
 	button_top = screen->button_top;
 	if (!button_top)
 	{
@@ -48,4 +42,9 @@ void rt_add_text_button_top(t_screen *screen, char *text, void *data, void f(voi
 		return ;
 	}
 	button_last(button_top)->next = new_button;
+	if (settings.on_start)
+	{
+		settings.f(settings.data);
+		new_button->action = CLICK;
+	}
 }

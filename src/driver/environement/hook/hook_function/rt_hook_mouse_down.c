@@ -1,19 +1,39 @@
 #include "../_hook.h"
 #include "rt_driver.h"
-#include <stdio.h>
 #include <stdlib.h>
 #include <object.h>
 #include <complex.h>
 
+void untoggle_by_id(t_button *button, int id)
+{
+	while (button)
+	{
+		if (button->settings.id == id && button->action == CLICK)
+			button->action = SLEEP;
+		button = button->next;
+	}
+}
+
 void however_to_click(t_screen *screen, t_button *button)
 {
+	t_button *start_button;
+
+	start_button = button;
 	while (button)
 	{
 		if (button->action == HOWEVER)
 		{
+			untoggle_by_id(start_button, button->settings.id);
 			button->action = CLICK;
 			rt_print_button(screen);
 			return ;
+		}
+		else if (button->action == CLICK)
+		{
+			button->action = SLEEP;
+			rt_print_button(screen);
+			return ;
+			
 		}
 		button = button->next;
 	}
