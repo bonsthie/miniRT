@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:14:19 by yroussea          #+#    #+#             */
-/*   Updated: 2024/07/25 00:32:21 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:24:36 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 #include <rt_scene_elements.h>
 #include <stdbool.h>
 
-t_v4f get_screen_center(void)
+t_v4f	get_screen_center(void)
 {
-    return ((t_v4f){RT_WIDTH / 2.0f, RT_HEIGHT / 2.0f, 100.0f, 1.0f});
+	return ((t_v4f){RT_WIDTH / 2.0f, RT_HEIGHT / 2.0f, 100.0f, 1.0f});
 }
 
 void	create_rotation_tr_matrix(t_v4f *tr, t_rotation rotate, t_v4f offset)
@@ -33,7 +33,9 @@ void	create_rotation_tr_matrix(t_v4f *tr, t_rotation rotate, t_v4f offset)
 
 void	rotate_center(t_v4f *tr, t_v4f vertex, t_v4f *result)
 {
-	t_v4f tmp = vertex - get_screen_center();
+	t_v4f	tmp;
+
+	tmp = vertex - get_screen_center();
 	tmp[3] = 1;
 	matrix_multiplication1x4(tr, tmp, &tmp);
 	*result = tmp + get_screen_center();
@@ -41,8 +43,9 @@ void	rotate_center(t_v4f *tr, t_v4f vertex, t_v4f *result)
 
 void	update_single_object(t_object_mesh *object, t_v4f *tr)
 {
-	find_center(object, &(object->mesh.vertex->v4f), &object->relative_center.v4f);
-	#pragma omp parallel for
+	find_center(object, &(object->mesh.vertex->v4f),
+		&object->relative_center.v4f);
+#pragma omp parallel for
 	for (size_t i = 0; i < object->mesh.size_mesh.vertex; i++)
 		rotate_center(tr, object->mesh.vertex_init[i],
 			&object->mesh.vertex[i].v4f);
@@ -59,12 +62,11 @@ void	update_scene(t_scene *scene)
 
 	object = scene->object;
 	cam = &scene->cam;
-	tr[0] = (t_v4f){cam->zoom/100, 0, 0, 0};
-	tr[1] = (t_v4f){0, cam->zoom/100, 0, 0};
-	tr[2] = (t_v4f){0, 0, cam->zoom/100, 0};
+	tr[0] = (t_v4f){cam->zoom / 100, 0, 0, 0};
+	tr[1] = (t_v4f){0, cam->zoom / 100, 0, 0};
+	tr[2] = (t_v4f){0, 0, cam->zoom / 100, 0};
 	tr[3] = (t_v4f){0, 0, 0, 1};
 	create_rotation_tr_matrix(tr, cam->rotation, cam->coord_translation);
-
 	while (object)
 	{
 		update_single_object(object->object, tr);

@@ -6,23 +6,24 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:44:07 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/26 17:49:29 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:24:35 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../_rt_mlx.h"
 #include "rt_driver.h"
-int rt_get_color_under_cursor(t_screen *screen, t_img *img)
+
+int	rt_get_color_under_cursor(t_screen *screen, t_img *img)
 {
 	return (img->color[screen->mouse_y][screen->mouse_x]);
 }
 
-int rt_get_color_under_cursor_avrege(t_screen *screen, t_img *img, int size)
+int	rt_get_color_under_cursor_avrege(t_screen *screen, t_img *img, int size)
 {
-	int x;
-	int y;
-	int temp_y;
-	int result;
+	int	x;
+	int	y;
+	int	temp_y;
+	int	result;
 
 	x = screen->mouse_x - size;
 	if (x < 0)

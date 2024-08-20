@@ -6,14 +6,14 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 10:55:02 by bonsthie          #+#    #+#             */
-/*   Updated: 2024/08/09 11:05:25 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:24:35 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef __RT_BUTTON
 # define __RT_BUTTON
 
-#include "../../_rt_button.h"
-#include "../../_rt_mlx.h"
+# include "../../_rt_button.h"
+# include "../../_rt_mlx.h"
 
 #endif // __RT_BUTTON

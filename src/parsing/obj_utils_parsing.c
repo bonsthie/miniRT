@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_parsing_obj.c                                :+:      :+:    :+:   */
+/*   obj_utils_parsing.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:49:33 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/22 17:23:41 by yroussea         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:24:36 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <rt_mesh_obj.h>
 #include <rt_driver.h>
+#include <rt_mesh_obj.h>
 #include <stdlib.h>
 
 void	free_mesh(t_mesh *mesh)
@@ -41,8 +41,8 @@ int	alloc_mesh(t_mesh *mesh)
 	mesh->normal = malloc(size_mesh->normal * sizeof(t_v4f));
 	mesh->texture_coord = malloc(size_mesh->texture * sizeof(t_texture_coord));
 	mesh->face = malloc(size_mesh->face * sizeof(t_face));
-	if (!mesh->vertex || !mesh->normal || !mesh->texture_coord ||
-		!mesh->face || !mesh->vertex_init)
+	if (!mesh->vertex || !mesh->normal || !mesh->texture_coord || !mesh->face
+		|| !mesh->vertex_init)
 	{
 		free_mesh(mesh);
 		return (1);

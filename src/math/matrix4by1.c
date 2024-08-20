@@ -6,15 +6,13 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 13:38:38 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/04 17:07:03 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:24:35 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include <rt_driver.h>
 
-void	matrix_multiplication1x4(t_v4f *matrix,
-												t_v4f vector, t_v4f *result)
+void	matrix_multiplication1x4(t_v4f *matrix, t_v4f vector, t_v4f *result)
 {
 	int		i;
 	t_v4f	product;

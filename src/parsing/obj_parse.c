@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   obj_parse.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/19 16:24:33 by bonsthie          #+#    #+#             */
+/*   Updated: 2024/08/19 16:24:36 by bonsthie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
-#include <rt_mesh_obj.h>
 #include "obj_intern.h"
 #include "parse.h"
 #include "rt_driver.h"
 #include <fcntl.h>
+#include <rt_mesh_obj.h>
 #include <stdio.h>
 
 void	fill_mesh(t_mesh *mesh, char **file_name, t_list *file_ll)
@@ -47,7 +59,8 @@ void	fill_obj(int fd, t_object_mesh *object)
 	ft_bzero(&mesh->size_mesh, sizeof(t_size_mesh));
 	object->metadata.file = parse_line_by_line(fd, &mesh->size_mesh);
 	if (!object->metadata.file)
-		exit_message(1, "Error : [malloc failed in the metadata.file parsing]\n");
+		exit_message(1,
+			"Error : [malloc failed in the metadata.file parsing]\n");
 	fill_mesh(mesh, &object->metadata.file_name, object->metadata.file);
 	ft_lstclear(&object->metadata.file, free);
 }
@@ -60,7 +73,7 @@ void	fill_obj_texture(t_texture *texture, const char *texture_file)
 
 void	save_vec(t_object_mesh *object)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (i < object->mesh.size_mesh.vertex)
@@ -74,7 +87,6 @@ t_object_mesh	*parse_obj(const char *name, const char *texture)
 {
 	t_object_mesh	*new_obj;
 
-
 	new_obj = ft_calloc(1, sizeof(t_object_mesh));
 	if (!new_obj)
 		rt_error_window("Error : [malloc fild in the creation of a new object]\n");
@@ -86,7 +98,7 @@ t_object_mesh	*parse_obj(const char *name, const char *texture)
 	fill_obj(new_obj->metadata.fd, new_obj);
 	fill_obj_texture(&new_obj->texture, texture);
 	close(new_obj->metadata.fd);
-	new_obj ->new_scale = 10;
+	new_obj->new_scale = 10;
 	new_obj->new_rotation.pitch = 90;
 	new_obj->new_rotation.yaw = 0;
 	new_obj->new_rotation.roll = 0;
@@ -97,7 +109,6 @@ t_object_mesh	*parse_obj(const char *name, const char *texture)
 	save_vec(new_obj);
 	return (new_obj);
 }
-
 
 /* t_object_mesh	*parse_model(const char *name, const char *texture) */
 /* { */
@@ -112,4 +123,3 @@ t_object_mesh	*parse_obj(const char *name, const char *texture)
 /* 	} */
 /*  */
 /* } */
-

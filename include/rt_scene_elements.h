@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 22:17:28 by babonnet          #+#    #+#             */
-/*   Updated: 2024/08/19 13:06:06 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:50:09 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,7 @@ typedef struct s_asset
 	t_img			*gizmo_img;
 }					t_asset;
 
-
-enum e_gizmo_selected
+enum				e_gizmo_selected
 {
 	GIZMO_NO,
 	GIZMO_TRANSLATE,
@@ -71,7 +70,7 @@ enum e_gizmo_selected
 	GIZMO_SCALE,
 };
 
-enum e_gimzo_axe_selected
+enum				e_gimzo_axe_selected
 {
 	GIZMO_AXE_NONE,
 	GIZMO_AXE_X,
@@ -79,7 +78,7 @@ enum e_gimzo_axe_selected
 	GIZMO_AXE_Z
 };
 
-enum e_viewport_selected
+enum				e_viewport_selected
 {
 	VP_EDITOR,
 	VP_RAYTRACER
@@ -88,12 +87,29 @@ enum e_viewport_selected
 typedef struct s_status
 {
 	short			object_selected_id;
-	uint8_t			mouse_left_press:1;
-	uint8_t			mouse_right_press:1;
-	uint8_t			gizmo_selected:3;
-	uint8_t			gizmo_axe_selected:2;
-	uint8_t			viewport_status:1;
+	uint8_t mouse_left_press : 1;
+	uint8_t mouse_right_press : 1;
+	uint8_t gizmo_selected : 3;
+	uint8_t gizmo_axe_selected : 2;
+	uint8_t viewport_status : 1;
 }					t_status;
+
+typedef int (*t_loop_func)(t_scene *, t_img *, t_screen *);
+
+typedef struct s_hook {
+	void *keyup;
+	void *keydown;
+
+	void *mouseup;
+	void *mousedown;
+
+	void *mousewheel;
+} t_hook;
+
+typedef struct s_loop {
+	t_loop_func f;
+	t_hook		hook;
+} t_loop;
 
 typedef struct s_scene
 {
@@ -101,9 +117,11 @@ typedef struct s_scene
 	t_light			*light;
 	t_camera		cam;
 
+	t_loop			loop;
+
 	t_asset			asset;
 	t_status		status;
-	
+
 	union u_vec		mouse_3d;
 	union u_vec		prev_mouse_3d;
 }					t_scene;
@@ -114,11 +132,12 @@ void				update_scene(t_scene *scene);
 void				rotate_center(t_v4f *tr, t_v4f vertex, t_v4f *result);
 void				update_mouse_3d_pos(union u_vec *mouse_3d, t_v4f tr[4]);
 union u_vec			get_mouse_pos_3d(t_screen *screen);
-union u_vec			mouse_pose_relative_to_object(union u_vec mouse_3d, t_object *object);
+union u_vec			mouse_pose_relative_to_object(union u_vec mouse_3d,
+						t_object *object);
 
-void gizmo_move_object(t_scene *scene);
+void				gizmo_move_object(t_scene *scene);
 
-void select_viewport_raytracer(void *data);
-void select_viewport_editor(void *data);
+void				select_viewport_raytracer(void *data);
+void				select_viewport_editor(void *data);
 
 #endif

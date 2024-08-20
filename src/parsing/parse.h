@@ -6,15 +6,15 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 23:35:03 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/21 23:39:26 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:24:36 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSE_H
-#define PARSE_H
+# define PARSE_H
 
-#include "libft.h"
-#include "rt_mesh_obj.h"
+# include "libft.h"
+# include "rt_mesh_obj.h"
 
 t_list	*parse_line_by_line(int fd, t_size_mesh *size_mesh);
 

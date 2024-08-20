@@ -6,18 +6,18 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 11:37:27 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/23 13:14:35 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:24:35 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../_rt_mlx.h"
 #include "rt_driver.h"
-#include <signal.h>
 #include <mlx.h>
+#include <signal.h>
 
-void rt_destroy(t_screen *screen)
+void	rt_destroy(t_screen *screen)
 {
-	t_button *tmp;
+	t_button	*tmp;
 
 	mlx_clear_window(screen->mlx, screen->win);
 	/* mlx_destroy_display(screen->mlx); */

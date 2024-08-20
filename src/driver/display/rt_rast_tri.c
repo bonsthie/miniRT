@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:29:06 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/09 19:32:22 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:37:41 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	do_mask(int mask, int by, int bx, t_tri triangle, t_img *img,
 		{
 			if (mask & 1)
 			{
-				if (x < RT_WIDTH && y < RT_HEIGHT 
+				if (x < RT_WIDTH && y < RT_HEIGHT
 					&& triangle.vertex1.position.z <= img->zbuffer[y][x])
 				{
 					img->zbuffer[y][x] = triangle.vertex1.position.z;
@@ -108,41 +108,42 @@ void	do_mask(int mask, int by, int bx, t_tri triangle, t_img *img,
 	}
 }
 
-typedef struct s_bbox
-{
-	int					min_x;
-	int					min_y;
-	int					max_x;
-	int					max_y;
-}						t_bbox;
-
-typedef union u_edge_coef
-{
-	__m256i				avx_edge;
-	struct
-	{
-		int				dwdx2;
-		int				dwdy2;
-		int				dwdx0;
-		int				dwdy0;
-		int				dwdx1;
-		int				dwdy1;
-	};
-}						t_edge_coef;
-
 t_bbox	calcul_bbox_triangle(t_tri triangle)
 {
 	t_bbox	bbox;
 
-	bbox.min_x = fmin(triangle.vertex1.position.x, fmin(triangle.vertex2.position.x, triangle.vertex3.position.x));
-	bbox.min_y = fmin(triangle.vertex1.position.y, fmin(triangle.vertex2.position.y, triangle.vertex3.position.y));
-	bbox.max_x = fmax(triangle.vertex1.position.x, fmax(triangle.vertex2.position.x, triangle.vertex3.position.x));
-	bbox.max_y = fmax(triangle.vertex1.position.y, fmax(triangle.vertex2.position.y, triangle.vertex3.position.y));
+	bbox.min_x = fmin(triangle.vertex1.position.x,
+			fmin(triangle.vertex2.position.x, triangle.vertex3.position.x));
+	bbox.min_y = fmin(triangle.vertex1.position.y,
+			fmin(triangle.vertex2.position.y, triangle.vertex3.position.y));
+	bbox.max_x = fmax(triangle.vertex1.position.x,
+			fmax(triangle.vertex2.position.x, triangle.vertex3.position.x));
+	bbox.max_y = fmax(triangle.vertex1.position.y,
+			fmax(triangle.vertex2.position.y, triangle.vertex3.position.y));
 	bbox.min_x = fmax(bbox.min_x, 0);
 	bbox.min_y = fmax(bbox.min_y, 0);
 	bbox.max_x = fmin(bbox.max_x, RT_WIDTH - 1);
 	bbox.max_y = fmin(bbox.max_y, RT_HEIGHT - 1);
 	return (bbox);
+}
+
+t_edge_coef	edge_function_coeff(t_tri triangle)
+{
+	t_edge_coef	edge_coef;
+
+	edge_coef.dwdx2 = (triangle.vertex2.position.y
+			- triangle.vertex1.position.y) * (1 << FIXED_ORDER);
+	edge_coef.dwdy2 = (triangle.vertex1.position.x
+			- triangle.vertex2.position.x) * (1 << FIXED_ORDER);
+	edge_coef.dwdx0 = (triangle.vertex3.position.y
+			- triangle.vertex2.position.y) * (1 << FIXED_ORDER);
+	edge_coef.dwdy0 = (triangle.vertex2.position.x
+			- triangle.vertex3.position.x) * (1 << FIXED_ORDER);
+	edge_coef.dwdx1 = (triangle.vertex1.position.y
+			- triangle.vertex3.position.y) * (1 << FIXED_ORDER);
+	edge_coef.dwdy1 = (triangle.vertex3.position.x
+			- triangle.vertex1.position.x) * (1 << FIXED_ORDER);
+	return (edge_coef);
 }
 
 void	rast_tri(t_tri triangle, t_img *img, unsigned int color)
@@ -158,13 +159,7 @@ void	rast_tri(t_tri triangle, t_img *img, unsigned int color)
 	unsigned int	mask;
 
 	bbox = calcul_bbox_triangle(triangle);
-	// Edge function coefficients
-	edge_coef.dwdx2 = (triangle.vertex2.position.y - triangle.vertex1.position.y) * (1 << FIXED_ORDER);
-	edge_coef.dwdy2 = (triangle.vertex1.position.x - triangle.vertex2.position.x) * (1 << FIXED_ORDER);
-	edge_coef.dwdx0 = (triangle.vertex3.position.y - triangle.vertex2.position.y) * (1 << FIXED_ORDER);
-	edge_coef.dwdy0 = (triangle.vertex2.position.x - triangle.vertex3.position.x) * (1 << FIXED_ORDER);
-	edge_coef.dwdx1 = (triangle.vertex1.position.y - triangle.vertex3.position.y) * (1 << FIXED_ORDER);
-	edge_coef.dwdy1 = (triangle.vertex3.position.x - triangle.vertex1.position.x) * (1 << FIXED_ORDER);
+	edge_coef = edge_function_coeff(triangle);
 	// Loop over the bounding box in steps of 4
 	for (int by = bbox.min_y; by <= bbox.max_y; by += 4)
 	{

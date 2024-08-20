@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   keyup_hook.c                                       :+:      :+:    :+:   */
+/*   keyup_hook_editor.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 22:13:03 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/21 23:19:37 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:31:35 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../_hook.h"
+#include "../../_hook.h"
 #include "miniRT.h"
 #include "rt_driver.h"
 #include <rt_scene_elements.h>
@@ -26,7 +26,7 @@ static void	zoom(t_camera *cam, float new_scale)
 	cam->zoom *= new_scale;
 }
 
-int keyup_hook(int key, void *data)
+int keyup_hook_editor(int key, void *data)
 {
 	struct s_hook_data *hdata;
 	t_status *status;

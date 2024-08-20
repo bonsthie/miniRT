@@ -6,28 +6,27 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 18:14:03 by babonnet          #+#    #+#             */
-/*   Updated: 2024/08/10 19:03:51 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:24:36 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../_rt_mlx.h"
 #include "mlx.h"
 #include "rt_driver.h"
-
 #include <libft.h>
-#include <stdio.h>
 #include <rt_scene_elements.h>
+#include <stdio.h>
 
-void uptade_top_bar_status(t_button *button, int mouse_x)
+void	uptade_top_bar_status(t_button *button, int mouse_x)
 {
-	int offset;
-	int count;
-	
+	int	offset;
+	int	count;
+
 	count = 0;
-	while(button)
+	while (button)
 	{
-		offset = count + ft_strlen(button->settings.text) * 11 + RT_BUTTON_SIDE_PADDING + 2;
-		
+		offset = count + ft_strlen(button->settings.text) * 11
+			+ RT_BUTTON_SIDE_PADDING + 2;
 		if (mouse_x > count && mouse_x <= offset && button->action != CLICK)
 			button->action = HOWEVER;
 		count = offset;
@@ -35,15 +34,13 @@ void uptade_top_bar_status(t_button *button, int mouse_x)
 	}
 }
 
-
-int has_a_button_click(t_screen *screen)
+int	has_a_button_click(t_screen *screen)
 {
-	t_button *button;
+	t_button	*button;
 
 	button = screen->button_top;
-	while(button)
+	while (button)
 	{
-		
 		if (button->action == CLICK)
 		{
 			button->action = SLEEP;
@@ -54,7 +51,7 @@ int has_a_button_click(t_screen *screen)
 	return (0);
 }
 
-void rt_update_ui(t_screen *screen)
+void	rt_update_ui(t_screen *screen)
 {
 	reset_however_button(screen);
 	if (screen->mouse_y <= RT_UI_TOP_BAR + 30)
@@ -65,10 +62,10 @@ void rt_update_ui(t_screen *screen)
 	}
 }
 
-static int _loop(void *data)
+static int	_loop(void *data)
 {
-	t_mlx *mlx;
-	t_screen *screen;
+	t_mlx		*mlx;
+	t_screen	*screen;
 
 	mlx = data;
 	screen = mlx->screen;
@@ -79,9 +76,10 @@ static int _loop(void *data)
 	return (0);
 }
 
-int rt_loop(void *data, t_screen *screen, int loop(void *data, t_img *img, t_screen *screen))
+int	rt_loop(void *data, t_screen *screen, int loop(void *data, t_img *img,
+			t_screen *screen))
 {
-	t_mlx mlx;
+	t_mlx	mlx;
 
 	mlx.img = malloc(sizeof(t_img));
 	if (!mlx.img)
@@ -96,4 +94,3 @@ int rt_loop(void *data, t_screen *screen, int loop(void *data, t_img *img, t_scr
 	free(mlx.img);
 	return (0);
 }
-

@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 22:04:37 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/25 00:52:06 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:25:39 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ void	reset_transformation(t_object_mesh *object)
 	object->new_offset.z = 0;
 }
 
-void create_transformation_matrix(t_v4f *transformation, t_object_mesh *object, uint8_t settings)
+void	create_transformation_matrix(t_v4f *transformation,
+		t_object_mesh *object, uint8_t settings)
 {
-
 	if (settings & ROT_YAW)
 		rotate_yaw(object->new_rotation, transformation);
 	if (settings & ROT_PITCH)
@@ -64,7 +64,9 @@ void create_transformation_matrix(t_v4f *transformation, t_object_mesh *object, 
 
 void	rotate(t_v4f *tr, t_v4f *result, t_v4f center)
 {
-	t_v4f tmp = *result - center;
+	t_v4f	tmp;
+
+	tmp = *result - center;
 	tmp[3] = 1;
 	matrix_multiplication1x4(tr, tmp, &tmp);
 	*result = tmp + center;
@@ -80,15 +82,15 @@ void	update_size_obj(t_object_mesh *object, uint8_t settings)
 	transforamtion[3] = (t_v4f){0, 0, 0, 1};
 	find_center(object, object->mesh.vertex_init, &object->center.v4f);
 	create_transformation_matrix(transforamtion, object, settings);
-	// matrix_multiplication1x4(transforamtion, object->center.v4f, &object->center.v4f);
-	#pragma omp parallel for
+#pragma omp parallel for
 	for (size_t i = 0; i < object->mesh.size_mesh.vertex; i++)
-		rotate(transforamtion, &object->mesh.vertex_init[i], object->center.v4f);
+		rotate(transforamtion, &object->mesh.vertex_init[i],
+			object->center.v4f);
 	if (settings & CENTER)
 	{
 		for (size_t i = 0; i < object->mesh.size_mesh.vertex; i++)
 			object->mesh.vertex_init[i] += (t_v4f){(float)RT_WIDTH / 2,
-				(float)RT_HEIGHT / 2, 100, 0} - object->center.v4f ;
+				(float)RT_HEIGHT / 2, 100, 0} - object->center.v4f;
 		find_center(object, object->mesh.vertex_init, &object->center.v4f);
 	}
 	else

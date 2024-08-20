@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 22:18:10 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/23 16:24:20 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:33:03 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@
 
 void hook_creation(t_screen *screen, struct s_hook_data *data);
 
-int keyup_hook(int key, void *data);
-int mouseup_hook(int key, void *data);
-int mousedown_hook(int key, void *data);
-int mousewheel_hook(int key, void *data);
+int keyup_hook_editor(int key, void *data);
+int mouseup_hook_editor(int key, void *data);
+int mousedown_hook_editor(int key, void *data);
+int mousewheel_hook_editor(int key, void *data);
 
 void	move_scene_during_right_clic(bool up, struct s_hook_data *data);
 void	move_scene_during_left_clic(bool up, struct s_hook_data *hdata);

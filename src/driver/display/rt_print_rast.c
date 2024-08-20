@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 16:56:18 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/22 18:30:15 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:24:35 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 #include <rt_driver.h>
 #include <rt_mesh_obj.h>
 
-void	rt_display_quad_rast(t_rt_render_info *info, t_img *img,
-		int id)
+void	rt_display_quad_rast(t_rt_render_info *info, t_img *img, int id)
 {
 	t_tri	triangle;
 
@@ -29,8 +28,7 @@ void	rt_display_quad_rast(t_rt_render_info *info, t_img *img,
 	rast_tri(triangle, img, info->color.value);
 }
 
-void	rt_display_triangle_rast(t_rt_render_info *info, t_img *img,
-		 int id)
+void	rt_display_triangle_rast(t_rt_render_info *info, t_img *img, int id)
 {
 	t_tri	triangle;
 

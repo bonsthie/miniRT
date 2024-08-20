@@ -6,7 +6,7 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 13:59:42 by babonnet          #+#    #+#             */
-/*   Updated: 2024/08/18 14:29:22 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/08/20 19:12:36 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 #include "rt_driver.h"
 #include <stdio.h>
 
-void click_to_however(t_button *button)
+void	click_to_however(t_button *button)
 {
 	while (button)
 	{
 		if (button->action != SLEEP)
 		{
-			if (button->settings.id == (uint8_t)RT_SIMPLE_BUTTON )
+			if (button->settings.id == (uint8_t)RT_SIMPLE_BUTTON)
 			{
 				printf("simple");
 				button->action = SLEEP;
@@ -34,7 +34,7 @@ void click_to_however(t_button *button)
 	}
 }
 
-void mouseup_hook_top_bar(int key, t_screen *screen)
+void	mouseup_hook_top_bar(int key, t_screen *screen)
 {
 	(void)key;
 	(void)screen;
@@ -43,17 +43,39 @@ void mouseup_hook_top_bar(int key, t_screen *screen)
 		click_to_however(screen->button_top);
 		rt_print_button(screen);
 	}
-
 }
 
-int rt_mouseup_hook(int key, void *data)
+void	mouseup_hook_side_bar(int key, t_screen *screen)
 {
-	t_screen *screen;
+	(void)key;
+	(void)screen;
+}
+
+void	mouseup_hook_scene(int key, t_screen *screen)
+{
+	void				**func;
+	t_hooks_function	mouseup_func;
+	
+	func = screen->hooks.hook_function[RT_MOUSEDOWN];
+	if (func && *func)
+	{
+		mouseup_func = *func;
+		mouseup_func(key, screen->hooks.data[RT_MOUSEDOWN]);
+	}
+}
+
+
+int	rt_mouseup_hook(int key, void *data)
+{
+	t_screen			*screen;
 
 	screen = data;
-	mouseup_hook_top_bar(key, screen);
-	if (screen->hooks.hook_function[RT_MOUSEUP])
-		screen->hooks.hook_function[RT_MOUSEUP](key, screen->hooks.data[RT_MOUSEUP]);
+	if (screen->mouse_y <= RT_UI_TOP_BAR)
+		mouseup_hook_top_bar(key, screen);
+	else if (screen->mouse_x >= RT_WIDTH + RT_UI_SIDE_BAR)
+		mouseup_hook_side_bar(key, screen);
+	else
+		mouseup_hook_scene(key, screen);
+	rt_mouse_show();
 	return (0);
-
 }

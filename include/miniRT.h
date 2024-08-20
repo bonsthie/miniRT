@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 18:05:42 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/22 18:20:59 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:24:35 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@
 # include "rt_driver.h"
 # include <stdint.h>
 
-typedef struct s_scene t_scene;
+typedef struct s_scene	t_scene;
 
-struct			s_hook_data
+struct					s_hook_data
 {
-	t_img		*img;
-	t_screen	*screen;
-	t_scene		*scene;
+	t_img				*img;
+	t_screen			*screen;
+	t_scene				*scene;
 };
 
 // Enum to distinguish between different file types supported by the engine.
@@ -33,6 +33,6 @@ typedef enum e_file_type
 	OBJECT_CUBE,
 	OBJECT_PLANE,
 	OBJECT_CYLINDER,
-}				t_file_type;
+}						t_file_type;
 
 #endif

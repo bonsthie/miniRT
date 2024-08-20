@@ -6,7 +6,7 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:18:38 by babonnet          #+#    #+#             */
-/*   Updated: 2024/08/19 12:30:07 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:12:15 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,10 @@
 #  define RT_ERROR_WINDOW 1
 # endif
 
-typedef struct s_screen t_screen;
-
+typedef struct s_screen	t_screen;
 
 // Aligned vector types for optimal hardware utilization by use of AVX.
-typedef float	__attribute__((aligned(16),	vector_size(16)))	t_v4f;
+typedef float			__attribute__((aligned(16), vector_size(16))) t_v4f;
 
 /**
  * @struct s_vec3
@@ -96,18 +95,17 @@ typedef struct s_int_vec4
 	int					w;
 } __attribute__((aligned(16))) t_int_vec4;
 
-union			u_color
+union					u_color
 {
-	int			value;
-	struct		s_color_components
+	int					value;
+	struct				s_color_components
 	{
-		uint8_t	blue;
-		uint8_t	green;
-		uint8_t	red;
-		uint8_t	alpha;
+		uint8_t			blue;
+		uint8_t			green;
+		uint8_t			red;
+		uint8_t			alpha;
 	} components;
 };
-
 
 typedef void			*t_image;
 
@@ -130,10 +128,10 @@ typedef struct s_img
 
 typedef struct s_rt_render_info
 {
-	union u_vec				vertex[4];
-	union u_vec				normal[4];
-	union u_color			color;
-	uint8_t					count;
+	union u_vec			vertex[4];
+	union u_vec			normal[4];
+	union u_color		color;
+	uint8_t				count;
 }						t_rt_render_info;
 
 /**
@@ -148,16 +146,14 @@ t_screen				*rt_init(void);
  *
  * @param screen Pointer to the screen structure to be destroyed
  */
-void					rt_destroy(t_screen *screen)
-	__attribute__((nonnull(1)));
+void					rt_destroy(t_screen *screen) __attribute__((nonnull(1)));
 
 /**
  * @brief Print the UI screen
  *
  * @param screen Pointer to the screen structure
  */
-void					rt_print_ui_screen(t_screen *screen) 
-	__attribute__((nonnull(1)));
+void					rt_print_ui_screen(t_screen *screen) __attribute__((nonnull(1)));
 
 /**
  * @brief Main loop function for ray tracing
@@ -168,25 +164,21 @@ void					rt_print_ui_screen(t_screen *screen)
  *
  * @return (int)	Status of the loop execution
  */
-int						rt_loop(void *data,
-							t_screen *screen,
-							int loop(void *data,
-								t_img *img,
-								t_screen *screen)
-						__attribute__((nonnull(1, 2, 3))));
+int						rt_loop(void *data, t_screen *screen,
+							int loop(void *data, t_img *img,
+								t_screen *screen) __attribute__((nonnull(1, 2,
+										3))));
 
 /**
  * DISPLAY ACTION
  * @brief Rasterize and display a triangle on the image
- * @param info		Array of 3 rendering information structs for the 
+ * @param info		Array of 3 rendering information structs for the
  *					triangle vertices
  * @param img		Image structure where the triangle will be displayed
  * @param color		Color to use for the triangle
  */
 void					rt_display_triangle_rast(t_rt_render_info *info,
-							t_img *img,
-							int id)
-						__attribute__((nonnull(1, 2)));
+							t_img *img, int id) __attribute__((nonnull(1, 2)));
 
 /**
  * @brief Rasterize and display a quadrilateral on the image
@@ -195,8 +187,7 @@ void					rt_display_triangle_rast(t_rt_render_info *info,
  * @param img		Image structure where the quadrilateral will be displayed
  * @param color		Color to use for the quadrilateral
  */
-void					rt_display_quad_rast(t_rt_render_info *info,
-							t_img *img,
+void					rt_display_quad_rast(t_rt_render_info *info, t_img *img,
 							int id) __attribute__((nonnull(1, 2)));
 
 /**
@@ -217,8 +208,7 @@ void					rt_display_triangle_mesh(t_rt_render_info *info,
  * @param img		Image structure where the quadrilateral will be displayed
  * @param color		Color to use for the quadrilateral
  */
-void					rt_display_quad_mesh(t_rt_render_info *info,
-							t_img *img,
+void					rt_display_quad_mesh(t_rt_render_info *info, t_img *img,
 							unsigned int color) __attribute__((nonnull(1, 2)));
 
 /**
@@ -270,23 +260,24 @@ enum					e_button_style
 
 typedef struct s_button_setting // size 48 bytes | padding 39 bites
 {
-	uint8_t				style;
-	uint8_t 			id;
-	uint8_t				on_start:1;
+	uint8_t style;
+	uint8_t id;
+	uint8_t on_start : 1;
 
-	void				*data;
-	void				(*f)(void *);
+	void *data;
+	void (*f)(void *);
 
-	char				*text;
-	void				*image;          // not implemented for now
-	int					slider_in_value;  // not implemented for now
-	int 				slider_out_value; // not implemented for now
+	char *text;
+	void *image;          // not implemented for now
+	int slider_in_value;  // not implemented for now
+	int slider_out_value; // not implemented for now
 
 }						t_button_setting;
 
 void					rt_update_ui(t_screen *screen);
 
-void rt_add_text_button_top(t_screen *screen, t_button_setting settings);
+void					rt_add_text_button_top(t_screen *screen,
+							t_button_setting settings);
 /* void rt_add_icon_png_top(t_screen *screen, void *icon, char *id); */
 /* void rt_add_text_button_side(t_screen *screen, char *text, char *id); */
 /* void rt_add_icon_png_side(t_screen *screen, void *icon, char *id); */
@@ -322,8 +313,7 @@ typedef enum
 	RT_WINDOW_EVENT = 5
 }						rt_event_type;
 
-void					rt_on_event(t_screen *screen, rt_event_type type,
-							int f(int key, void *data), void *data);
+void	rt_on_event(t_screen *screen, rt_event_type type, void **f, void *data);
 
 int						rt_mouse_get_pos(t_screen *screen, int *x, int *y);
 
@@ -337,12 +327,15 @@ void					rt_set_image_color(t_img *img, unsigned int color);
 
 short					rt_id_obj_under_curssor(t_screen *screen, t_img *img);
 
-int						rt_put_pixel_img(t_img *img, int x, int y, int z, int color);
+int						rt_put_pixel_img(t_img *img, int x, int y, int z,
+							int color);
 
-int						rt_put_pixel_img_protected(t_img *img, int x, int y, int z, int color);
+int						rt_put_pixel_img_protected(t_img *img, int x, int y,
+							int z, int color);
 
 int						rt_get_color_under_cursor(t_screen *screen, t_img *img);
 
-int						rt_get_color_under_cursor_avrege(t_screen *screen, t_img *img, int size);
+int						rt_get_color_under_cursor_avrege(t_screen *screen,
+							t_img *img, int size);
 
 #endif /* RT_DRIVER_H */

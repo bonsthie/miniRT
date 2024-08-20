@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mousedown_hook.c                                   :+:      :+:    :+:   */
+/*   mousedown_hook_editor.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 22:13:03 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/26 18:11:47 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:31:49 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../_hook.h"
+#include "../../_hook.h"
 #include "miniRT.h"
 #include "rt_driver.h"
 #include "rt_scene_elements.h"
@@ -41,7 +41,7 @@ bool gizmo_axe_selected(t_scene *scene, t_screen *screen)
 	return (false);
 }
 
-int mousedown_hook(int key, void *data)
+int mousedown_hook_editor(int key, void *data)
 {
 	static short		id_selected = 0;
 	struct s_hook_data *hdata;

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rt_init.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/19 16:24:33 by bonsthie          #+#    #+#             */
+/*   Updated: 2024/08/19 16:24:36 by bonsthie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../_rt_mlx.h"
 #include <libft.h>
 #include <mlx.h>
@@ -26,7 +38,8 @@ t_screen	*rt_init(void)
 	screen->button_side = NULL;
 	screen->mouse_x = INT_MIN;
 	screen->mouse_y = INT_MIN;
-	ft_bzero(screen->hooks.hook_function, HOOK_COUNT * sizeof(t_hooks_function));
+	ft_bzero(screen->hooks.hook_function, HOOK_COUNT
+		* sizeof(t_hooks_function));
 	ft_bzero(screen->hooks.data, HOOK_COUNT * sizeof(void));
 	return (screen);
 }

@@ -6,20 +6,20 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:32:56 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/21 23:50:02 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:24:36 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <rt_mesh_obj.h>
 #include "miniRT.h"
+#include <rt_mesh_obj.h>
 #include <stddef.h>
 #include <stdio.h>
 
 void	fill_vertex(t_vec3 *vertex, size_t size, t_list **file_ll)
 {
-	static size_t total_size = 0;
-	char	*str;
+	static size_t	total_size = 0;
+	char			*str;
 
 	str = (*file_ll)->content;
 	vertex += total_size;
@@ -42,8 +42,8 @@ void	fill_vertex(t_vec3 *vertex, size_t size, t_list **file_ll)
 
 void	fill_normal(t_vec3 *vertex, size_t size, t_list **file_ll)
 {
-	static size_t total_size = 0;
-	char	*str;
+	static size_t	total_size = 0;
+	char			*str;
 
 	str = (*file_ll)->content;
 	vertex += total_size;
@@ -67,8 +67,8 @@ void	fill_normal(t_vec3 *vertex, size_t size, t_list **file_ll)
 void	fill_texture(t_texture_coord *texture_coord, size_t size,
 		t_list **file_ll)
 {
-	static size_t total_size = 0;
-	char	*str;
+	static size_t	total_size = 0;
+	char			*str;
 
 	str = (*file_ll)->content;
 	texture_coord += total_size;
@@ -102,10 +102,8 @@ size_t	count_face(char *str)
 	return (i);
 }
 
-
-void parse_face(t_face *face, char **str, int i)
+void	parse_face(t_face *face, char **str, int i)
 {
-
 	/* yoooo remove it  strtol illegal type shit */
 	face->point[i].vertex = strtol(*str, str, 10) - 1;
 	if (**str != '/')
@@ -120,9 +118,9 @@ void parse_face(t_face *face, char **str, int i)
 
 int	fill_face(t_face *face, size_t size, t_list **file_ll)
 {
-	static size_t total_size = 0;
-	char	*str;
-	size_t	i;
+	static size_t	total_size = 0;
+	char			*str;
+	size_t			i;
 
 	str = (*file_ll)->content;
 	face += total_size;

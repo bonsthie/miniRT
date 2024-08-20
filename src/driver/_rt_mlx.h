@@ -6,26 +6,26 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:59:40 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/23 13:09:52 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:54:33 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef _RT_MLX_H
 # define _RT_MLX_H
 
+# include "_rt_button.h"
 # include <rt_driver.h>
 # include <rt_scene_elements.h>
-# include "_rt_button.h"
 
 typedef int				(*t_scene_func)(void *data, t_img *img,
 					t_screen *screen);
 
-typedef  int (*t_hooks_function)(int key, void *data);
+typedef int				(*t_hooks_function)(int key, void *data);
 
-struct s_hooks
+struct					s_hooks
 {
-    t_hooks_function hook_function[HOOK_COUNT];
-    void *data[HOOK_COUNT];
+	void				**hook_function[HOOK_COUNT];
+	void				*data[HOOK_COUNT];
 };
 
 typedef struct s_screen
@@ -41,7 +41,6 @@ typedef struct s_screen
 
 	struct s_hooks		hooks;
 }						t_screen;
-
 
 typedef struct s_mlx
 {

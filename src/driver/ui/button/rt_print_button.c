@@ -6,7 +6,7 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 15:38:57 by babonnet          #+#    #+#             */
-/*   Updated: 2024/08/10 19:45:57 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:24:35 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	print_button_top_txt(t_screen *screen, t_button *button_top,
 	sidepading = RT_UI_TOP_BAR * 0.1;
 	y = sidepading;
 	*pixel_padding += 4;
-	new_sidepading = *pixel_padding + ft_strlen(button_top->settings.text) * 12 + RT_BUTTON_SIDE_PADDING;
+	new_sidepading = *pixel_padding + ft_strlen(button_top->settings.text) * 12
+		+ RT_BUTTON_SIDE_PADDING;
 	while (y < RT_UI_TOP_BAR - sidepading)
 	{
 		x = *pixel_padding;
@@ -38,7 +39,9 @@ void	print_button_top_txt(t_screen *screen, t_button *button_top,
 		y++;
 	}
 	*pixel_padding += RT_BUTTON_SIDE_PADDING;
-	mlx_string_put(screen->mlx, screen->win, *pixel_padding + RT_BUTTON_SIDE_PADDING * 0.2, sidepading + RT_UI_TOP_BAR * 0.5, 0xFF000000, button_top->settings.text);
+	mlx_string_put(screen->mlx, screen->win, *pixel_padding
+		+ RT_BUTTON_SIDE_PADDING * 0.2, sidepading + RT_UI_TOP_BAR * 0.5,
+		0xFF000000, button_top->settings.text);
 	*pixel_padding = new_sidepading;
 }
 

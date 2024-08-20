@@ -1,17 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rta_parse.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/19 16:24:33 by bonsthie          #+#    #+#             */
+/*   Updated: 2024/08/19 16:24:36 by bonsthie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
-#include <rt_mesh_obj.h>
 #include "obj_intern.h"
 #include "parse.h"
 #include "rt_driver.h"
 #include <fcntl.h>
+#include <rt_mesh_obj.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 int	fill_face_rta(t_face *face, size_t size, t_list **file_ll)
 {
-	static size_t total_size = 0;
-	char	*str;
-	size_t	i;
+	static size_t	total_size = 0;
+	char			*str;
+	size_t			i;
 
 	str = (*file_ll)->content;
 	face += total_size;
@@ -90,7 +102,8 @@ void	fill_rta(int fd, t_object_mesh *object)
 	ft_bzero(&mesh->size_mesh, sizeof(t_size_mesh));
 	object->metadata.file = parse_line_by_line(fd, &mesh->size_mesh);
 	if (!object->metadata.file)
-		exit_message(1, "Error : [malloc failed in the metadata.file parsing]\n");
+		exit_message(1,
+			"Error : [malloc failed in the metadata.file parsing]\n");
 	fill_mesh_rta(mesh, &object->metadata.file_name, object->metadata.file);
 	ft_lstclear(&object->metadata.file, free);
 }
@@ -101,7 +114,8 @@ t_object_mesh	*parse_rta(const char *name, const char *texture)
 
 	new_obj = ft_calloc(1, sizeof(t_object_mesh));
 	if (!new_obj)
-		exit_message(1, "Error : [malloc fild in the creation of a new object]\n");
+		exit_message(1,
+			"Error : [malloc fild in the creation of a new object]\n");
 	new_obj->metadata.fd = open(name, O_RDONLY);
 	if (new_obj->metadata.fd < 0)
 	{
@@ -121,4 +135,3 @@ t_object_mesh	*parse_rta(const char *name, const char *texture)
 	save_vec(new_obj);
 	return (new_obj);
 }
-

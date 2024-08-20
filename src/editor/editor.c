@@ -6,7 +6,7 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:27:24 by bonsthie          #+#    #+#             */
-/*   Updated: 2024/08/19 13:30:17 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:24:35 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ bool	init_hooks(t_scene *scene, t_img *img, t_screen *screen)
 	return (false);
 }
 
-void loop_hooks(t_scene *scene, t_img *img, t_screen *screen)
+void	loop_hooks(t_scene *scene, t_img *img, t_screen *screen)
 {
-	static bool		init_hooks_bool = true;
+	static bool					init_hooks_bool = true;
 	static struct s_hook_data	hdata;
 
 	hdata.scene = scene;
@@ -44,33 +44,30 @@ void loop_hooks(t_scene *scene, t_img *img, t_screen *screen)
 		move_scene_during_left_clic(0, &hdata);
 }
 
-void print_scene_obj_img(t_object *object, t_img *img, t_scene *scene)
+void	print_scene_obj_img(t_object *object, t_img *img, t_scene *scene)
 {
 	t_object_mesh	*obj;
-	obj = object->object;
 
-	/* obj->new_rotation.yaw = 1; */
+	obj = object->object;
 	obj->new_offset = (t_offset){scene->cam.coord_axes[0],
 		scene->cam.coord_axes[1], scene->cam.coord_axes[2]};
 	update_size_obj(obj, ALL);
 	print_obj_to_image(obj, img, object->id);
-
 	object = object->next;
 }
 
-void print_all_obj(t_object *object, t_img *img, t_scene *scene)
+void	print_all_obj(t_object *object, t_img *img, t_scene *scene)
 {
 	while (object)
 	{
 		print_scene_obj_img(object, img, scene);
-		scene->cam.coord_axes = (t_v4f){0,0,0,0};
+		scene->cam.coord_axes = (t_v4f){0, 0, 0, 0};
 		object = object->next;
 	}
 	update_gizmo_position(scene);
 }
 
-
-int editor(t_scene *scene, t_img *img, t_screen *screen)
+int	editor(t_scene *scene, t_img *img, t_screen *screen)
 {
 	scene->prev_mouse_3d = scene->mouse_3d;
 	scene->mouse_3d = get_mouse_pos_3d(screen);
@@ -78,14 +75,13 @@ int editor(t_scene *scene, t_img *img, t_screen *screen)
 	update_scene(scene);
 	print_all_obj(scene->object, img, scene);
 	rt_print_img_screen(img, screen, 0, 0);
-
 	if (scene->status.object_selected_id && scene->status.gizmo_selected)
 	{
 		if (scene->status.gizmo_axe_selected)
 			gizmo_move_object(scene);
-			
 		rt_set_image_color(scene->asset.gizmo_img, 0);
-		print_obj_to_image(scene->asset.gizmo_translate, scene->asset.gizmo_img, 1);
+		print_obj_to_image(scene->asset.gizmo_translate, scene->asset.gizmo_img,
+			1);
 		rt_print_img_screen(scene->asset.gizmo_img, screen, 0, 0);
 	}
 	return (0);

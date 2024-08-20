@@ -6,20 +6,19 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 13:47:23 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/23 13:26:37 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/08/19 23:26:36 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
-#include <mlx.h>
 #include "../environement/hook/_hook.h"
-
+#include <mlx.h>
+#include <signal.h>
 
 #if RT_ERROR_WINDOW
 
-void *print_error(void *mlx, void *win, char *shared_message)
+void	*print_error(void *mlx, void *win, char *shared_message)
 {
-	void *img;
+	void	*img;
 
 	img = mlx_png_file_to_image(mlx, "asset/error_window.png", NULL, NULL);
 	if (img)
@@ -28,10 +27,10 @@ void *print_error(void *mlx, void *win, char *shared_message)
 	return (img);
 }
 
-int _button_click(int key, void *data)
+int	_button_click(int key, void *data)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	if (key == MOUSE_LEFT)
 	{
@@ -71,7 +70,7 @@ void	error_handler(int sig, siginfo_t *si, void *unused)
 	(void)unused;
 }
 
-int rt_error_signal(void)
+int	rt_error_signal(void)
 {
 	int					pid;
 	struct sigaction	sa;
@@ -93,7 +92,7 @@ int rt_error_signal(void)
 
 #else
 
-int rt_error_signal(void) 
+int	rt_error_signal(void)
 {
 	return (-2);
 }

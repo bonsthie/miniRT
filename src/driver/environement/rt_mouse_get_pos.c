@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 22:25:24 by babonnet          #+#    #+#             */
-/*   Updated: 2024/06/21 19:19:59 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:24:36 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	rt_mouse_get_pos(t_screen *screen, int *x, int *y)
 {
-	int result;
+	int	result;
 
 	result = mlx_mouse_get_pos(screen->mlx, &screen->mouse_x, &screen->mouse_y);
 	*x = screen->mouse_x;

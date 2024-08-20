@@ -6,16 +6,16 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 15:23:44 by babonnet          #+#    #+#             */
-/*   Updated: 2024/08/19 12:52:59 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:24:35 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt_driver.h"
 #include "__rt_button.h"
+#include "rt_driver.h"
 
-t_button *button_last(t_button *button_top)
+t_button	*button_last(t_button *button_top)
 {
-	t_button *last;
+	t_button	*last;
 
 	last = button_top;
 	while (button_top)
@@ -26,10 +26,10 @@ t_button *button_last(t_button *button_top)
 	return (last);
 }
 
-void rt_add_text_button_top(t_screen *screen, t_button_setting settings)
+void	rt_add_text_button_top(t_screen *screen, t_button_setting settings)
 {
-	t_button *button_top;
-	t_button *new_button;
+	t_button	*button_top;
+	t_button	*new_button;
 
 	new_button = malloc(sizeof(t_button));
 	new_button->settings = settings;
