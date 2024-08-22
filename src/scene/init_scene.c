@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 15:07:19 by babonnet          #+#    #+#             */
-/*   Updated: 2024/08/19 16:24:36 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/08/22 15:53:13 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,14 @@ int	init_asset(t_asset *asset)
 		return (1);
 	update_size_obj(asset->gizmo_translate, ALL);
 	down_center(asset->gizmo_translate);
+
+	// need to manage if this parsing fail
+	asset->gizmo_scale = parse_rta("asset/ScalePivot.rta", NULL);
+	if (!asset->gizmo_scale)
+		return (1);
+	update_size_obj(asset->gizmo_scale, ALL);
+	down_center(asset->gizmo_scale);
+
 	return (0);
 }
 

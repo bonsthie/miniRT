@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 20:54:22 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/23 15:33:12 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/08/22 15:50:56 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ void update_gizmo_position(t_scene *scene)
 	status = &scene->status;
 	if (status->gizmo_selected == GIZMO_TRANSLATE)
 		gizmo = asset->gizmo_translate;
-	else
+	else if (status->gizmo_selected == GIZMO_SCALE)
+		gizmo = asset->gizmo_scale;
+	else 
 		return ;
 	translate_gizmo_to_obj(scene, gizmo);
 	rt_set_image_color(asset->gizmo_img, 0);

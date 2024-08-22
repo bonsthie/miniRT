@@ -6,7 +6,7 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:14:27 by babonnet          #+#    #+#             */
-/*   Updated: 2024/08/20 14:51:32 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/08/22 17:23:29 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,12 +133,12 @@ int	main(int ac, char **av)
 	button.id = 3;
 	button.f = select_viewport_editor;
 	button.data = &scene;
-	button.text = "non";
+	button.text = "editor";
 	button.on_start = true;
 	rt_add_text_button_top(screen, button);
 	button.id = 3;
 	button.f = select_viewport_raytracer;
-	button.text = "oui";
+	button.text = "raytracer";
 	button.on_start = false;
 	rt_add_text_button_top(screen, button);
 	rt_loop(&scene, screen, loop);

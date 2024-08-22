@@ -6,7 +6,7 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 15:23:44 by babonnet          #+#    #+#             */
-/*   Updated: 2024/08/19 16:24:35 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/08/22 17:19:55 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	rt_add_text_button_top(t_screen *screen, t_button_setting settings)
 
 	new_button = malloc(sizeof(t_button));
 	new_button->settings = settings;
+	new_button->next = NULL;
 	if (!new_button)
 		return ;
 	button_top = screen->button_top;

@@ -6,7 +6,7 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 16:24:33 by bonsthie          #+#    #+#             */
-/*   Updated: 2024/08/19 16:24:36 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/08/22 17:20:22 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,6 @@ t_screen	*rt_init(void)
 	ft_bzero(screen->hooks.hook_function, HOOK_COUNT
 		* sizeof(t_hooks_function));
 	ft_bzero(screen->hooks.data, HOOK_COUNT * sizeof(void));
+	mlx_set_font(screen->mlx, screen->win, "asset/JetBrainsMonoNerdFont-Bold.ttf");
 	return (screen);
 }

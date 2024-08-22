@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:37:59 by babonnet          #+#    #+#             */
-/*   Updated: 2024/07/23 16:33:15 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/08/22 15:15:20 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,5 @@ int gizmo_support(t_scene *scene, t_screen *screen)
 	color = rt_get_color_under_cursor(screen, asset->gizmo_img);
 	if (!color)
 		return (1);
-	/* else if (color == RED) */
-	/* 	translate_x */
-		
 	return (0);
 }
