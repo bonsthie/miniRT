@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 18:14:49 by babonnet          #+#    #+#             */
-/*   Updated: 2024/08/23 17:08:19 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/08/23 16:58:12 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,9 @@ void	gizmo_move_object_scale(t_scene *scene)
 		mesh_obj->new_scale = (scene->mouse_3d.vec3.y - scene->prev_mouse_3d.vec3.y);
 	else
 		return ;
-	mesh_obj->new_scale /= 20;
-	mesh_obj->new_scale += 1;
+	printf("%f\n", mesh_obj->new_scale);
+	if (mesh_obj->new_scale < 0.0001)
+		mesh_obj->new_scale = 1;
 	update_size_obj(mesh_obj, SCALE);
 }
 

@@ -6,11 +6,12 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 22:13:03 by babonnet          #+#    #+#             */
-/*   Updated: 2024/08/20 19:06:35 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/08/23 16:42:09 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../_hook.h"
+#include "libft.h"
 #include "miniRT.h"
 #include "rt_scene_elements.h"
 #include <rt_driver.h>

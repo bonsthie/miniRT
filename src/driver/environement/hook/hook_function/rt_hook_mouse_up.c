@@ -6,7 +6,7 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 13:59:42 by babonnet          #+#    #+#             */
-/*   Updated: 2024/08/20 19:15:30 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/08/23 16:42:04 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ void	mouseup_hook_scene(int key, t_screen *screen)
 	void				**func;
 	t_hooks_function	mouseup_func;
 	
-	func = screen->hooks.hook_function[RT_MOUSEDOWN];
+	func = screen->hooks.hook_function[RT_MOUSEUP];
 	if (func && *func)
 	{
 		mouseup_func = *func;
-		mouseup_func(key, screen->hooks.data[RT_MOUSEDOWN]);
+		mouseup_func(key, screen->hooks.data[RT_MOUSEUP]);
 	}
 }
 

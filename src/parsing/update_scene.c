@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:14:19 by yroussea          #+#    #+#             */
-/*   Updated: 2024/08/19 16:24:36 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/08/23 15:15:48 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,6 @@ void	update_scene(t_scene *scene)
 		object = object->next;
 	}
 	update_single_object(scene->asset.gizmo_translate, tr);
+	update_single_object(scene->asset.gizmo_scale, tr);
 	update_mouse_3d_pos(&scene->mouse_3d, tr);
 }
