@@ -6,13 +6,14 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:14:27 by babonnet          #+#    #+#             */
-/*   Updated: 2024/08/23 13:22:08 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/08/28 17:09:47 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 #include "object.h"
 #include <rt_driver.h>
+#include <rt_driver_button.h>
 #include <rt_mesh_obj.h>
 #include <rt_scene_elements.h>
 #include <stdio.h>
@@ -119,23 +120,42 @@ int	main(int ac, char **av)
 		}
 	}
 	// test button need to be rm
+	button.on_start = false;
 	button.f = open_file_dialog;
 	button.id = RT_SIMPLE_BUTTON;
+	button.width = 40;
+	button.height = 28;
+	button.padding.left = 5;
+	button.padding.right = 10;
+	button.padding.top = 20;
+	button.padding.bottom = 5;
+	button.margin.left = 5;
+	button.margin.top = 2;
+	button.margin.right = 5;
+	button.margin.bottom = 2;
 	button.text = "file";
 	button.style = TEXT;
 	button.data = &scene;
 	rt_add_text_button_top(screen, button);
+	button.width = 30;
 	button.id = RT_SIMPLE_BUTTON;
 	button.f = add_tea_pot;
 	button.text = "yoo";
 	rt_add_text_button_top(screen, button);
 	// change the on_start to have as default
+	button.width = 70;
+	button.margin.right = 0;
+	button.padding.right = 20;
 	button.id = 3;
 	button.f = select_viewport_editor;
 	button.data = &scene;
 	button.text = "editor";
 	button.on_start = true;
 	rt_add_text_button_top(screen, button);
+	button.width = 80;
+	button.padding.right = 5;
+	button.margin.right = 5;
+	button.margin.left = 0;
 	button.id = 3;
 	button.f = select_viewport_raytracer;
 	button.text = "raytracer";

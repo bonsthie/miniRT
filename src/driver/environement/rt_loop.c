@@ -6,7 +6,7 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 18:14:03 by babonnet          #+#    #+#             */
-/*   Updated: 2024/08/19 16:24:36 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/08/28 15:25:44 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,16 @@
 #include "rt_driver.h"
 #include <libft.h>
 #include <rt_scene_elements.h>
-#include <stdio.h>
 
-void	uptade_top_bar_status(t_button *button, int mouse_x)
+void	uptade_top_bar_status(t_screen *screen)
 {
-	int	offset;
-	int	count;
+	t_button *button;
 
-	count = 0;
-	while (button)
-	{
-		offset = count + ft_strlen(button->settings.text) * 11
-			+ RT_BUTTON_SIDE_PADDING + 2;
-		if (mouse_x > count && mouse_x <= offset && button->action != CLICK)
-			button->action = HOWEVER;
-		count = offset;
-		button = button->next;
-	}
+	button = get_button_under_cursor_top(screen);
+	if (!button)
+		return ;
+	if (button->action != CLICK)
+		button->action = HOWEVER;
 }
 
 int	has_a_button_click(t_screen *screen)
@@ -57,7 +50,7 @@ void	rt_update_ui(t_screen *screen)
 	if (screen->mouse_y <= RT_UI_TOP_BAR + 30)
 	{
 		if (screen->mouse_y <= RT_UI_TOP_BAR)
-			uptade_top_bar_status(screen->button_top, screen->mouse_x);
+			uptade_top_bar_status(screen);
 		rt_print_ui_screen(screen);
 	}
 }

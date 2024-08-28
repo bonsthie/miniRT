@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 20:54:22 by babonnet          #+#    #+#             */
-/*   Updated: 2024/08/23 14:44:18 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/08/23 17:21:16 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	update_gizmo_position(t_scene *scene)
 		gizmo = asset->gizmo_translate;
 	else if (status->gizmo_selected == GIZMO_SCALE)
 		gizmo = asset->gizmo_scale;
+	else if (status->gizmo_selected == GIZMO_ROTATE)
+		gizmo = asset->gizmo_rotate;
 	else
 		return ;
 	translate_gizmo_to_obj(scene, gizmo);

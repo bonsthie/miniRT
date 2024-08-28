@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 22:13:03 by babonnet          #+#    #+#             */
-/*   Updated: 2024/08/20 14:31:35 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/08/23 17:52:45 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ static void	zoom(t_camera *cam, float new_scale)
 	cam->zoom *= new_scale;
 }
 
-int keyup_hook_editor(int key, void *data)
+int	keyup_hook_editor(int key, void *data)
 {
-	struct s_hook_data *hdata;
-	t_status *status;
+	struct s_hook_data	*hdata;
+	t_status			*status;
 
 	hdata = data;
 	status = &hdata->scene->status;
@@ -52,6 +52,9 @@ int keyup_hook_editor(int key, void *data)
 	else if (key == E_KEY)
 		zoom(&hdata->scene->cam, 1. / 1.2);
 	else if (key == ESCAPE)
+	{
+		status->gizmo_selected = NONE;
 		status->object_selected_id = 0;
+	}
 	return (0);
 }

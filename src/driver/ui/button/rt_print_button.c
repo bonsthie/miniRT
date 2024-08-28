@@ -6,7 +6,7 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 15:38:57 by babonnet          #+#    #+#             */
-/*   Updated: 2024/08/19 16:24:35 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/08/28 17:00:26 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,32 +18,30 @@
 void	print_button_top_txt(t_screen *screen, t_button *button_top,
 		int *pixel_padding, unsigned int color)
 {
-	int	sidepading;
-	int	new_sidepading;
 	int	x;
 	int	y;
+	int					button_size_width;
+	t_button_setting	settings;
 
-	sidepading = RT_UI_TOP_BAR * 0.1;
-	y = sidepading;
-	*pixel_padding += 4;
-	new_sidepading = *pixel_padding + ft_strlen(button_top->settings.text) * 12
-		+ RT_BUTTON_SIDE_PADDING;
-	while (y < RT_UI_TOP_BAR - sidepading)
+	settings = button_top->settings;
+	y = settings.margin.top;
+	button_size_width = 0;
+	while (y < settings.height)
 	{
 		x = *pixel_padding;
-		while (x < new_sidepading)
+		button_size_width = settings.width + settings.padding.left + settings.padding.right;
+		while (x < button_size_width + *pixel_padding)
 		{
 			mlx_pixel_put(screen->mlx, screen->win, x, y, color);
 			x++;
 		}
 		y++;
 	}
-	*pixel_padding += RT_BUTTON_SIDE_PADDING;
-	mlx_string_put(screen->mlx, screen->win, *pixel_padding
-		+ RT_BUTTON_SIDE_PADDING * 0.2, sidepading + RT_UI_TOP_BAR * 0.5,
-		0xFF000000, button_top->settings.text);
-	*pixel_padding = new_sidepading;
+	*pixel_padding += settings.margin.left;
+	mlx_string_put(screen->mlx, screen->win, *pixel_padding + settings.padding.left, settings.padding.top, 0xFF000000, settings.text);
+	*pixel_padding += button_size_width + settings.margin.right;
 }
+
 
 void	rt_print_button(t_screen *screen)
 {

@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 19:33:52 by babonnet          #+#    #+#             */
-/*   Updated: 2024/08/19 16:36:31 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/08/27 13:30:31 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <immintrin.h>
 # include <miniRT.h>
 # include <rt_driver.h>
+#include <stdint.h>
 
 # define FIXED_ORDER 8
 
@@ -31,7 +32,6 @@ typedef struct s_vertex
 {
 	t_vec3		position;
 	t_vec3		normal;
-
 }				t_vertex;
 
 typedef struct s_tri

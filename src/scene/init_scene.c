@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 15:07:19 by babonnet          #+#    #+#             */
-/*   Updated: 2024/08/23 15:16:57 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/08/23 17:20:05 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ int	init_asset(t_asset *asset)
 	if (!asset->gizmo_scale)
 		return (1);
 	update_size_obj(asset->gizmo_scale, ALL);
+	asset->gizmo_rotate = parse_rta("asset/RotatePivot.rta", NULL);
+	if (!asset->gizmo_rotate)
+		return (1);
+	update_size_obj(asset->gizmo_rotate, ALL);
 	down_center(asset->gizmo_scale);
 
 	return (0);
@@ -46,10 +50,9 @@ int	scene_init(t_scene *scene)
 			free(scene->asset.gizmo_img);
 		return (1);
 	}
+	ft_bzero(&scene->status, sizeof(t_status));
+	ft_bzero(&scene->cam, sizeof(t_camera));
 	scene->object = NULL;
-	scene->cam.coord_axes = (t_v4f){0, 0, 0, 0};
-	scene->cam.coord_translation = (t_v4f){0, 0, 0, 0};
-	scene->cam.rotation = (t_rotation){0, 0, 0};
 	scene->cam.zoom = 100;
 	scene->cam.move_usage = NO_MOVE;
 	return (0);

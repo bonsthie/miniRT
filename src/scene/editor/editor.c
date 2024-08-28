@@ -6,7 +6,7 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:27:24 by bonsthie          #+#    #+#             */
-/*   Updated: 2024/08/22 15:27:22 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/08/23 17:22:18 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ int	editor(t_scene *scene, t_img *img, t_screen *screen)
 			print_obj_to_image(scene->asset.gizmo_translate, scene->asset.gizmo_img, 1);
 		else if (scene->status.gizmo_selected == GIZMO_SCALE)
 			print_obj_to_image(scene->asset.gizmo_scale, scene->asset.gizmo_img, 1);
+		else if (scene->status.gizmo_selected == GIZMO_ROTATE)
+			print_obj_to_image(scene->asset.gizmo_rotate, scene->asset.gizmo_img, 1);
 		rt_print_img_screen(scene->asset.gizmo_img, screen, 0, 0);
 	}
 	return (0);
