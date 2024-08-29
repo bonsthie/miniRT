@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 15:07:19 by babonnet          #+#    #+#             */
-/*   Updated: 2024/08/23 17:20:05 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/08/29 15:32:45 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ int	scene_init(t_scene *scene)
 {
 	if (init_asset(&scene->asset))
 	{
-		if (scene->asset.gizmo_img)
-			free(scene->asset.gizmo_img);
+		free_scene_asset(&scene->asset);
 		return (1);
 	}
 	ft_bzero(&scene->status, sizeof(t_status));

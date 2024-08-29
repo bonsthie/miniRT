@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 22:17:28 by babonnet          #+#    #+#             */
-/*   Updated: 2024/08/20 14:50:09 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/08/29 15:35:13 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,5 +139,9 @@ void				gizmo_move_object(t_scene *scene);
 
 void				select_viewport_raytracer(void *data);
 void				select_viewport_editor(void *data);
+
+
+void free_scene_asset(t_asset *asset);
+void	free_mesh(t_mesh *mesh);
 
 #endif

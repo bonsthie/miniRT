@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:14:19 by yroussea          #+#    #+#             */
-/*   Updated: 2024/08/23 17:20:20 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/08/29 15:54:54 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	update_single_object(t_object_mesh *object, t_v4f *tr)
 {
 	find_center(object, &(object->mesh.vertex->v4f),
 		&object->relative_center.v4f);
-#pragma omp parallel for
+/* #pragma omp parallel for */
 	for (size_t i = 0; i < object->mesh.size_mesh.vertex; i++)
 		rotate_center(tr, object->mesh.vertex_init[i],
 			&object->mesh.vertex[i].v4f);

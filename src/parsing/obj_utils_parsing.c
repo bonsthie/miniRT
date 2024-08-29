@@ -6,29 +6,15 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:49:33 by babonnet          #+#    #+#             */
-/*   Updated: 2024/08/19 16:24:36 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/08/29 15:35:18 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "rt_scene_elements.h"
 #include <rt_driver.h>
 #include <rt_mesh_obj.h>
 #include <stdlib.h>
-
-void	free_mesh(t_mesh *mesh)
-{
-	if (mesh->vertex)
-		free(mesh->vertex);
-	if (mesh->vertex_init)
-		free(mesh->vertex_init);
-	if (mesh->normal)
-		free(mesh->normal);
-	if (mesh->texture_coord)
-		free(mesh->texture_coord);
-	if (mesh->face)
-		free(mesh->face);
-	mesh = NULL;
-}
 
 int	alloc_mesh(t_mesh *mesh)
 {

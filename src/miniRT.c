@@ -6,7 +6,7 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:14:27 by babonnet          #+#    #+#             */
-/*   Updated: 2024/08/28 17:09:47 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/08/29 16:34:43 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,5 +163,6 @@ int	main(int ac, char **av)
 	rt_add_text_button_top(screen, button);
 	rt_loop(&scene, screen, loop);
 	rt_destroy(screen);
+	free_scene_asset(&scene.asset);
 	return (ac);
 }

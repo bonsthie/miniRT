@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 13:47:23 by babonnet          #+#    #+#             */
-/*   Updated: 2024/08/19 23:26:36 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/08/29 16:21:42 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	_button_click(int key, void *data)
 	return (0);
 }
 
-void	error_handler(int sig, siginfo_t *si, void *unused)
+void	error_handler(int __sig, siginfo_t *__si, void *__unused)
 {
 	void	*win;
 	void	*mlx;
@@ -49,12 +49,12 @@ void	error_handler(int sig, siginfo_t *si, void *unused)
 	int		pid;
 	char	*shared_message;
 
-	if (sig == SIGUSR1)
+	if (__sig == SIGUSR1)
 	{
 		pid = fork();
 		if (pid)
 			return ;
-		shared_message = (char *)si->si_value.sival_ptr;
+		shared_message = (char *)__si->si_value.sival_ptr;
 		mlx = mlx_init();
 		win = mlx_new_window(mlx, 450, 180, "Error");
 		mlx_on_event(mlx, win, MLX_WINDOW_EVENT, rt_window_hook, mlx);
@@ -67,7 +67,7 @@ void	error_handler(int sig, siginfo_t *si, void *unused)
 		mlx_destroy_display(mlx);
 		exit(0);
 	}
-	(void)unused;
+	(void)__unused;
 }
 
 int	rt_error_signal(void)
