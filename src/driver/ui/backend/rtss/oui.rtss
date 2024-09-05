@@ -1,0 +1,12 @@
+/* oui comment ca va */.button {
+    background-color: #008CBA; /* Blue background */
+    padding: 10px 20px; /* Add some padding */
+	padding-right: 10px;
+    border-radius: 5px; /* Rounded corners */
+}
+
+/* oui comment ca va */.ahhhh
+{
+    background-color: #008CBA; /* Blue background */ padding: 10px 20px; /* Add some padding */
+	padding-right: 10px;
+    border-radius: 5px; /* Rounded corners */ }
