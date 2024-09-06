@@ -1,36 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   rt_error_window.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/31 17:06:53 by bbonnet           #+#    #+#             */
-/*   Updated: 2024/07/18 13:48:58 by babonnet         ###   ########.fr       */
+/*   Created: 2024/06/08 17:13:18 by babonnet          #+#    #+#             */
+/*   Updated: 2024/09/05 15:39:44 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_atoi(const char *str)
-{
-	int	i;
-	int	nb;
-	int	sign;
+#include "../ui.h"
+#include <signal.h>
 
-	i = 0;
-	nb = 0;
-	sign = 1;
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
-		i++;
-	if (str[i] == '+' || str[i] == '-')
-	{
-		if (str[i] == '-')
-			sign = -sign;
-		i++;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		nb = (nb * 10) + (str[i] - 48);
-		i++;
-	}
-	return (nb * sign);
+#if RT_ERROR_WINDOW
+
+void	rt_error_window(const char *error_msg)
+{
+	union sigval	sv;
+
+	if (!error_msg)
+		return ;
+	sv.sival_ptr = (void *)error_msg;
+	sigqueue(*rt_get_error_pid(), SIGUSR1, sv);
 }
+
+#else
+
+void	rt_error_window(const char *error_msg)
+{
+	if (!error_msg)
+		return ;
+	ft_printf("%s\n", error_msg);
+}
+
+#endif

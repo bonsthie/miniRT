@@ -6,7 +6,7 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:24:01 by bonsthie          #+#    #+#             */
-/*   Updated: 2024/09/06 00:43:25 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/09/06 14:05:43 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(int ac, char **av)
+int rtss_parse(int ac, char **av)
 {
 	if (ac < 2)
 		return (1);
 	char *str = rtss_file_to_buffer(av[1]);
+	char *start = str;
 	if (!str)
 		return (1);
 	printf("%s\n", str);
 	str = rtss_trim_comment(str);
 	printf("%s\n", str);
 	rtss_lex_file(str);
-	/* free(str); */
+	free(start);
+	return (0);
 }

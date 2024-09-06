@@ -6,11 +6,11 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 13:47:23 by babonnet          #+#    #+#             */
-/*   Updated: 2024/08/29 16:21:42 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/09/05 15:40:24 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../environement/hook/_hook.h"
+#include "../../environement/hook/_hook.h"
 #include <mlx.h>
 #include <signal.h>
 

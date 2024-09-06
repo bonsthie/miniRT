@@ -1,16 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_toupper.c                                       :+:      :+:    :+:   */
+/*   __rt_button.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
+/*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/30 19:36:14 by bbonnet           #+#    #+#             */
-/*   Updated: 2024/07/18 13:48:59 by babonnet         ###   ########.fr       */
+/*   Created: 2024/08/09 10:55:02 by bonsthie          #+#    #+#             */
+/*   Updated: 2024/09/05 15:41:40 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_toupper(int c)
-{
-	return (c - (c >= 'a' && c <= 'z') * 32);
-}
+#ifndef __RT_BUTTON
+# define __RT_BUTTON
+
+# include "../../ui.h"
+
+#endif // __RT_BUTTON

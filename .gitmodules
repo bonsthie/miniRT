@@ -4,3 +4,6 @@
 [submodule "MacroLibX"]
 	path = MacroLibX
 	url = https://github.com/seekrs/MacroLibX.git
+[submodule "htable"]
+	path = htable
+	url = git@github.com:Arkturius/htable.git

@@ -6,11 +6,11 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 13:09:09 by babonnet          #+#    #+#             */
-/*   Updated: 2024/08/19 16:24:35 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/09/05 15:39:12 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../_rt_mlx.h"
+#include "../ui.h"
 #include <signal.h>
 
 #if RT_ERROR_WINDOW

@@ -6,11 +6,11 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 16:24:33 by bonsthie          #+#    #+#             */
-/*   Updated: 2024/08/19 16:24:35 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/09/05 15:40:38 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../_rt_mlx.h"
+#include "../ui.h"
 #include "mlx.h"
 #include "rt_driver.h"
 
