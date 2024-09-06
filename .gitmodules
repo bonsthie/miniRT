@@ -1,9 +1,9 @@
-[submodule "libft"]
-	path = lib/libft
-	url = git@github.com:bonsthie/libft.git
-[submodule "MacroLibX"]
+[submodule "lib/MacroLibX"]
 	path = lib/MacroLibX
 	url = https://github.com/seekrs/MacroLibX.git
-[submodule "htable"]
+[submodule "lib/libft"]
+	path = lib/libft
+	url = https://github.com/bonsthie/libft.git
+[submodule "lib/htable"]
 	path = lib/htable
 	url = git@github.com:Arkturius/htable.git
