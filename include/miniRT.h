@@ -6,7 +6,7 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 18:05:42 by babonnet          #+#    #+#             */
-/*   Updated: 2024/08/19 16:24:35 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/09/06 14:06:08 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,6 @@ typedef enum e_file_type
 	OBJECT_CYLINDER,
 }						t_file_type;
 
+
+int rtss_parse(int ac, char **av);
 #endif

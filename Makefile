@@ -21,16 +21,22 @@ OBJ_BONUS := $(SRC_BONUS:$(SRC_DIR_BONUS)/%.c=$(OBJ_DIR_BONUS)/%.o)
 LIBRARIES = 
 
 LIBRARIES += LIBFT
-LIBFT_DIR = libft
+LIBFT_DIR = lib/libft
 LIBFT_BINARY = $(LIBFT_DIR)/libft.a
 LIBFT_FLAG = -lft
 LIBFT_INCLUDE = .
 
 LIBRARIES += LIBMLX
-LIBMLX_DIR = MacroLibX
+LIBMLX_DIR = lib/MacroLibX
 LIBMLX_BINARY = $(LIBMLX_DIR)/libmlx.so
 LIBMLX_FLAG = -lmlx -lSDL2 -Wl,-rpath,$(LIBMLX_DIR)
 LIBMLX_INCLUDE = includes
+
+LIBRARIES += LIBHTABLE
+LIBHTABLE_DIR = lib/htable
+LIBHTABLE_BINARY = $(LIBHTABLE_DIR)/htable.a
+LIBHTANLE_FLAG = 
+LIBHTABLE_INCLUDE = include
 
 #include lib for exec
 LIB = $(foreach lib,$(LIBRARIES),-L$($(lib)_DIR) $($(lib)_FLAG))
