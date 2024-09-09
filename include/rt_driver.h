@@ -6,7 +6,7 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:18:38 by babonnet          #+#    #+#             */
-/*   Updated: 2024/08/29 16:02:50 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/09/09 23:19:04 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@
 # endif
 
 # ifndef RT_ERROR_WINDOW
-#  define RT_ERROR_WINDOW 1
+#  define RT_ERROR_WINDOW 0
 # endif
 
 // Forward declaration

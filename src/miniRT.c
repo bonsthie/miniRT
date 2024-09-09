@@ -6,7 +6,7 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:14:27 by babonnet          #+#    #+#             */
-/*   Updated: 2024/09/06 14:07:01 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/09/09 21:51:00 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	add_tea_pot(void *data)
 int	main(int ac, char **av)
 {
 
-	return (rtss_parse(ac, av));
+	return (rtss_interpreter(ac, av));
 	t_screen			*screen;
 	t_scene				scene;
 	t_button_setting	button;

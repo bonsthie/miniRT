@@ -6,7 +6,7 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:09:10 by bonsthie          #+#    #+#             */
-/*   Updated: 2024/09/05 14:59:17 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/09/09 23:29:27 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ static struct s_rtss_lex_attr	*__rtss_split_to_attr(char **str)
 		}
 		str++;
 	}
+	attr->next = NULL;
 	return (head);
 }
 

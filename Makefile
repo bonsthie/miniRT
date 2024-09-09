@@ -34,8 +34,8 @@ LIBMLX_INCLUDE = includes
 
 LIBRARIES += LIBHTABLE
 LIBHTABLE_DIR = lib/htable
-LIBHTABLE_BINARY = $(LIBHTABLE_DIR)/htable.a
-LIBHTANLE_FLAG = 
+LIBHTABLE_BINARY = $(LIBHTABLE_DIR)/libhtab.a
+LIBHTABLE_FLAG = -lhtab
 LIBHTABLE_INCLUDE = include
 
 #include lib for exec
@@ -58,7 +58,7 @@ $(NAME): $(LIBS_BINARYS) $(OBJ)
 
 $(NAME_BONUS): $(LIBS_BINARYS) $(OBJ_BONUS)
 	@echo "$(GREEN)Linking bonus...$(NC)"
-	@$(CC) $(CFLAGS) $(OBJ_BONUS) -o $(NAME)_bonus $(LIB) $(ADDITIONAL_FLAGS)
+	@$(CC) $(CFLAGS) $(OBJ_BONUS) -o $(NAME)_bonus $(LIB) $(ADDITIONAL_FLAGS) $(LIBS_BINARYS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(@D)
