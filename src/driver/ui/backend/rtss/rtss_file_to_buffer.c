@@ -6,7 +6,7 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:41:41 by bonsthie          #+#    #+#             */
-/*   Updated: 2024/09/06 14:28:52 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/09/10 15:57:56 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 #include <libft.h>
 #include <stdbool.h>
 
-static bool __rtss_check_file_format(const char *filename)
+static bool	__rtss_check_file_format(const char *filename)
 {
-	const char *extension;
+	const char	*extension;
 
 	if (!filename)
 		return (false);
 	extension = ft_strchr(filename, '.');
-    return (extension && ft_strcmp(extension, ".rtss") == 0);
+	return (extension && ft_strcmp(extension, ".rtss") == 0);
 }
 
-static int __rtss_open_file(const char *filename)
+static int	__rtss_open_file(const char *filename)
 {
-	int fd;
+	int	fd;
 
 	if (!__rtss_check_file_format(filename))
 	{
@@ -37,19 +37,19 @@ static int __rtss_open_file(const char *filename)
 	return (fd);
 }
 
-static long __rtss_get_file_size(int fd)
+static long	__rtss_get_file_size(int fd)
 {
-	long filesize;
+	long	filesize;
 
 	filesize = lseek(fd, 0, SEEK_END);
 	lseek(fd, 0, SEEK_SET);
 	return (filesize);
 }
 
-static char *__read_fd_in_str(int fd, long filesize)
+static char	*__read_fd_in_str(int fd, long filesize)
 {
-	char *str_file;
-	ssize_t bytes_read;
+	char	*str_file;
+	ssize_t	bytes_read;
 
 	str_file = malloc((filesize + 1) * sizeof(char));
 	if (!str_file)
@@ -71,10 +71,10 @@ static char *__read_fd_in_str(int fd, long filesize)
 	return (str_file);
 }
 
-char *rtss_file_to_buffer(const char *filename)
+char	*rtss_file_to_buffer(const char *filename)
 {
-	int fd;
-	long filesize;
+	int		fd;
+	long	filesize;
 
 	fd = __rtss_open_file(filename);
 	if (fd == -1)

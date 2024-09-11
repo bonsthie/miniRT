@@ -6,14 +6,14 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 15:48:28 by bonsthie          #+#    #+#             */
-/*   Updated: 2024/09/09 23:09:54 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/09/10 15:57:56 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RTSS_H
 # define RTSS_H
 
-#include <htab.h>
+# include <htab.h>
 
 enum	e_rtss_lex_attr_type
 {
@@ -42,10 +42,10 @@ enum	e_rtss_lex_attr_type
 
 char	*rtss_file_to_buffer(const char *filename);
 char	**fuck_norminette(void);
-void **rtss_parser_function(void);
+void	**rtss_parser_function(void);
 
 struct s_rtss_lex_file;
 
-t_htab *rtss_parse(struct s_rtss_lex_file file);
+t_htab	*rtss_parse(struct s_rtss_lex_file file);
 
 #endif /* RTSS_H */

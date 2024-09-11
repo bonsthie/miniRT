@@ -53,54 +53,54 @@ ADDITIONAL_FLAGS = -lm -lrt
 all: $(NAME)
 
 $(NAME): $(LIBS_BINARYS) $(OBJ)
-	@echo "$(GREEN)Linking $(NAME)...$(NC)"
+	@printf "$(GREEN)Linking $(NAME)...$(NC)\n"
 	@$(CC) $(CFLAGS) $(OBJ) -o $@ $(LIB) $(ADDITIONAL_FLAGS)
 
 $(NAME_BONUS): $(LIBS_BINARYS) $(OBJ_BONUS)
-	@echo "$(GREEN)Linking bonus...$(NC)"
+	@printf "$(GREEN)Linking bonus...$(NC)\n"
 	@$(CC) $(CFLAGS) $(OBJ_BONUS) -o $(NAME)_bonus $(LIB) $(ADDITIONAL_FLAGS) $(LIBS_BINARYS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(@D)
-	@echo "[$(YELLOW)$(CC)$(NC)] Compiling $<...$(NC)"
+	@printf "[$(YELLOW)$(CC)$(NC)] Compiling $<...$(NC)\n"
 	@$(CC) $(CFLAGS) -I$(HSRCS) $(LIB_DIR) -c $< -o $@
 
 $(OBJ_DIR_BONUS)/%.o: $(SRC_DIR_BONUS)/%.c
 	@mkdir -p $(@D)
-	@echo "$(YELLOW)Compiling $(notdir $<)...$(NC)"
+	@printf "$(YELLOW)Compiling $(notdir $<)...$(NC)\n"
 	@$(CC) $(CFLAGS) -I$(HSRCS_BONUS) $(LIB_DIR) -c $< -o $@
 
 $(LIBS_BINARYS):
-	@echo "$(PURPLE)Building library $(notdir $@)...$(NC)"
+	@printf "$(PURPLE)Building library $(notdir $@)...$(NC)\n"
 	@$(MAKE) -C $(@D) -j$(nproc) --no-print-directory all
 
 clean:
 	@if [ -d $(OBJ_DIR) ]; then \
-		echo "$(RED)Cleaning object files $(NAME)...$(NC)"; \
+		printf "$(RED)Cleaning object files $(NAME)...$(NC)\n"; \
 		rm -rf $(OBJ_DIR); \
 		fi
 	@if [ -d $(OBJ_DIR_BONUS) ]; then \
-		echo "$(RED)Cleaning object files $(NAME_BONUS)...$(NC)"; \
+		printf "$(RED)Cleaning object files $(NAME_BONUS)...$(NC)\n"; \
 		rm -rf $(OBJ_DIR_BONUS); \
 		fi
 
 bonus : $(NAME_BONUS)
 
 lclean:
-	@echo "$(RED)Cleaning libraries obj...$(NC)"
+	@printf "$(RED)Cleaning libraries obj...$(NC)\n"
 	@$(foreach lib,$(LIBRARIES),$(MAKE) -C $($(lib)_DIR) clean > /dev/null;)
 
 fclean: clean
-	@echo "$(RED)Cleaning executable $(NAME)...$(NC)"
+	@printf "$(RED)Cleaning executable $(NAME)...$(NC)\n"
 	@if [ -f $(NAME) ]; then \
-		echo "$(RED)Cleaning executable $(NAME)...$(NC)"; \
+		printf "$(RED)Cleaning executable $(NAME)...$(NC)\n"; \
 		rm -f $(NAME); \
 		fi
 	@if [ -f $(NAME_BONUS) ]; then \
-		echo "$(RED)Cleaning executable $(NAME_BONUS)...$(NC)"; \
+		printf "$(RED)Cleaning executable $(NAME_BONUS)...$(NC)\n"; \
 		rm -f $(NAME_BONUS); \
 		fi
-	@echo "$(RED)Cleaning libraries...$(NC)"
+	@printf "$(RED)Cleaning libraries...$(NC)\n"
 	@$(foreach lib,$(LIBRARIES),$(MAKE) -C $($(lib)_DIR) fclean > /dev/null ;)
 
 debug: CFLAGS += -g 

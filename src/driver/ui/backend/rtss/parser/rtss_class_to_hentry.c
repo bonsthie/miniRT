@@ -6,17 +6,17 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 17:27:08 by bonsthie          #+#    #+#             */
-/*   Updated: 2024/09/09 23:21:18 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/09/10 15:57:56 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtss_parse.h"
-#include <stdio.h>
 #include <htab.h>
+#include <stdio.h>
 
-void rtss_class_to_hentry(t_htab *tab, struct s_rtss_lex_class *class)
+void	rtss_class_to_hentry(t_htab *tab, struct s_rtss_lex_class *class)
 {
-	t_hentry *entry;
+	t_hentry	*entry;
 
 	entry = htab_add(tab, class->name);
 	printf("class name [%s]\n", class->name);

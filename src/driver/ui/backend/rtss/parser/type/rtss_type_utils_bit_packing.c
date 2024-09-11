@@ -6,7 +6,7 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:39:36 by bonsthie          #+#    #+#             */
-/*   Updated: 2024/09/09 22:42:18 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/09/10 16:05:29 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,22 +49,22 @@ uint64_t	__rtss_bit_packing(char **value)
 
 	split_args = ft_split(*value, ' ');
 	if (!split_args)
-		return ((uint64_t)-1) / UINT16_MAX * (uint16_t)ft_atoi(*value);
+		return (((uint64_t) - 1) / UINT16_MAX * (uint16_t)ft_atoi(*value));
 	i = -1;
 	while (split_args[++i] && i < 4)
 		args[i] = ft_atoi(split_args[i]);
 	free_strs(split_args);
 	if (i == 1)
-		return (((uint64_t)-1) / UINT16_MAX * args[0]);
+		return (((uint64_t) - 1) / UINT16_MAX * args[0]);
 	else if (i == 2)
 	{
-	return ((((uint64_t)-1) / UINT32_MAX * args[0])
-		| ((((uint64_t)-1) / UINT32_MAX * args[1]) << 16));
+		return ((((uint64_t) - 1) / UINT32_MAX * args[0])
+			| ((((uint64_t) - 1) / UINT32_MAX * args[1]) << 16));
 	}
 	else if (i == 3)
 		args[3] = args[1];
 	return (((uint64_t)(args[0])) << 48
-		| ((uint64_t)(args[1])) << 32
-		| ((uint64_t)(args[2])) << 16
-		| ((uint64_t)(args[3])));
+	| ((uint64_t)(args[1])) << 32
+	| ((uint64_t)(args[2])) << 16
+	| ((uint64_t)(args[3])));
 }

@@ -6,13 +6,14 @@
 /*   By: babonnet <babonnet@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 18:05:42 by babonnet          #+#    #+#             */
-/*   Updated: 2024/09/06 16:38:53 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/09/11 16:06:22 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
+#include "htab.h"
 # include "rt_driver.h"
 # include <stdint.h>
 
@@ -36,5 +37,6 @@ typedef enum e_file_type
 }						t_file_type;
 
 
-int rtss_interpreter(int ac, char **av);
+t_htab	*rtss_interpreter(int ac, char **av);
+
 #endif

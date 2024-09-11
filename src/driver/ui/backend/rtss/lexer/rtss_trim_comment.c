@@ -6,7 +6,7 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:30:50 by bonsthie          #+#    #+#             */
-/*   Updated: 2024/09/04 17:09:37 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/09/10 15:57:56 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,21 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-static	char *__rtss_allocate_clean_file(const char *file)
+static char	*__rtss_allocate_clean_file(const char *file)
 {
-	char *clean_file;
+	char	*clean_file;
 
 	clean_file = malloc(ft_strlen(file) * sizeof(char));
 	if (!clean_file)
-		ft_putstr_fd("RTSS Error: cannot allocate memory for the comment clean file\n", 2);
+		ft_putstr_fd("RTSS Error: cannot allocate memory for the comment clean file\n",
+			2);
 	return (clean_file);
 }
 
-static bool __rtss_in_comment(const char *file)
+static bool	__rtss_in_comment(const char *file)
 {
-	static bool in_comment = false;
-	static char last_char = 0;
+	static bool	in_comment = false;
+	static char	last_char = 0;
 
 	if (in_comment)
 	{
@@ -49,7 +50,7 @@ static bool __rtss_in_comment(const char *file)
 	return (false);
 }
 
-static void __rtss_trim_comment(char *dest, const char *src)
+static void	__rtss_trim_comment(char *dest, const char *src)
 {
 	while (*src)
 	{
@@ -60,9 +61,9 @@ static void __rtss_trim_comment(char *dest, const char *src)
 	*dest = 0;
 }
 
-char *rtss_trim_comment(char *file)
+char	*rtss_trim_comment(char *file)
 {
-	char *clean_file;
+	char	*clean_file;
 
 	clean_file = __rtss_allocate_clean_file(file);
 	if (!clean_file)
