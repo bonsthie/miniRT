@@ -6,7 +6,7 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:18:38 by babonnet          #+#    #+#             */
-/*   Updated: 2024/09/09 23:19:04 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/09/17 19:52:57 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,19 @@
 # endif
 
 # ifndef RT_WIDTH
-#  define RT_WIDTH 960
+#  define RT_WIDTH 1920
 # endif
 
 # ifndef RT_HEIGHT
-#  define RT_HEIGHT 720
+#  define RT_HEIGHT 1080
 # endif
 
 # ifndef RT_UI_TOP_BAR
-#  define RT_UI_TOP_BAR 30
+#  define RT_UI_TOP_BAR 40
 # endif
 
 # ifndef RT_UI_SIDE_BAR
-#  define RT_UI_SIDE_BAR 150
+#  define RT_UI_SIDE_BAR 250
 # endif
 
 # ifndef RT_BACKGROUND_COLOR

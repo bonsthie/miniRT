@@ -6,7 +6,7 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:06:04 by bonsthie          #+#    #+#             */
-/*   Updated: 2024/09/10 15:57:56 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/09/17 19:34:37 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,8 @@ void	rtss_type_border_radius_bottom_right(t_htab *tab, t_hentry *entry,
 			char *value);
 void	rtss_type_border_radius_bottom_left(t_htab *tab, t_hentry *entry,
 			char *value);
+//border
+void	rtss_type_border_size(t_htab *tab, t_hentry *entry, char *value);
+void	rtss_type_border_color(t_htab *tab, t_hentry *entry, char *value);
 
 #endif /* RTSS_TYPE_H */

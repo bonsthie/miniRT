@@ -6,7 +6,7 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 10:55:02 by bonsthie          #+#    #+#             */
-/*   Updated: 2024/09/12 16:49:59 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/09/17 19:24:09 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ struct						s_rtss_button_settings
 {
 	uint32_t				width;
 	uint32_t				height;
+
+	uint32_t				border_size;
+	uint32_t				border_color;
 
 	uint32_t				color;
 

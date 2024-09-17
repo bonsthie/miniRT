@@ -6,7 +6,7 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 15:48:28 by bonsthie          #+#    #+#             */
-/*   Updated: 2024/09/17 14:00:58 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/09/17 19:31:38 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ enum	e_rtss_lex_attr_type
 	BACKGROUND_COLOR,
 	BACKGROUND_COLOR_HOWEVER,
 	BACKGROUND_COLOR_CLIKED,
+	BORDER_SIZE,
+	BORDER_COLOR,
 	NULL_ARG,
 };
 

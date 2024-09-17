@@ -6,7 +6,7 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:30:50 by bonsthie          #+#    #+#             */
-/*   Updated: 2024/09/10 15:57:56 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/09/17 18:19:20 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char	*__rtss_allocate_clean_file(const char *file)
 {
 	char	*clean_file;
 
-	clean_file = malloc(ft_strlen(file) * sizeof(char));
+	clean_file = malloc((ft_strlen(file) + 1) * sizeof(char));
 	if (!clean_file)
 		ft_putstr_fd("RTSS Error: cannot allocate memory for the comment clean file\n",
 			2);

@@ -6,7 +6,7 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 01:02:16 by bonsthie          #+#    #+#             */
-/*   Updated: 2024/09/17 14:01:26 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/09/17 19:32:35 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	**fuck_norminette(void)
 		"border-top-left-radius", "border-top-right-radius",
 		"border-bottom-right-radius", "border-bottom-left-radius",
 		"background-color", "background-color-however",
-		"background-color-clicked", NULL};
+		"background-color-clicked", "border-size", "border-color", NULL};
 
 	return (norminette_is_a_slut);
 }
@@ -42,6 +42,8 @@ void	**rtss_parser_function(void)
 		rtss_type_border_radius_bottom_left, rtss_type_background_color,
 		rtss_type_background_color_however,
 		rtss_type_background_color_click,
+		rtss_type_border_size,
+		rtss_type_border_color,
 	};
 	return (return_func);
 }
