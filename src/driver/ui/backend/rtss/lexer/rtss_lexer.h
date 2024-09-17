@@ -6,13 +6,14 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 15:49:38 by bonsthie          #+#    #+#             */
-/*   Updated: 2024/09/11 16:05:42 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/09/11 17:53:37 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RTSS_LEXER_H
 # define RTSS_LEXER_H
 
+# include "../__rtss.h"
 # include "../rtss.h"
 # include <stdbool.h>
 

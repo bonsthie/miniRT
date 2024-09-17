@@ -6,7 +6,7 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:14:27 by babonnet          #+#    #+#             */
-/*   Updated: 2024/09/11 16:09:22 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/09/17 15:59:25 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,9 @@ void	add_tea_pot(void *data)
 
 int	main(int ac, char **av)
 {
-
-	t_htab *tab = rtss_interpreter(ac, av);
-	htab_del(tab);
-	free(tab);
-	return (0);
-
+	if (ac < 2)
+		return (1);
+	t_htab *tab = rtss_interpreter(av[1]);
 	t_screen			*screen;
 	t_scene				scene;
 	t_button_setting	button;
@@ -114,54 +111,39 @@ int	main(int ac, char **av)
 	}
 	scene.status.object_selected_id = 0;
 	// test function need to be replace with a function that load obj or rt scene
-	if (av[1])
-	{
-		if (!is_valid_format(av[1]))
-			rt_error_window("file Format not supported\n");
-		else
-		{
-			add_object(&scene, parse_obj(av[1], NULL), OBJECT_OBJ);
-			update_size_obj(scene.object->object, ALL | CENTER);
-			down_center(scene.object->object);
-		}
-	}
+	/* if (av[1]) */
+	/* { */
+	/* 	if (!is_valid_format(av[1])) */
+	/* 		rt_error_window("file Format not supported\n"); */
+	/* 	else */
+	/* 	{ */
+	/* 		add_object(&scene, parse_obj(av[1], NULL), OBJECT_OBJ); */
+	/* 		update_size_obj(scene.object->object, ALL | CENTER); */
+	/* 		down_center(scene.object->object); */
+	/* 	} */
+	/* } */
 	// test button need to be rm
+	button.htab = tab;
+	button.class = NULL;
 	button.on_start = false;
 	button.f = open_file_dialog;
 	button.id = RT_SIMPLE_BUTTON;
-	button.width = 40;
-	button.height = 28;
-	button.padding.left = 5;
-	button.padding.right = 10;
-	button.padding.top = 20;
-	button.padding.bottom = 5;
-	button.margin.left = 5;
-	button.margin.top = 2;
-	button.margin.right = 5;
-	button.margin.bottom = 2;
 	button.text = "file";
 	button.style = TEXT;
 	button.data = &scene;
 	rt_add_text_button_top(screen, button);
-	button.width = 30;
 	button.id = RT_SIMPLE_BUTTON;
 	button.f = add_tea_pot;
 	button.text = "yoo";
 	rt_add_text_button_top(screen, button);
 	// change the on_start to have as default
-	button.width = 70;
-	button.margin.right = 0;
-	button.padding.right = 20;
+	button.class = "button_editor";
 	button.id = 3;
 	button.f = select_viewport_editor;
 	button.data = &scene;
 	button.text = "editor";
 	button.on_start = true;
 	rt_add_text_button_top(screen, button);
-	button.width = 80;
-	button.padding.right = 5;
-	button.margin.right = 5;
-	button.margin.left = 0;
 	button.id = 3;
 	button.f = select_viewport_raytracer;
 	button.text = "raytracer";
@@ -170,5 +152,7 @@ int	main(int ac, char **av)
 	rt_loop(&scene, screen, loop);
 	rt_destroy(screen);
 	free_scene_asset(&scene.asset);
+	htab_del(tab);
+	free(tab);
 	return (ac);
 }

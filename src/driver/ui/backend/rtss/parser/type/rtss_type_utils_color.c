@@ -6,7 +6,7 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:29:38 by bonsthie          #+#    #+#             */
-/*   Updated: 2024/09/10 15:57:56 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/09/17 14:54:04 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ uint64_t	__rtss_type_color(char *value)
 		num = ft_strtoll(start_number + 1, NULL, 16);
 	else
 		num = ft_strtoll(value, NULL, 0);
+	printf("color %#lx\n", num);
 	return (num);
 }

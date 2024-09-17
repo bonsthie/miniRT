@@ -1,35 +1,14 @@
-/* oui comment ca va */.button {
-	height: 1;
-	padding: 1;
-	padding-left: 1;
-	padding-right: 1;
-	padding-bottom: 1;
-	padding-top: 1;
-	margin: 1;
-	margin-left: 1;
-	margin-right: 1;
-	margin-bottom: 1;
-	margin-top: 1;
-	border: 1;
-	border-width: 1;
-	border-color: 1;
-	border-radius: 1;
-	border-top-left-radius: 1;
-	border-top-right-radius: 1;
-	border-bottom-right-radius: 1;
-	border-bottom-left-radius: 1;
-	background-color: 1;
-	background-color-however: 1;
-
-	width: 123;
-    background-color: #008CBA; /* Blue background */
-    padding: 10px 20px; /* Add some padding */
-	padding-right: 10px;
-    border-radius: 5px; /* Rounded corners */
+button {
+	width: 42;
+	height: 25;
+    background-color: #FFF00FFF;
+    background-color-clicked: #FF0000FF;
+    background-color-however: #FF00FF00;
+	padding: 10px 20px;
+	margin: 4px;
 }
 
-/* oui comment ca va */.ahhhh
+.button_editor
 {
-    background-color: #008CBA; /* Blue background */ padding: 10px 20px; /* Add some padding */
-	padding-right: 10px;
-    border-radius: 5px; /* Rounded corners */ }
+	margin: 1px 4px;
+}

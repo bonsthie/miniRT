@@ -6,7 +6,7 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 19:35:38 by bonsthie          #+#    #+#             */
-/*   Updated: 2024/09/10 15:57:56 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/09/17 15:32:36 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ bool	rtss_is_empty(char *str)
 
 int	rt_is_name_char(int c)
 {
-	return (ft_isalpha(c) || c == '.');
+	return (ft_isalpha(c) || c == '.' || c == '_');
 }
 
 int	rt_is_name_char_attr(int c)

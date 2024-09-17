@@ -6,22 +6,16 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:40:39 by bonsthie          #+#    #+#             */
-/*   Updated: 2024/08/27 17:20:23 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/09/11 18:34:30 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RT_DRIVER_BUTTON_H
 # define RT_DRIVER_BUTTON_H
 
+#include "htab.h"
 # include "rt_driver.h"
 # include <stdint.h>
-
-struct s_padding {
-	uint8_t	top;
-	uint8_t	bottom;
-	uint8_t	left;
-	uint8_t	right;
-};
 
 enum				e_ui_style
 {
@@ -34,6 +28,7 @@ enum				e_ui_style
 typedef struct s_ui_groups
 {
 	uint8_t			style_ui;
+	char			*class;
 	void			*next;
 }					t_ui_groups;
 
@@ -63,17 +58,13 @@ enum				e_button_style
 typedef struct s_button_setting
 {
 	uint8_t				style_ui;
+	char				*class;
+	t_htab				*htab;
 	t_ui_groups			*next;
 
 	uint8_t				style;
 	uint8_t				id;
 	uint8_t				on_start : 1;
-
-	uint16_t			width;
-	uint16_t			height;
-
-	struct s_padding	padding;
-	struct s_padding	margin;
 
 	void				*data;
 	void				(*f)(void *);
@@ -90,6 +81,7 @@ typedef struct s_button_setting
 typedef struct s_bento_setting
 {
 	uint8_t			style;
+	char			*class;
 	t_ui_groups		*next;
 
 	char			*text_left;

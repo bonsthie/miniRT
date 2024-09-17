@@ -1,33 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   __rt_button.h                                      :+:      :+:    :+:   */
+/*   __rtss.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/09 10:55:02 by bonsthie          #+#    #+#             */
-/*   Updated: 2024/09/12 16:49:59 by bonsthie         ###   ########.fr       */
+/*   Created: 2024/09/11 16:31:04 by bonsthie          #+#    #+#             */
+/*   Updated: 2024/09/11 16:31:10 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __RT_BUTTON
-# define __RT_BUTTON
+#ifndef __RTSS_H
+# define __RTSS_H
 
-# include "../../backend/rtss/rtss.h"
-# include "../../ui.h"
+# include "htab.h"
 
-struct						s_rtss_button_settings
-{
-	uint32_t				width;
-	uint32_t				height;
+struct s_rtss_lex_file;
 
-	uint32_t				color;
+char	*rtss_file_to_buffer(const char *filename);
+char	**fuck_norminette(void);
+void	**rtss_parser_function(void);
+t_htab	*rtss_parse(struct s_rtss_lex_file file);
 
-	t_rtss_margin			margin;
-	t_rtss_padding			padding;
-	t_rtss_border_radius	border_radius;
-};
-
-struct s_rtss_button_settings	rt_get_button_settings(t_button *button);
-
-#endif // __RT_BUTTON
+#endif /* __RTSS_H */

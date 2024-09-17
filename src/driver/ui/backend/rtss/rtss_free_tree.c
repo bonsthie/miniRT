@@ -1,33 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   __rt_button.h                                      :+:      :+:    :+:   */
+/*   rtss_free_tree.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/09 10:55:02 by bonsthie          #+#    #+#             */
-/*   Updated: 2024/09/12 16:49:59 by bonsthie         ###   ########.fr       */
+/*   Created: 2024/09/11 15:52:50 by bonsthie          #+#    #+#             */
+/*   Updated: 2024/09/11 18:45:57 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __RT_BUTTON
-# define __RT_BUTTON
-
-# include "../../backend/rtss/rtss.h"
-# include "../../ui.h"
-
-struct						s_rtss_button_settings
-{
-	uint32_t				width;
-	uint32_t				height;
-
-	uint32_t				color;
-
-	t_rtss_margin			margin;
-	t_rtss_padding			padding;
-	t_rtss_border_radius	border_radius;
-};
-
-struct s_rtss_button_settings	rt_get_button_settings(t_button *button);
-
-#endif // __RT_BUTTON

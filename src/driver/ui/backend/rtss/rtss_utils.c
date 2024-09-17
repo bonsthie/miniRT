@@ -6,7 +6,7 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 01:02:16 by bonsthie          #+#    #+#             */
-/*   Updated: 2024/09/10 16:08:59 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/09/17 14:01:26 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 char	**fuck_norminette(void)
 {
-	static char	*norminette_is_a_slut[] = (char *[]){"width", "height",
+	static char	*norminette_is_a_slut[] = (char *[]){"", "width", "height",
 		"padding", "padding-left", "padding-right", "padding-bottom",
 		"padding-top", "margin", "margin-left", "margin-right",
 		"margin-bottom", "margin-top", "border-radius",
@@ -30,7 +30,7 @@ char	**fuck_norminette(void)
 
 void	**rtss_parser_function(void)
 {
-	static void *return_func[] = (void *[]){
+	static void *return_func[] = (void *[]){ NULL,
 		rtss_type_width, rtss_type_height, rtss_type_padding,
 		rtss_type_padding_left, rtss_type_padding_right,
 		rtss_type_padding_bottom, rtss_type_padding_top, rtss_type_margin,
