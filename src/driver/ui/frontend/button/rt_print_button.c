@@ -6,7 +6,7 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 15:38:57 by babonnet          #+#    #+#             */
-/*   Updated: 2024/09/17 20:05:31 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/09/18 13:10:29 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ void print_button_top_txt(t_screen *screen, t_button *button_top, int *pixel_pad
     }
     *pixel_padding += settings.margin.left;
     mlx_string_put(screen->mlx, screen->win, *pixel_padding + settings.padding.left,
-        y0 + settings.padding.top + 13, 0xFF000000, button_top->settings.text);
+        y0 + settings.padding.top + 13, 0xFFFFFFFF, button_top->settings.text);
     *pixel_padding += button_size_width + settings.margin.right;
 }
 
