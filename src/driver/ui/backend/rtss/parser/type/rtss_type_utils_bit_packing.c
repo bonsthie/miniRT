@@ -6,17 +6,20 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:39:36 by bonsthie          #+#    #+#             */
-/*   Updated: 2024/09/17 14:46:34 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/09/18 14:10:10 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <stdint.h>
+#include <stdio.h>
+#include <sys/types.h>
 
 uint64_t	__rtss_bit_packing_1(char **value, uint64_t nb)
 {
 	nb &= (~0ULL >> 16) << 16;
 	nb |= (ft_strtoll(*value, value, 10) & 0xFFFF);
+	printf("\t\t\t\t\t\tmargin left %d\n", (uint16_t)nb);
 	return (nb);
 }
 

@@ -6,7 +6,7 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:14:27 by babonnet          #+#    #+#             */
-/*   Updated: 2024/09/17 19:47:10 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:40:51 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,11 @@ void	add_tea_pot(void *data)
 	down_center(scene->object->object);
 }
 
-int	main(int ac, char **av)
+int	main(int ac, char **av __attribute__((unused)))
 {
 	if (ac < 2)
 		return (1);
-	t_htab *tab = rtss_interpreter(av[1]);
+	t_htab *tab = rt_create_stylesheet("asset/button.rtss");
 	t_screen			*screen;
 	t_scene				scene;
 	t_button_setting	button;
@@ -153,7 +153,6 @@ int	main(int ac, char **av)
 	rt_loop(&scene, screen, loop);
 	rt_destroy(screen);
 	free_scene_asset(&scene.asset);
-	htab_del(tab);
-	free(tab);
+	rt_destroy_stylesheet(tab);
 	return (ac);
 }

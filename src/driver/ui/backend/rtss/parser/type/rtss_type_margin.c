@@ -6,7 +6,7 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 20:51:46 by bonsthie          #+#    #+#             */
-/*   Updated: 2024/09/17 14:57:25 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/09/18 14:08:04 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	rtss_type_margin_left(t_htab *tab, t_hentry *entry, char *value)
 {
 	uint64_t	base;
 
-	// no entry return (0 change in htab);
 	base = hentry_get_spec(tab, entry, (t_keyw)MARGIN);
 	hentry_add_spec(tab, entry, (t_keyw)MARGIN, __rtss_bit_packing_1(&value,
 			base));

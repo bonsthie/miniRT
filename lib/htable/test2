@@ -1,0 +1,81 @@
+
+./build/obj/src/hentry.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <hentry_init>:
+   0:	f3 0f 1e fa          	endbr64 
+   4:	48 8b bf 00 05 00 00 	mov    rdi,QWORD PTR [rdi+0x500]
+   b:	31 c9                	xor    ecx,ecx
+   d:	48 8b 47 08          	mov    rax,QWORD PTR [rdi+0x8]
+  11:	48 85 c0             	test   rax,rax
+  14:	74 19                	je     2f <hentry_init+0x2f>
+  16:	66 2e 0f 1f 84 00 00 	cs nop WORD PTR [rax+rax*1+0x0]
+  1d:	00 00 00 
+  20:	48 89 c7             	mov    rdi,rax
+  23:	48 8b 40 08          	mov    rax,QWORD PTR [rax+0x8]
+  27:	83 c1 1e             	add    ecx,0x1e
+  2a:	48 85 c0             	test   rax,rax
+  2d:	75 f1                	jne    20 <hentry_init+0x20>
+  2f:	03 0f                	add    ecx,DWORD PTR [rdi]
+  31:	48 c7 46 20 00 00 00 	mov    QWORD PTR [rsi+0x20],0x0
+  38:	00 
+  39:	89 c8                	mov    eax,ecx
+  3b:	48 89 56 10          	mov    QWORD PTR [rsi+0x10],rdx
+  3f:	48 89 46 18          	mov    QWORD PTR [rsi+0x18],rax
+  43:	48 c7 06 00 00 00 00 	mov    QWORD PTR [rsi],0x0
+  4a:	c3                   	ret    
+  4b:	0f 1f 44 00 00       	nop    DWORD PTR [rax+rax*1+0x0]
+
+0000000000000050 <hentry_add_spec>:
+  50:	f3 0f 1e fa          	endbr64 
+  54:	53                   	push   rbx
+  55:	c5 f9 6e c2          	vmovd  xmm0,edx
+  59:	c5 fa 6f 0e          	vmovdqu xmm1,XMMWORD PTR [rsi]
+  5d:	48 89 f3             	mov    rbx,rsi
+  60:	c4 e2 79 78 c0       	vpbroadcastb xmm0,xmm0
+  65:	c5 f9 74 c1          	vpcmpeqb xmm0,xmm0,xmm1
+  69:	c5 f9 d7 c0          	vpmovmskb eax,xmm0
+  6d:	48 85 c0             	test   rax,rax
+  70:	75 2e                	jne    a0 <hentry_add_spec+0x50>
+  72:	c5 f9 ef c0          	vpxor  xmm0,xmm0,xmm0
+  76:	c5 f1 74 c8          	vpcmpeqb xmm1,xmm1,xmm0
+  7a:	c5 f9 d7 c1          	vpmovmskb eax,xmm1
+  7e:	85 c0                	test   eax,eax
+  80:	75 06                	jne    88 <hentry_add_spec+0x38>
+  82:	5b                   	pop    rbx
+  83:	c3                   	ret    
+  84:	0f 1f 40 00          	nop    DWORD PTR [rax+0x0]
+  88:	48 8b bf 00 05 00 00 	mov    rdi,QWORD PTR [rdi+0x500]
+  8f:	48 89 ce             	mov    rsi,rcx
+  92:	e8 00 00 00 00       	call   97 <hentry_add_spec+0x47>
+  97:	48 83 43 20 01       	add    QWORD PTR [rbx+0x20],0x1
+  9c:	5b                   	pop    rbx
+  9d:	c3                   	ret    
+  9e:	66 90                	xchg   ax,ax
+  a0:	48 8b 97 00 05 00 00 	mov    rdx,QWORD PTR [rdi+0x500]
+  a7:	48 03 46 18          	add    rax,QWORD PTR [rsi+0x18]
+  ab:	48 89 4c c2 10       	mov    QWORD PTR [rdx+rax*8+0x10],rcx
+  b0:	5b                   	pop    rbx
+  b1:	c3                   	ret    
+  b2:	66 66 2e 0f 1f 84 00 	data16 cs nop WORD PTR [rax+rax*1+0x0]
+  b9:	00 00 00 00 
+  bd:	0f 1f 00             	nop    DWORD PTR [rax]
+
+00000000000000c0 <hentry_get_spec>:
+  c0:	f3 0f 1e fa          	endbr64 
+  c4:	c5 f9 6e c2          	vmovd  xmm0,edx
+  c8:	49 c7 c0 ff ff ff ff 	mov    r8,0xffffffffffffffff
+  cf:	c4 e2 79 78 c0       	vpbroadcastb xmm0,xmm0
+  d4:	c5 f9 74 06          	vpcmpeqb xmm0,xmm0,XMMWORD PTR [rsi]
+  d8:	c5 f9 d7 c0          	vpmovmskb eax,xmm0
+  dc:	85 c0                	test   eax,eax
+  de:	74 16                	je     f6 <hentry_get_spec+0x36>
+  e0:	48 8b 97 00 05 00 00 	mov    rdx,QWORD PTR [rdi+0x500]
+  e7:	f3 0f bc c0          	tzcnt  eax,eax
+  eb:	48 98                	cdqe   
+  ed:	48 03 46 18          	add    rax,QWORD PTR [rsi+0x18]
+  f1:	4c 8b 44 c2 10       	mov    r8,QWORD PTR [rdx+rax*8+0x10]
+  f6:	4c 89 c0             	mov    rax,r8
+  f9:	c3                   	ret    

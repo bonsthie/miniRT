@@ -6,13 +6,14 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 15:48:28 by bonsthie          #+#    #+#             */
-/*   Updated: 2024/09/17 19:31:38 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:34:57 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RTSS_H
 # define RTSS_H
 
+#include "htab.h"
 #include <stdint.h>
 
 enum	e_rtss_lex_attr_type
@@ -74,5 +75,7 @@ typedef union u_rtss_border_radius
 		uint16_t	bottom_left;
 	};
 } t_rtss_border_radius;
+
+t_htab	*rtss_interpreter(const char *file);
 
 #endif /* RTSS_H */

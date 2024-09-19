@@ -6,14 +6,14 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:40:39 by bonsthie          #+#    #+#             */
-/*   Updated: 2024/09/11 18:34:30 by bonsthie         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:39:32 by babonnet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RT_DRIVER_BUTTON_H
 # define RT_DRIVER_BUTTON_H
 
-#include "htab.h"
+# include "htab.h"
 # include "rt_driver.h"
 # include <stdint.h>
 
@@ -57,20 +57,20 @@ enum				e_button_style
  */
 typedef struct s_button_setting
 {
-	uint8_t				style_ui;
-	char				*class;
-	t_htab				*htab;
-	t_ui_groups			*next;
+	uint8_t			style_ui;
+	char			*class;
+	t_htab			*htab;
+	t_ui_groups		*next;
 
-	uint8_t				style;
-	uint8_t				id;
-	uint8_t				on_start : 1;
+	uint8_t			style;
+	uint8_t			id;
+	uint8_t on_start : 1;
 
-	void				*data;
-	void				(*f)(void *);
+	void			*data;
+	void			(*f)(void *);
 
-	char				*text;
-	void				*image; // not implemented for now
+	char			*text;
+	void *image; // not implemented for now
 
 }					t_button_setting;
 
@@ -85,7 +85,7 @@ typedef struct s_bento_setting
 	t_ui_groups		*next;
 
 	char			*text_left;
-	void			*image; // not implemented for now
+	void *image; // not implemented for now
 
 }					t_bento_setting;
 
@@ -94,7 +94,7 @@ typedef struct s_rt_ui
 	uint8_t			group_style;
 
 	uint16_t		width;
-	uint16_t		heigh;
+	uint16_t		height;
 
 	t_ui_groups		*element;
 	struct t_rt_ui	*next;
@@ -109,5 +109,8 @@ typedef struct s_rt_ui
  */
 void				rt_add_text_button_top(t_screen *screen,
 						t_button_setting settings);
+
+t_htab				*rt_create_stylesheet(const char *filename);
+void				rt_destroy_stylesheet(t_htab *htab);
 
 #endif // RT_DRIVER_BUTTON_H
