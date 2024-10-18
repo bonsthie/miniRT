@@ -6,7 +6,7 @@
 /*   By: bonsthie <bonsthie@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:14:27 by babonnet          #+#    #+#             */
-/*   Updated: 2024/09/19 15:40:51 by babonnet         ###   ########.fr       */
+/*   Updated: 2024/10/18 16:29:45 by bonsthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	open_file_dialog(void *data)
 	t_object_mesh	*obj;
 
 	scene = data;
-	fp = popen("zenity --file-selection --title=\"Select a file\"", "r");
+	fp = popen("zenity ./ --file-selection --title=\"Select a file\"", "r");
 	if (fp == NULL)
 	{
 		rt_error_window("Failed to run zenity command\n");
@@ -94,9 +94,7 @@ void	add_tea_pot(void *data)
 
 int	main(int ac, char **av __attribute__((unused)))
 {
-	if (ac < 2)
-		return (1);
-	t_htab *tab = rt_create_stylesheet("asset/button.rtss");
+	t_htab *tab = rtss_interpreter("asset/button.rtss");
 	t_screen			*screen;
 	t_scene				scene;
 	t_button_setting	button;
@@ -153,6 +151,7 @@ int	main(int ac, char **av __attribute__((unused)))
 	rt_loop(&scene, screen, loop);
 	rt_destroy(screen);
 	free_scene_asset(&scene.asset);
-	rt_destroy_stylesheet(tab);
+	htab_del(tab);
+	free(tab);
 	return (ac);
 }

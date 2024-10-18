@@ -1,0 +1,26 @@
+button {
+    background-color: #FF3C3C3C;
+    background-color-clicked: #FF262626;
+    background-color-however: #FFFF00FF;
+	padding: 6px 6px;
+	margin: 4px 4px;
+	border-radius: 6;
+}
+
+.button_solo
+{
+	border-size: 3;
+	border-color: #FFF0F0F0;
+}
+
+.button_editor
+{
+	margin: 5px 5px;
+	border-radius: 6 0 0 6;
+}
+
+.button_raytracer
+{
+	margin: 5px 5px;
+	border-radius: 0 6 6 0;
+}
